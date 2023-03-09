@@ -1,10 +1,32 @@
-#include <iostream>
-#include <string>
+#include "mainwindow.h"
+#include <QApplication>
+#include <QMessageBox>
+#include "connection.h"
 
-using namespace std;
-
-int main()
+int main(int argc, char *argv[])
 {
-    cout<<"hello world!"<<endl;
-    return 0;
+    QApplication a(argc, argv);
+    Connection c;
+    bool test=c.createconnect();
+    MainWindow w;
+   // w.show();
+   // w.centerAndResize();
+
+
+    if(test)
+    {
+        w.show();
+        QMessageBox::critical(nullptr, QObject::tr("database is open"),
+                    QObject::tr("connection successful.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+
+}
+    else
+        QMessageBox::critical(nullptr, QObject::tr("database is not open"),
+                    QObject::tr("connection failed.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+
+
+
+    return a.exec();
 }
