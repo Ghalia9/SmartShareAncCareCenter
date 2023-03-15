@@ -2,6 +2,7 @@
 #define EMPLOYEE_H
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QString>
 
 
 class employee
@@ -36,6 +37,11 @@ public:
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer(QString);
+    bool update (QString);
+    QSqlQuery Edit (QString);
+    QSqlQueryModel * rechercher(QString search,int);
+    QSqlQueryModel * sort(int);
+    QSqlQuery pdf ();
 };
 
 #endif // EMPLOYEE_H
