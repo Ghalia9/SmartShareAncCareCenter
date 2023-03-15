@@ -5,6 +5,13 @@
 #include <QMainWindow>
 #include <destitute.h>
 
+#include<QtCharts>
+#include<QChartView>
+#include<QPieSeries>
+#include<QPieSlice>
+#include <QBarSet>
+#include <QBarSeries>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -22,6 +29,16 @@ private slots:
     void on_pb_add_clicked();
 
     void on_pb_delete_clicked();
+
+    void on_pb_update_clicked();
+
+    void on_showtab_activated(const QModelIndex &index);
+
+    void on_pb_search_clicked();
+
+    void on_pb_sort_clicked();
+
+    void on_pb_pdf_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -4,6 +4,12 @@
 #include <QSqlQuery>
 #include <QSqlQueryModel>
 
+
+#include<QtCharts>
+#include<QChartView>
+#include<QPieSeries>
+#include<QPieSlice>
+
 class Destitute
 {
     QString destitute_id,first_name,last_name,contact;
@@ -32,9 +38,13 @@ public:
     bool Add();
     QSqlQueryModel * Show();
     bool Delete(QString);
-
-
-
+    bool Update(QString);
+    QSqlQuery Edit(QString);
+    int getmaxId();
+    QSqlQueryModel * Search(QString);
+    QSqlQueryModel * Sort();
+    void PDF();
+    QChartView * STATS();
 };
 
 #endif // DESTITUTE_H
