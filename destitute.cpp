@@ -14,6 +14,9 @@
 #include<QChartView>
 #include<QPieSeries>
 #include<QPieSlice>
+//QrCode
+#include <QZXing>
+#include <QImage>
 
 Destitute::Destitute()
 {
@@ -160,12 +163,16 @@ QSqlQueryModel * Destitute::Sort()
      return model;
 }
 
-void Destitute::PDF()
+void Destitute::PDF(QString fileName)
 //QSqlQueryModel * Destitute::PDF()
 {
+    //QString fileName = QFileDialog::getSaveFileName(this, "Save PDF", QDir::homePath(), "PDF files (*.pdf)");
+
+        if (!fileName.isEmpty()) {
     QSqlQueryModel * model=new QSqlQueryModel();
-        QPdfWriter pdfWriter("D:/projet_center/gestion_necessiteus/PDF/fileName.pdf");
-        pdfWriter.setPageSize(QPageSize(QPageSize::A4));
+       //QPdfWriter pdfWriter("D:/projet_center/gestion_necessiteus/PDF/fileName.pdf");
+    QPdfWriter pdfWriter(fileName );
+    pdfWriter.setPageSize(QPageSize(QPageSize::A4));
             pdfWriter.setPageMargins(QMarginsF(10, 10, 10, 10));
             QPainter painter;
             if (!painter.begin(&pdfWriter)) {
@@ -181,6 +188,12 @@ void Destitute::PDF()
             QPen pen(Qt::black, 0.5);
             painter.setFont(font);
             painter.setPen(pen);
+
+            // Add the current date to the PDF
+                QDateTime currentDateTime = QDateTime::currentDateTime();
+                QString dateString = currentDateTime.toString("dd/MM/yyyy hh:mm:ss");
+                painter.drawText(7800, 30, dateString);
+
             painter.drawText(1900,400,"NUMBER OF DESTITUTES ACCORDING TO THEIR CONTACT");
     // Get the number of columns in the query result
     QSqlQuery query;
@@ -198,9 +211,10 @@ void Destitute::PDF()
     }
     else{
     model->setQuery(query);
-    int numCols = query.record().count();
+    qDebug()<<"pdf:"<<model->rowCount();
+    //int numCols = query.record().count();
     // Draw the column headers
-           for (int col = 0; col < numCols; col++) {
+    /*       for (int col = 0; col < numCols; col++) {
                QString headerText = query.record().fieldName(col);
                painter.drawText(col * 1000, 900, headerText);
            }
@@ -217,40 +231,83 @@ void Destitute::PDF()
             QVariant valueCount = model->data(indexCount);
             painter.drawText(5 * 300, 1200 + i * 200, valueCount.toString());
             qDebug() << valueCount.toString(); // print the value
-        }
+        }*/
+
+    // Create the QTableWidget and set its properties
+            QTableWidget *table = new QTableWidget(model->rowCount(), 2);
+            table->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+            table->setHorizontalHeaderLabels({"CONTACT", "COUNT"});
+            table->horizontalHeader()->setStretchLastSection(true);
+
+            // Populate the table with the data from the model
+            for (int row = 0; row < model->rowCount(); ++row) {
+                QModelIndex index = model->index(row, 0);
+                QString contact = model->data(index).toString();
+
+                index = model->index(row, 1);
+                QString count = model->data(index).toString();
+
+                table->setItem(row, 0, new QTableWidgetItem(contact));
+                table->setItem(row, 1, new QTableWidgetItem(count));
+                table->render(&painter, QPoint(2000, 2000));
+            }
     QMessageBox::information(nullptr, QObject::tr("OK"),
                          QObject::tr("PDF generated succefully.\n"
                                      "Click Cancel to exit."), QMessageBox::Cancel);
     }
-    painter.end();
 
+    painter.end();
+}
 }
 QChartView * Destitute::STATS()
 {
     QSqlQueryModel * model=new QSqlQueryModel();
     QSqlQuery query;
-    query.prepare("SELECT DESTITUTE_LEVEL , COUNT(*) FROM DESTITUE GROUP BY CONTACT");
+    query.prepare("SELECT DESTITUTE_LEVEL , COUNT(*) FROM DESTITUE GROUP BY DESTITUTE_LEVEL");
+
+    if (!query.exec()) {
+        qDebug() << "Failed to execute query";
+        QMessageBox::information(nullptr, QObject::tr(":/"),
+                    QObject::tr("Problem.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+        QChartView *chartview = new QChartView();
+        //chartview->setParent(ui->horizontalFrame);
+        return chartview;
+
+    }
+    else{
     model->setQuery(query);
-    /*QPieSeries *series = new QPieSeries();
+    QPieSeries *series = new QPieSeries();
     for (int i = 0; i < model->rowCount(); ++i)
         {
         QModelIndex index = model->index(i, 0); // access the first column of the current row
         QVariant value = model->data(index);
         QString nom=value.toString();
-        qDebug() << value.toString(); // print the value
+        qDebug() << nom; // print the value
 
         QModelIndex indexCount = model->index(i, 1); // access the second column of the current row
             QVariant valueCount = model->data(indexCount);
-            qreal nun =valueCount.toReal();
-            qDebug() << valueCount.toString(); // print the value
-            series->append(nom,nun);
-    }*/
+            qreal num =valueCount.toReal();
+            qDebug() << num; // print the value
+            float val=(num*100)/model->rowCount();
+            qDebug() << "%"<<val;
+            QString prc=QString::number(val);
+            QString aff=nom + "("+prc+"%"+")";
+            qDebug() << "msg"<<aff;
+            series->append(aff,num);
+            //series->setPieSize(0.5);
+        }
+
+
+      /*
+
     QPieSeries *series = new QPieSeries();
-    series->append("C++", 80);
-        series->append("Python", 70);
-        series->append("Java", 50);
-        series->append("C#", 40);
-        series->append("PHP", 30);
+    series->append("level1", 80);
+        series->append("level0", 70);
+        series->append("level3", 50);
+        series->append("level2", 40);
+        //series->append("PHP", 30);
+*/
         QPieSlice *slice = series->slices().at(1);
             slice->setExploded(true);
             slice->setLabelVisible(true);
@@ -260,12 +317,54 @@ QChartView * Destitute::STATS()
 
             QChart *chart = new QChart();
             chart->addSeries(series);
-            chart->setTitle("Qt5 Pie Chart Example");
+            chart->setTitle("Destitute level Pie Chart");
 
 
             QChartView *chartview = new QChartView(chart);
             //chartview->setParent(ui->horizontalFrame);
             return chartview;
 
+
+            }
 }
+
+QImage  generateQRCode()
+{
+    qDebug() << "here";
+    QZXing qrCode;
+    QString data="ghalia chiboub";
+        qrCode.setDecoder(QZXing::DecoderFormat_QR_CODE);
+        QImage image = qrCode.encodeData(data);
+        return image;
+}
+/*
+QImage generateQRCode{
+    // Encode text into QR code
+    std::wstring wtext = text.toStdWString();
+    qrcodegen::QrCode qr = qrcodegen::QrCode::encodeText(wtext.c_str(), qrcodegen::QrCode::Ecc::LOW);
+
+    // Calculate QR code size
+    const int s = qr.getSize();
+    const int imgSize = 256;
+    const double scale = imgSize / static_cast<double>(s);
+
+    // Create image and painter
+    QImage image(imgSize, imgSize, QImage::Format_RGB888);
+    image.fill(Qt::white);
+    QPainter painter(&image);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    // Draw QR code
+    for (int y = 0; y < s; y++) {
+        for (int x = 0; x < s; x++) {
+            const bool module = qr.getModule(x, y);
+            QRectF r(x * scale, y * scale, scale, scale);
+            if (module) {
+                painter.fillRect(r, Qt::black);
+            }
+        }
+    }
+
+    return image;
+}*/
 

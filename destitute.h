@@ -10,6 +10,7 @@
 #include<QPieSeries>
 #include<QPieSlice>
 
+#include <QImage>
 class Destitute
 {
     QString destitute_id,first_name,last_name,contact;
@@ -43,8 +44,10 @@ public:
     int getmaxId();
     QSqlQueryModel * Search(QString);
     QSqlQueryModel * Sort();
-    void PDF();
+    void PDF(QString);
     QChartView * STATS();
+    void Clear();
+    QImage  generateQRCode();
 };
 
 #endif // DESTITUTE_H

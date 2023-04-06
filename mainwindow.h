@@ -40,6 +40,10 @@ private slots:
 
     void on_pb_pdf_clicked();
 
+    void on_pb_clear_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Destitute De;

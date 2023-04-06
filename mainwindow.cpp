@@ -15,7 +15,9 @@
 #include<QChartView>
 #include<QPieSeries>
 #include<QPieSlice>
-
+//qrCode
+#include<QPixmap>
+#include <QImage>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -120,6 +122,9 @@ void MainWindow::on_pb_add_clicked()
            QMessageBox::information(nullptr, QObject::tr("OK"),
                        QObject::tr("Added successfuly.\n"
                                    "Click Cancel to exit."), QMessageBox::Cancel);
+           MainWindow w;
+            ui->pb_clear->click();
+          // w.on_pb_clear_clicked();
 
        }
        else
@@ -152,6 +157,8 @@ void MainWindow::on_pb_delete_clicked()
         QMessageBox::information(nullptr, QObject::tr("OK"),
                     QObject::tr("Deleted successfuly.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
+        MainWindow w;
+         ui->pb_clear->click();
 
     }
     else
@@ -178,6 +185,8 @@ void MainWindow::on_pb_update_clicked()
          QMessageBox::information(nullptr, QObject::tr("OK"),
                      QObject::tr("Updated successfuly.\n"
                                  "Click Cancel to exit."), QMessageBox::Cancel);
+         MainWindow w;
+          ui->pb_clear->click();
 
      }
      else
@@ -233,5 +242,21 @@ void MainWindow::on_pb_sort_clicked()
 
 void MainWindow::on_pb_pdf_clicked()
 {
-    De.PDF();
+    QString fileName = QFileDialog::getSaveFileName(this, "Save PDF", QDir::homePath(), "PDF files (*.pdf)");
+
+    De.PDF(fileName);
+}
+
+void MainWindow::on_pb_clear_clicked()
+{
+    ui->the_id->clear();
+    ui->the_firstname->clear();
+    ui->the_lastname->clear();
+    ui->the_level->clear();
+    ui->the_contact->clear();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    //ui->qr_code->setPixmap(QPixmap::fromImage(De.generateQRCode()));
 }

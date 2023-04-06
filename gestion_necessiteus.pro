@@ -1,6 +1,12 @@
 QT+= sql
 QT       += core gui printsupport charts
 
+include(qzxing-3.3.0/qzxing-3.3.0/src/QZXing.pri)  #sets up the library for your project.
+LIBS += -L$$PWD/qzxing-3.3.0/qzxing-3.3.0/ -lqzxing   #adds the library files to the project's library path and links against the "qzxing" library.
+
+#include(qzxing-master/qzxing-master/QZXing.pri)  #sets up the library for your project.
+#LIBS += -L$$PWD/qzxing-master/qzxing-master/ -lqzxing   #adds the library files to the project's library path and links against the "qzxing" library.
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
