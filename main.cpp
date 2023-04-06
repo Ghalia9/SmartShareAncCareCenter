@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     bool test=c.createconnect(); //etablir la connexion
     MainWindow w;
     if(test)
-    {w.show();
+    {w.showMaximized();
         QMessageBox::information(nullptr, QObject::tr("database is open"),
                     QObject::tr("connection successful.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);

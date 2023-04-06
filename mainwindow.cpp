@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "employee.h"
+#include "todolistwidget.h"
 #include <QMessageBox>
 #include <QtSql>
 #include <QDebug>
@@ -15,6 +16,11 @@
 #include <QtGui/QPainter>
 #include <QImage>
 #include <QPixmap>
+#include <QtCharts>
+#include <QChartView>
+#include <QPieSeries>
+#include <QPieSlice>
+#include <QRegularExpression>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -23,11 +29,45 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->tableView->setModel(etmp.afficher());
-    ui->lineEdit_login->setValidator(new QRegExpValidator (QRegExp("[A-Za-z]+"),this));
+    ui->lineEdit_login_4->setValidator(new QRegExpValidator (QRegExp("[A-Za-z]+"),this));
     //ui->lineEdit_salary->setValidator(new QRegExpValidator (QRegExp("\d"),this));
-    ui->lineEdit_lastname->setValidator(new QRegExpValidator (QRegExp("[A-Za-z]+"),this));
-    ui->lineEdit_firstname->setValidator(new QRegExpValidator (QRegExp("[A-Za-z]+"),this));
+    ui->lineEdit_lastname_4->setValidator(new QRegExpValidator (QRegExp("[A-Za-z]+"),this));
+    ui->lineEdit_firstname_4->setValidator(new QRegExpValidator (QRegExp("[A-Za-z]+"),this));
     //ui->lineEdit_password->setValidator(new QRegExpValidator (QRegExp("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"),this));//Minimum eight characters, at least one letter, one number and one special character:
+
+    QSqlQuery query("SELECT SALARY , COUNT(*) FROM EMPLOYEES GROUP BY SALARY");
+    QPieSeries *series = new QPieSeries();
+    series->setHoleSize(0.35);
+    while (query.next()) {
+        QString salary = query.value(0).toString();
+        int count = query.value(1).toInt();
+        series->append(salary, count);
+    }
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    QPieSlice *slice;
+    for (int i = 0; i < series->count(); ++i) {
+        slice = series->slices().at(i);
+        slice->setBrush(QColor::fromHsv(i * 50, 255, 255));
+        slice->setLabel(QString("%1: %2").arg(slice->label()).arg(slice->value()));
+    }
+    chart->setTitle("Employee Salaries");
+    chart->setAnimationOptions(QChart::AllAnimations);
+    chart->setTheme(QChart::ChartThemeBlueCerulean);
+    chart->setAnimationDuration(5000);
+    chart->setAnimationEasingCurve(QEasingCurve::OutBounce);
+    chart->setMargins(QMargins(20, 20, 20, 20));
+    chart->setDropShadowEnabled(true);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setParent(ui->horizontalFrame);
+
+CToDoList* toDoListWidget= new  CToDoList();//creating new instance for the to do list class
+ui->tabWidget->addTab(toDoListWidget, "To-Do List");
+ui->lineEdit_id_4->hide();
+ui->pushButton_clear->hide();
 }
 
 MainWindow::~MainWindow()
@@ -37,14 +77,19 @@ MainWindow::~MainWindow()
 
 
 void MainWindow::on_pushButton_6_clicked(){
-    //QString id=ui->lineEdit_id->text();
-    QString nom=ui->lineEdit_lastname->text();
-    QString prenom=ui->lineEdit_firstname->text();
-    QString login=ui->lineEdit_login->text();
-    QString password=ui->lineEdit_password->text();
-    QString function=ui->lineEdit_fucntion->text();
-    QString contact=ui->lineEdit_contact->text();
-    float salary=ui->lineEdit_salary->text().toFloat();
+
+
+    //QString id=ui->lineEdit_id_4->text();
+    QString nom=ui->lineEdit_lastname_4->text();
+    QString prenom=ui->lineEdit_firstname_4->text();
+    QString login=ui->lineEdit_login_4->text();
+    QString password=ui->lineEdit_password_4->text();
+    QString function=ui->lineEdit_fucntion_4->text();
+    QString contact=ui->lineEdit_contact_4->text();
+    float salary=ui->lineEdit_salary_4->text().toFloat();
+
+    QRegularExpression email("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
+    if(email.match(contact).hasMatch()){
     int efficiency=0;
 
     int x=rand()%100;
@@ -60,13 +105,18 @@ if(test)
         QMessageBox::information(nullptr, QObject::tr("OK"),
                     QObject::tr("Added successfuly.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
-
+    ui->pushButton_clear->click();
     }
     else
         QMessageBox::critical(nullptr, QObject::tr("Not OK"),
                     QObject::tr("NOT ADDED.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
-}
+    }else{
+        QMessageBox::warning(nullptr, QObject::tr("Not OK"),
+                    QObject::tr("Invalid email address.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+    }
 
 void MainWindow::on_pushButton_5_clicked()
 {
@@ -78,6 +128,7 @@ void MainWindow::on_pushButton_5_clicked()
         QMessageBox::information(nullptr, QObject::tr("OK"),
                     QObject::tr("Suppression effectué.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
+        ui->pushButton_clear->click();
 
     }
     else
@@ -89,14 +140,14 @@ void MainWindow::on_pushButton_5_clicked()
 
 void MainWindow::on_pushButton_edit_clicked()
 {
-    QString id=ui->lineEdit_id_3->text();
-    QString nom=ui->lineEdit_lastname_3->text();
-    QString prenom=ui->lineEdit_firstname_3->text();
-    QString login=ui->lineEdit_login_3->text();
-    QString password=ui->lineEdit_password_3->text();
-    QString function=ui->lineEdit_fucntion_3->text();
-    QString contact=ui->lineEdit_contact_3->text();
-    float salary=ui->lineEdit_salary_3->text().toFloat();
+    QString id=ui->lineEdit_id_4->text();
+    QString nom=ui->lineEdit_lastname_4->text();
+    QString prenom=ui->lineEdit_firstname_4->text();
+    QString login=ui->lineEdit_login_4->text();
+    QString password=ui->lineEdit_password_4->text();
+    QString function=ui->lineEdit_fucntion_4->text();
+    QString contact=ui->lineEdit_contact_4->text();
+    float salary=ui->lineEdit_salary_4->text().toFloat();
     int efficiency=0;
     employee e(id,nom,prenom,login,password,function,contact,salary,efficiency);
 bool test=e.update(id);
@@ -108,6 +159,7 @@ if(test)
         QMessageBox::information(nullptr, QObject::tr("OK"),
                     QObject::tr("Edited successfuly.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
+    ui->pushButton_clear->click();
 
     }
     else
@@ -124,14 +176,15 @@ void MainWindow::on_tableView_activated(const QModelIndex &index)
     qry=e.Edit(val);
     if (qry.exec()){
         while(qry.next()){
-        ui->lineEdit_id_3->setText(qry.value(0).toString());
-        ui->lineEdit_lastname_3->setText(qry.value(1).toString());
-        ui->lineEdit_firstname_3->setText(qry.value(2).toString());
-        ui->lineEdit_login_3->setText(qry.value(3).toString());
-        ui->lineEdit_password_3->setText(qry.value(4).toString());
-        ui->lineEdit_fucntion_3->setText(qry.value(5).toString());
-        ui->lineEdit_contact_3->setText(qry.value(6).toString());
-        ui->lineEdit_salary_3->setText(qry.value(7).toString());
+        ui->lineEdit_id_4->setText(qry.value(0).toString());
+
+        ui->lineEdit_lastname_4->setText(qry.value(1).toString());
+        ui->lineEdit_firstname_4->setText(qry.value(2).toString());
+        ui->lineEdit_login_4->setText(qry.value(3).toString());
+        ui->lineEdit_password_4->setText(qry.value(4).toString());
+        ui->lineEdit_fucntion_4->setText(qry.value(5).toString());
+        ui->lineEdit_contact_4->setText(qry.value(6).toString());
+        ui->lineEdit_salary_4->setText(qry.value(7).toString());
     }
     }
     else
@@ -214,4 +267,22 @@ void MainWindow::on_pushButton_3_clicked()
             painter.end();
     }
 
+
+
+void MainWindow::on_pushButton_clear_clicked()
+{
+    ui->lineEdit_id_4->clear();
+    ui->lineEdit_lastname_4->clear();
+    ui->lineEdit_firstname_4->clear();
+    ui->lineEdit_login_4->clear();
+    ui->lineEdit_password_4->clear();
+    ui->lineEdit_fucntion_4->clear();
+    ui->lineEdit_contact_4->clear();
+    ui->lineEdit_salary_4->clear();
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+
+}
 

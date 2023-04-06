@@ -1,4 +1,4 @@
-QT       += core gui printsupport
+QT       += core gui printsupport charts
 QT += sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,12 +19,14 @@ SOURCES += \
     connection.cpp \
     employee.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    todolistwidget.cpp
 
 HEADERS += \
     connection.h \
     employee.h \
-    mainwindow.h
+    mainwindow.h \
+    todolistwidget.h
 
 FORMS += \
     mainwindow.ui
@@ -35,4 +37,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    res.qrc
+    res.qrc \
+    resources.qrc
