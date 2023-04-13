@@ -7,4 +7,7 @@
         <file>xxxxxxccccccccccccc-01.png</file>
         <file>xxxxxxxxx-01.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>calendar.qml</file>
+    </qresource>
 </RCC>

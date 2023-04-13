@@ -5,7 +5,13 @@
 #-------------------------------------------------
 
 QT       += core gui sql
+QT       += core gui network
+QT += printsupport
+QT += qml quick sql
+QT += charts
+QT += quickwidgets
 
+QT       += core gui serialport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Atelier_Connexion
@@ -26,16 +32,23 @@ CONFIG += c++11
 
 SOURCES += \
     collects.cpp \
+    dialog.cpp \
         main.cpp \
         mainwindow.cpp \
-    connection.cpp
+    connection.cpp \
+    smtp.cpp \
+    themewidget.cpp
 
 HEADERS += \
     collects.h \
+    dialog.h \
         mainwindow.h \
-    connection.h
+    connection.h \
+    smtp.h \
+    themewidget.h
 
 FORMS += \
+        dialog.ui \
         mainwindow.ui
 
 # Default rules for deployment.

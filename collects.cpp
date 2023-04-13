@@ -1,7 +1,10 @@
 #include "collects.h"
 #include <QSqlQuery>
 #include <QtDebug>
-
+#include<QtCharts>
+#include<QChartView>
+#include<QPieSeries>
+#include<QPieSlice>
 Collects::Collects(QString Collect_ID, QString Collect_name, QString location,QDate collect_date, double collect_budget, double collections,QString description_c)
 {
     this->Collect_ID = Collect_ID;
@@ -26,7 +29,6 @@ bool Collects::ajouter()
        query.bindValue(":collect_budget", collect_budget);
        query.bindValue(":collections", collections);
        query.bindValue(":description_c", description_c);
-    //    query.exec();
        if(query.exec())
            return true;
        else
@@ -62,10 +64,10 @@ query.exec();
 return query.exec();
 }
 
-bool Collects :: modifier(QString recherche)
+bool Collects :: modifier()
 {
     QSqlQuery query;
-        query.prepare("UPDATE COLLECTS SET COLLECT_ID = :collect_id, COLLECT_NAME = :collect_name, LOCATION = :location, COLLECT_DATE = :collect_date, COLLECT_BUDGET = :collect_budget, COLLECTIONS = :collections, DESCRIPTION_C = :description_c WHERE COLLECT_ID LIKE '"+recherche+"%'");
+        query.prepare("UPDATE COLLECTS SET COLLECT_NAME = :collect_name, LOCATION = :location, COLLECT_DATE = :collect_date, COLLECT_BUDGET = :collect_budget, COLLECTIONS = :collections, DESCRIPTION_C = :description_c WHERE COLLECT_ID LIKE '"+Collect_ID+"%'");
         query.bindValue(":collect_id", Collect_ID);
         query.bindValue(":collect_name", Collect_name);
         query.bindValue(":location", location);
@@ -73,7 +75,7 @@ bool Collects :: modifier(QString recherche)
         query.bindValue(":collect_budget", collect_budget);
         query.bindValue(":collections", collections);
         query.bindValue(":description_c", description_c);
-        query.exec();
+      query.exec();
        return  query.exec();
 }
 QSqlQueryModel* Collects ::rechercherID(QString recherche)
@@ -95,7 +97,7 @@ QSqlQueryModel* Collects ::rechercherID(QString recherche)
 QSqlQueryModel * Collects::triDate()
 {
   QSqlQueryModel* model=new QSqlQueryModel();
-  model->setQuery("SELECT * FROM COLLECTS order by COLLECT_DATE DESC");
+  model->setQuery("SELECT * FROM COLLECTS order by COLLECT_DATE ASC");
   model->setHeaderData(0, Qt::Horizontal, QObject::tr("Collect ID"));
   model->setHeaderData(1, Qt::Horizontal, QObject::tr("Collect name"));
   model->setHeaderData(2, Qt::Horizontal, QObject::tr("Location"));
@@ -169,3 +171,80 @@ QSqlQueryModel* Collects::rechercherName(QString recherche)
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("Description"));
     return model;
 }
+QString Collects::getLastId()
+{
+    QSqlQuery query;
+    QString lastId = "";
+
+    if(query.exec("SELECT Collect_id FROM COLLECTS ORDER BY Collect_ID DESC LIMIT 1"))
+    {
+        if(query.next())
+        {
+            lastId = query.value(0).toString();
+        }
+    }
+
+    return lastId;
+}
+
+QString Collects::generateNextId()
+{
+    QSqlQuery query;
+    QString nextId = "";
+    QString lastId = "";
+
+    if(query.exec("SELECT MAX(Collect_id) FROM COLLECTS"))
+    {
+        if(query.next())
+        {
+            lastId = query.value(0).toString();
+        }
+    }
+
+    if(lastId.isEmpty())
+    {
+        nextId = "COL-001";
+    }
+    else
+    {
+        QString lastIdSuffix = lastId.right(3);
+        int lastIdSuffixInt = lastIdSuffix.toInt();
+        int nextIdSuffixInt = lastIdSuffixInt + 1;
+        QString nextIdSuffix = QString::number(nextIdSuffixInt, 10).rightJustified(3, '0');
+        nextId = "COL-" + nextIdSuffix;
+    }
+
+    return nextId;
+}
+QSqlQuery Collects::Edit(QString val)
+{
+    QSqlQuery query;
+    bool test=true;
+    for (const QChar& c: val)
+    {
+        if(!c.isDigit())
+            test =false;
+    }
+    qDebug()<<"test="<<test;
+    if(test)
+    {
+        //int x;
+      //  x=QString(val).toInt();
+        query.prepare("SELECT * FROM COLLECTS WHERE ( (Collect_ID= :val) )");
+        //query.bindValue(":val",x);
+    }
+    else
+    {
+        bool ok;
+        double budget = val.toDouble(&ok);
+        if (ok) {
+            query.prepare("SELECT * FROM Collects WHERE ((Collect_ID= :val) OR (Collect_name= :val) OR (Collect_date= :val) OR (Collect_budget= :budget ) )");
+            query.bindValue(":budget", budget);
+        } else {
+            query.prepare("SELECT * FROM Collects WHERE ((Collect_ID= :val) OR (Collect_name= :val) OR (Collect_date= :val))");
+        }
+        query.bindValue(":val",val);
+    }
+    return  query;
+}
+

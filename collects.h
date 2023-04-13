@@ -4,6 +4,10 @@
 #include <QSqlQuery>
 #include <QSqlQueryModel>
 #include <QDate>
+#include<QtCharts>
+#include<QChartView>
+#include<QPieSeries>
+#include<QPieSlice>
 
 class Collects
 {
@@ -16,6 +20,7 @@ private:
     double collections;
     QString description_c;
 
+
 public:
     Collects(){};
     Collects(QString Collect_ID, QString Collect_name, QString location,
@@ -23,12 +28,12 @@ public:
              QString description_c);
 
     QString getCollectID() {return Collect_ID;};
-    QString getCollectName() const;
-    QString getLocation() const;
-    QDate getCollectDate() const;
-    float getCollectBudget() const;
-    float getCollections() const;
-    QString getDescription() const;
+    QString getCollectName() const{return Collect_name;};
+    QString getLocation() const{return location;};
+    QDate getCollectDate() const{return collect_date;};
+    float getCollectBudget() const{return collect_budget;};
+    float getCollections() const{return collections;};
+    QString getDescription() const{return description_c;};
 //    void setID(int id){this->id=id;}
 
     void setCollectID(QString Collect_ID){this->Collect_ID=Collect_ID;};
@@ -43,7 +48,7 @@ public:
     bool ajouter();
     QSqlQueryModel* afficher();
     bool supprimer(QString);
-    bool modifier(QString Collect_ID);
+    bool modifier();
     QSqlQueryModel* rechercherID(QString );
     QSqlQueryModel* rechercherDate(QString );
     QSqlQueryModel* rechercherName(QString );
@@ -51,6 +56,10 @@ public:
    QSqlQueryModel * triDate();
    QSqlQueryModel * triCollects();
    QSqlQueryModel * triCosts();
+   static QString getLastId();
+   QString generateNextId();
+   QSqlQuery Edit(QString val);
+
 
 
 };

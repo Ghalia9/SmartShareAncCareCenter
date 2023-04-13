@@ -1,6 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include "dialog.h"
+#include <QFileDialog>
+#include <QMessageBox>
+#include "smtp.h"
 #include <QMainWindow>
 #include "collects.h"
 namespace Ui {
@@ -14,6 +17,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+void refreshCalendar();
+void showEvents(const QDate& date);
+
 
 private slots:
      void on_pushButton_ajouter_clicked();
@@ -26,9 +32,28 @@ private slots:
 
     void on_confirm_search_clicked();
 
+    void on_pdf_clicked();
+
+    void on_stats_clicked();
+
+    //void on_tabWidget_currentChanged(int index);
+
+    void on_tab_read_activated(const QModelIndex &index);
+
+    void on_calendarWidget_clicked(const QDate &date);
+
+private slots:
+    void sendMail();
+    void mailSent();
+    void on_refresh_clicked();
+
 private:
     Ui::MainWindow *ui;
     Collects Etmp;
+   // Dialog *dialog;
+    QStringList files;
+
 };
 
 #endif // MAINWINDOW_H
+
