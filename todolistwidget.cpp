@@ -16,17 +16,17 @@ CToDoList::CToDoList()
     QLabel* pwTitle = new QLabel("To Do List", this);
     pMainLayout->addWidget(pwTitle);
     pwTitle->setAlignment(Qt::AlignCenter);
-    pwTitle->setStyleSheet("font-size: 30pt; margin: 10%;");
+    pwTitle->setStyleSheet("font-size: 30pt; margin: 10%; font-family: Poppins;");
 
     QHBoxLayout* pHLayoutLabels = new QHBoxLayout();
     pMainLayout->addLayout(pHLayoutLabels);
 
     QLabel* plblPending = new QLabel("Pending", this);
-    plblPending->setStyleSheet("font-size: 15pt;");
+    plblPending->setStyleSheet("font-size: 15pt; font-family: Poppins;");
     pHLayoutLabels->addWidget(plblPending);
 
     QLabel* plblCompleted = new QLabel("Completed", this);
-    plblCompleted->setStyleSheet("font-size: 15pt;");
+    plblCompleted->setStyleSheet("font-size: 15pt; font-family: Poppins;");
     pHLayoutLabels->addWidget(plblCompleted);
 
     QHBoxLayout* pHLayout = new QHBoxLayout();
@@ -50,13 +50,13 @@ CToDoList::CToDoList()
     m_pwCompleted->setModel(new QStringListModel());
 
     m_pwPending->setStyleSheet
-    ("QListView { font-size: 20pt; font-weight: bold; }"
+    ("QListView { font-size: 20pt; font-weight: bold;  font-family: Poppins;}"
      "QListView::item { background-color: #E74C3C; padding: 10%;"
      "border: 1px solid #C0392B; }"
      "QListView::item::hover { background-color: #C0392B }");
 
     m_pwCompleted->setStyleSheet
-    ("QListView { font-size: 20pt; font-weight: bold; }"
+    ("QListView { font-size: 20pt; font-weight: bold; font-family: Poppins; }"
      "QListView::item { background-color: #2ECC71; padding: 10%;"
      "border: 1px solid #27AE60; }"
      "QListView::item::hover { background-color: #27AE60 }");

@@ -21,6 +21,8 @@
 #include <QPieSeries>
 #include <QPieSlice>
 #include <QRegularExpression>
+#include <QCryptographicHash>
+
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -28,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+
     ui->tableView->setModel(etmp.afficher());
     ui->lineEdit_login_4->setValidator(new QRegExpValidator (QRegExp("[A-Za-z]+"),this));
     //ui->lineEdit_salary->setValidator(new QRegExpValidator (QRegExp("\d"),this));
@@ -84,9 +88,9 @@ void MainWindow::on_pushButton_6_clicked(){
     QString prenom=ui->lineEdit_firstname_4->text();
     QString login=ui->lineEdit_login_4->text();
     QString password=ui->lineEdit_password_4->text();
-    QString function=ui->lineEdit_fucntion_4->text();
+    QString function=ui->comboBox_2->currentText();
     QString contact=ui->lineEdit_contact_4->text();
-    float salary=ui->lineEdit_salary_4->text().toFloat();
+    float salary=ui->doubleSpinBox->text().toFloat();
 
     QRegularExpression email("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
     if(email.match(contact).hasMatch()){
@@ -94,8 +98,12 @@ void MainWindow::on_pushButton_6_clicked(){
 
     int x=rand()%100;
 
-    QString id="emp"+QString::number(x);
-    employee e(id,nom,prenom,login,password,function,contact,salary,efficiency);
+QByteArray hashed_password = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256);
+QString hashed_password_string(hashed_password.toHex());
+
+
+QString id="emp"+QString::number(x);
+    employee e(id,nom,prenom,login,hashed_password_string,function,contact,salary,efficiency);
 bool test=e.ajouter();
 if(test)
     {
@@ -145,9 +153,9 @@ void MainWindow::on_pushButton_edit_clicked()
     QString prenom=ui->lineEdit_firstname_4->text();
     QString login=ui->lineEdit_login_4->text();
     QString password=ui->lineEdit_password_4->text();
-    QString function=ui->lineEdit_fucntion_4->text();
-    QString contact=ui->lineEdit_contact_4->text();
-    float salary=ui->lineEdit_salary_4->text().toFloat();
+QString function=ui->comboBox_2->currentText();
+QString contact=ui->lineEdit_contact_4->text();
+    float salary=ui->doubleSpinBox->text().toFloat();
     int efficiency=0;
     employee e(id,nom,prenom,login,password,function,contact,salary,efficiency);
 bool test=e.update(id);
@@ -177,14 +185,14 @@ void MainWindow::on_tableView_activated(const QModelIndex &index)
     if (qry.exec()){
         while(qry.next()){
         ui->lineEdit_id_4->setText(qry.value(0).toString());
-
+ui->lineEdit_iddelete->setText(qry.value(0).toString());
         ui->lineEdit_lastname_4->setText(qry.value(1).toString());
         ui->lineEdit_firstname_4->setText(qry.value(2).toString());
         ui->lineEdit_login_4->setText(qry.value(3).toString());
         ui->lineEdit_password_4->setText(qry.value(4).toString());
-        ui->lineEdit_fucntion_4->setText(qry.value(5).toString());
-        ui->lineEdit_contact_4->setText(qry.value(6).toString());
-        ui->lineEdit_salary_4->setText(qry.value(7).toString());
+        ui->comboBox_2->setCurrentText(qry.value(5).toString());
+        ui->lineEdit_contact_4->setText(qry.value(7).toString());
+        ui->doubleSpinBox->setValue(qry.value(6).toFloat());
     }
     }
     else
@@ -276,9 +284,8 @@ void MainWindow::on_pushButton_clear_clicked()
     ui->lineEdit_firstname_4->clear();
     ui->lineEdit_login_4->clear();
     ui->lineEdit_password_4->clear();
-    ui->lineEdit_fucntion_4->clear();
-    ui->lineEdit_contact_4->clear();
-    ui->lineEdit_salary_4->clear();
+ui->lineEdit_contact_4->clear();
+    ui->doubleSpinBox->clear();
 }
 
 void MainWindow::on_pushButton_4_clicked()

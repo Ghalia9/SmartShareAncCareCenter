@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>2378</width>
-    <height>1087</height>
+    <width>2181</width>
+    <height>958</height>
    </rect>
   </property>
   <property name="palette">
@@ -169,7 +169,7 @@
           <layout class="QGridLayout" name="gridLayout_15">
            <item row="0" column="0">
             <layout class="QGridLayout" name="gridLayout_13">
-             <item row="4" column="1">
+             <item row="5" column="1">
               <layout class="QHBoxLayout" name="horizontalLayout_35">
                <item>
                 <widget class="QLabel" name="label_31">
@@ -179,24 +179,37 @@
                 </widget>
                </item>
                <item>
-                <spacer name="horizontalSpacer_22">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_fucntion_4"/>
+                <widget class="QComboBox" name="comboBox_2">
+                 <item>
+                  <property name="text">
+                   <string>Administrator</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Destitute Manager</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Donations Manager</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Services Manager</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Events Manager</string>
+                  </property>
+                 </item>
+                </widget>
                </item>
               </layout>
              </item>
-             <item row="5" column="1">
+             <item row="2" column="1">
               <layout class="QHBoxLayout" name="horizontalLayout_40">
                <item>
                 <widget class="QLabel" name="label_5">
@@ -230,96 +243,8 @@
                </item>
               </layout>
              </item>
-             <item row="1" column="1">
-              <layout class="QHBoxLayout" name="horizontalLayout_36">
-               <item>
-                <widget class="QLabel" name="label_32">
-                 <property name="text">
-                  <string>Last name</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_23">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_lastname_4"/>
-               </item>
-              </layout>
-             </item>
              <item row="0" column="1">
               <widget class="QLineEdit" name="lineEdit_id_4"/>
-             </item>
-             <item row="8" column="1">
-              <layout class="QHBoxLayout" name="horizontalLayout_39">
-               <item>
-                <widget class="QLabel" name="label_42">
-                 <property name="text">
-                  <string>Salary</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_33">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_salary_4"/>
-               </item>
-              </layout>
-             </item>
-             <item row="13" column="1">
-              <widget class="QPushButton" name="pushButton_edit">
-               <property name="text">
-                <string>Update employee</string>
-               </property>
-              </widget>
-             </item>
-             <item row="9" column="1">
-              <layout class="QHBoxLayout" name="horizontalLayout_37">
-               <item>
-                <widget class="QLabel" name="label_40">
-                 <property name="text">
-                  <string>E-mail</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_24">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_contact_4"/>
-               </item>
-              </layout>
              </item>
              <item row="15" column="1">
               <spacer name="verticalSpacer_3">
@@ -334,45 +259,8 @@
                </property>
               </spacer>
              </item>
-             <item row="12" column="1">
-              <widget class="QPushButton" name="pushButton_6">
-               <property name="text">
-                <string>Add employee</string>
-               </property>
-              </widget>
-             </item>
              <item row="6" column="3">
               <layout class="QHBoxLayout" name="horizontalLayout_42"/>
-             </item>
-             <item row="2" column="1">
-              <layout class="QGridLayout" name="gridLayout_14"/>
-             </item>
-             <item row="10" column="1">
-              <layout class="QHBoxLayout" name="horizontalLayout_38">
-               <item>
-                <widget class="QLabel" name="label_41">
-                 <property name="text">
-                  <string>Login</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_32">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_login_4"/>
-               </item>
-              </layout>
              </item>
              <item row="11" column="1">
               <layout class="QHBoxLayout" name="horizontalLayout_41">
@@ -401,12 +289,124 @@
                </item>
               </layout>
              </item>
+             <item row="1" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_36">
+               <item>
+                <widget class="QLabel" name="label_32">
+                 <property name="text">
+                  <string>Last name</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_23">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_lastname_4"/>
+               </item>
+              </layout>
+             </item>
+             <item row="3" column="1">
+              <layout class="QGridLayout" name="gridLayout_14"/>
+             </item>
+             <item row="9" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_37">
+               <item>
+                <widget class="QLabel" name="label_40">
+                 <property name="text">
+                  <string>E-mail</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_24">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_contact_4"/>
+               </item>
+              </layout>
+             </item>
+             <item row="13" column="1">
+              <widget class="QPushButton" name="pushButton_edit">
+               <property name="text">
+                <string>Update employee</string>
+               </property>
+              </widget>
+             </item>
+             <item row="12" column="1">
+              <widget class="QPushButton" name="pushButton_6">
+               <property name="text">
+                <string>Add employee</string>
+               </property>
+              </widget>
+             </item>
              <item row="14" column="1">
               <widget class="QPushButton" name="pushButton_clear">
                <property name="text">
                 <string>Clear</string>
                </property>
               </widget>
+             </item>
+             <item row="8" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_39">
+               <item>
+                <widget class="QLabel" name="label_42">
+                 <property name="text">
+                  <string>Salary</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+               </item>
+              </layout>
+             </item>
+             <item row="10" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_38">
+               <item>
+                <widget class="QLabel" name="label_41">
+                 <property name="text">
+                  <string>Login</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_32">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_login_4"/>
+               </item>
+              </layout>
              </item>
             </layout>
            </item>
@@ -564,13 +564,44 @@
        <widget class="QFrame" name="horizontalFrame">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>10</y>
-          <width>941</width>
-          <height>631</height>
+          <x>570</x>
+          <y>90</y>
+          <width>741</width>
+          <height>501</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_5"/>
+       </widget>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>730</x>
+          <y>30</y>
+          <width>291</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>36</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Statestics</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>720</x>
+          <y>600</y>
+          <width>371</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Salary : number of employees</string>
+        </property>
        </widget>
       </widget>
      </widget>
@@ -582,7 +613,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>2378</width>
+     <width>2181</width>
      <height>26</height>
     </rect>
    </property>

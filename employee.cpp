@@ -78,8 +78,7 @@ for (const QChar& c: val){
     }
 }
 if (test){
-    int x;
-    x= QString(val).toInt();
+    //int x= QString(val).toInt();
     qry.prepare(("SELECT * FROM EMPLOYEES WHERE FUNCTION= :val OR EFFICINECY= :val"));
     qry.bindValue(":val",val);
 }else{

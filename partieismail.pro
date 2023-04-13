@@ -1,6 +1,5 @@
 QT       += core gui printsupport charts
 QT += sql
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 
@@ -18,6 +17,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     connection.cpp \
     employee.cpp \
+    ghalia.cpp \
+    loginpage.cpp \
     main.cpp \
     mainwindow.cpp \
     todolistwidget.cpp
@@ -25,10 +26,14 @@ SOURCES += \
 HEADERS += \
     connection.h \
     employee.h \
+    ghalia.h \
+    loginpage.h \
     mainwindow.h \
     todolistwidget.h
 
 FORMS += \
+    ghalia.ui \
+    loginpage.ui \
     mainwindow.ui
 
 # Default rules for deployment.
