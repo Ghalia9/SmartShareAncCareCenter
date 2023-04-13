@@ -1,13 +1,19 @@
 QT+= sql
+QT += location
+QT += positioning
+QT += quick
+QT += widgets
+QT += quickwidgets
+
 QT       += core gui printsupport charts
 
-include(qzxing-3.3.0/qzxing-3.3.0/src/QZXing.pri)  #sets up the library for your project.
-LIBS += -L$$PWD/qzxing-3.3.0/qzxing-3.3.0/ -lqzxing   #adds the library files to the project's library path and links against the "qzxing" library.
+include(QZXing/QZXing.pri)  #sets up the library for your project.
+#LIBS += -L$$PWD/QZXing/ -lqzxing   #adds the library files to the project's library path and links against the "qzxing" library.
 
 #include(qzxing-master/qzxing-master/QZXing.pri)  #sets up the library for your project.
 #LIBS += -L$$PWD/qzxing-master/qzxing-master/ -lqzxing   #adds the library files to the project's library path and links against the "qzxing" library.
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets quickwidgets
 
 CONFIG += c++11
 
@@ -22,6 +28,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+#######################"openSSL######################
+INCLUDEPATH += openssl
+LIBS +=  -L$$PWD/openssl/libcrypto.lib
+LIBS +=  -L$$PWD/openssl/libssl.lib
+
+######################################################
 SOURCES += \
     connection.cpp \
     destitute.cpp \

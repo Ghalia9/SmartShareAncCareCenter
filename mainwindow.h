@@ -42,7 +42,7 @@ private slots:
 
     void on_pb_clear_clicked();
 
-    void on_pushButton_clicked();
+    void on_listQR_activated(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;

@@ -7,4 +7,7 @@
         <file>logo application.png</file>
         <file>Services.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>main.qml</file>
+    </qresource>
 </RCC>

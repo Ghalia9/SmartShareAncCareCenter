@@ -15,8 +15,32 @@
 #include<QPieSeries>
 #include<QPieSlice>
 //QrCode
-#include <QZXing>
+#include "QZXing/QZXing.h"
+//#include <QZXing>
 #include <QImage>
+//Map
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtLocation/QGeoCodingManager>
+//#include <QtLocation/QGeoSe>
+//#include <QtPositioning/QGeosea>
+#include <QtQuick/QQuickItem>
+#include <QtLocation>
+#include <QtNetwork/QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+//
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QUrl>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QVariantMap>
+#include <QVariantList>
+#include <QGeoCoordinate>
+//#include <QMapboxGL>
+//#include <QMapboxGLMap>
 
 Destitute::Destitute()
 {
@@ -166,7 +190,6 @@ QSqlQueryModel * Destitute::Sort()
 void Destitute::PDF(QString fileName)
 //QSqlQueryModel * Destitute::PDF()
 {
-    //QString fileName = QFileDialog::getSaveFileName(this, "Save PDF", QDir::homePath(), "PDF files (*.pdf)");
 
         if (!fileName.isEmpty()) {
     QSqlQueryModel * model=new QSqlQueryModel();
@@ -212,6 +235,9 @@ void Destitute::PDF(QString fileName)
     else{
     model->setQuery(query);
     qDebug()<<"pdf:"<<model->rowCount();
+
+
+
     //int numCols = query.record().count();
     // Draw the column headers
     /*       for (int col = 0; col < numCols; col++) {
@@ -328,15 +354,179 @@ QChartView * Destitute::STATS()
             }
 }
 
-QImage  generateQRCode()
+QImage Destitute::generateQRCode(QString data)
 {
     qDebug() << "here";
     QZXing qrCode;
-    QString data="ghalia chiboub";
         qrCode.setDecoder(QZXing::DecoderFormat_QR_CODE);
         QImage image = qrCode.encodeData(data);
         return image;
 }
+
+QString Destitute::getData(QString id)
+{
+    qDebug()<<"id="<<id;
+    QString result;
+    QSqlQuery query;
+
+          query.prepare("SELECT * FROM DESTITUE WHERE ((DESTITUTE_ID= :val) OR (FIRST_NAME= :val) OR (LAST_NAME= :val) OR (CONTACT= :val ) )");
+   //       query.prepare("SELECT * FROM DESTITUE WHERE ( (DESTITUTE_ID= :id) )");
+          query.bindValue(":val",id);
+          query.exec();
+          if (!query.exec()) {
+              qDebug() << "Failed to execute query";
+              }
+          else
+          {
+
+          while (query.next()) {
+              result += "The destitute's name is ";
+              result += query.value(1).toString(); // Ajouter la première colonne
+              result += " " + query.value(2).toString(); // Ajouter la deuxième colonne
+              result += " his/her destitute level is " + query.value(3).toString(); // Ajouter la troisième colonne
+              result += " and is located in " + query.value(4).toString();
+              // Ajouter d'autres colonnes si nécessaire
+          }
+          }
+          qDebug()<<result;
+          return result;
+}
+/*
+void pinLocationOnMap(QString location, QMapboxGLMap *map)
+{
+    // Step 1: Get the latitude and longitude of the location using Mapbox Geocoding API
+
+    QNetworkAccessManager *manager = new QNetworkAccessManager();
+    QUrl url("https://api.mapbox.com/geocoding/v5/mapbox.places/" + location + ".json?access_token=<your_access_token>");
+    QNetworkRequest request(url);
+    QNetworkReply *reply = manager->get(request);
+
+    QObject::connect(reply, &QNetworkReply::finished, [=]() {
+        if (reply->error() == QNetworkReply::NoError) {
+            QString response = reply->readAll();
+            QJsonDocument jsonResponse = QJsonDocument::fromJson(response.toUtf8());
+            QJsonObject jsonObject = jsonResponse.object();
+            QJsonArray features = jsonObject["features"].toArray();
+            if (!features.isEmpty()) {
+                QJsonObject geometry = features[0].toObject()["geometry"].toObject();
+                double longitude = geometry["coordinates"].toArray()[0].toDouble();
+                double latitude = geometry["coordinates"].toArray()[1].toDouble();
+
+                // Step 2: Add a marker at the location on the Mapbox GL map
+
+                map->addMarker(QMapboxGL::MarkerOptions()
+                               .setPosition(QGeoCoordinate(latitude, longitude))
+                               .setIcon(QIcon(":/marker.png")) // Replace with your marker icon
+                               .setAnchor(QPointF(0.5, 1.0))); // Set anchor point to bottom center of marker icon
+            }
+        } else {
+            // Handle the error
+        }
+        reply->deleteLater();
+        manager->deleteLater();
+    });
+}
+
+*/
+
+void Destitute::pinLocationOnMap(QQuickItem *mapItem, const QString &locationString)
+{
+    qDebug()<<"hiii";
+    // Create a QNetworkAccessManager to perform the HTTP request
+    QNetworkAccessManager *manager = new QNetworkAccessManager(mapItem);
+
+    // Create the request URL with the location string
+    //QString urlString = QString("https://maps.googleapis.com/maps/api/geocode/json?address=%1").arg(locationString);
+    QString urlString = QString("https://maps.googleapis.com/maps/api/geocode/json?address=tunis");
+
+    // Create the HTTP request
+    QNetworkRequest request;
+    request.setUrl(QUrl(urlString));
+
+    // Perform the HTTP request and connect to the finished() signal to retrieve the result
+    QNetworkReply *reply = manager->get(request);
+    QObject::connect(reply, &QNetworkReply::finished, [=]() {
+        if (reply->error() != QNetworkReply::NoError) {
+            qWarning() << "HTTP request error:" << reply->errorString();
+            //added
+            reply->deleteLater();
+            manager->deleteLater();
+            return;
+        }
+
+        // Parse the JSON response
+        QByteArray data = reply->readAll();
+        QJsonDocument doc = QJsonDocument::fromJson(data);
+        QJsonObject obj = doc.object();
+
+        // Check if the response status is OK
+        QString status = obj.value("status").toString();
+        if (status != "OK") {
+            qWarning() << "Geocoding error:" << status;
+            //added
+            reply->deleteLater();
+            manager->deleteLater();
+            return;
+        }
+
+        // Retrieve the first result
+        QJsonArray results = obj.value("results").toArray();
+        if (results.isEmpty()) {
+            qWarning() << "No results found for location:" << locationString;
+            //added
+            reply->deleteLater();
+            manager->deleteLater();
+            return;
+        }
+        QJsonObject location = results.at(0).toObject().value("geometry").toObject().value("location").toObject();
+
+        // Retrieve the coordinates of the first result
+        double latitude = location.value("lat").toDouble();
+        double longitude = location.value("lng").toDouble();
+        qDebug() << "Latitude:" << latitude << ", Longitude:" << longitude;
+
+        // Create a new map object and set its properties
+        QMetaObject::invokeMethod(mapItem, "addMapItem", Q_ARG(QVariant, latitude),
+                                  Q_ARG(QVariant, longitude), Q_ARG(QVariant, locationString),
+                                  Q_ARG(QVariant, true));
+            //added
+        reply->deleteLater();
+                manager->deleteLater();
+    });
+}
+
+
+/*
+void pinAddress(QGeoMap *map, const QString &address, const QString &name)
+{
+    // Create a geocoding manager
+    QGeoServiceProvider provider("osm");
+    QGeoCodingManager *manager = provider.geocodingManager();
+
+    // Create a geocoding request for the address
+    QGeoAddress geoAddress;
+    geoAddress.setCountry("default"); // Set the country to avoid ambiguity
+    geoAddress.setText(address);
+    QGeoCodeReply *reply = manager->geocode(geoAddress);
+
+    // Connect a slot to handle the geocoding result
+    QObject::connect(reply, &QGeoCodeReply::finished, map, [=]() {
+        if (reply->error() == QGeoCodeReply::NoError) {
+            // Get the first location from the result list
+            QGeoLocation location = reply->locations().first();
+
+            // Create a new map item at the location
+            QGeoMapItem *item = new QGeoMapItem(location.coordinate());
+            item->setLabel(name);
+
+            // Add the item to the map
+            map->addMapItem(item);
+        }
+
+        // Clean up the reply object
+        reply->deleteLater();
+    });
+}*/
 /*
 QImage generateQRCode{
     // Encode text into QR code

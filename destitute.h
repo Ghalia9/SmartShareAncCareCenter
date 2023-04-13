@@ -11,6 +11,17 @@
 #include<QPieSlice>
 
 #include <QImage>
+//map
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtLocation/QGeoCodingManager>
+//#include <QtLocation/QGeoSe>
+//#include <QtPositioning/QGeosea>
+#include <QtQuick/QQuickItem>
+
+#include <QtNetwork/QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 class Destitute
 {
     QString destitute_id,first_name,last_name,contact;
@@ -47,7 +58,9 @@ public:
     void PDF(QString);
     QChartView * STATS();
     void Clear();
-    QImage  generateQRCode();
+    QImage generateQRCode(QString);
+    QString getData(QString);
+    void pinLocationOnMap(QQuickItem *mapItem, const QString &locationString);
 };
 
 #endif // DESTITUTE_H
