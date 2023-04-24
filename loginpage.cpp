@@ -94,13 +94,16 @@ void loginpage::on_pushButton_clicked()
 //qDebug()<<pass.toUtf8();
 //QString test = input_hashed_password.toHex();
         QString subject = "Password Recovery";
-        //int x=rand()%10000;
+        int x=rand()%10000;
+
         //QString message = "Your verification code is ";
 
          Smtp* smtp = new Smtp("mohamedismail.elhedfi@esprit.tn","dooqktpplqzdyxki");
          connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent()));
-         QString msg = "Your verification code is "+QString::number(s);
+         QString msg = "Your verification code is "+QString::number(x);
          smtp->sendMail(username, recipient, subject, msg);
+
+         ui->lineEdit_password->setText(QString::number(x));
 
     }
     ui->label_3->show();
@@ -133,14 +136,42 @@ void loginpage::on_pushButton_2_clicked()
 {
 QString code = ui->lineEdit_code->text();
 int test= code.toInt();
-if (test==s){
+QString number = ui->lineEdit_password->text();
+int num= number.toInt();
+if (test==num){
     QString new_pass = ui->lineEdit_password_2->text();
     QString new_pass_comf = ui->lineEdit->text();
+    QString login = ui->lineEdit_login->text();
     if (new_pass==new_pass_comf){
-        QSqlQuery query;
-        query.prepare("UPDATE EMPLOYEES SET PASSWORD = :PASSWORD WHERE EMPLOYEE_ID LIKE :ID ");
-    }else{
+        QByteArray hashed_password = QCryptographicHash::hash(new_pass.toUtf8(), QCryptographicHash::Sha256);
+        QString hashed_password_string(hashed_password.toHex());
 
+        QSqlQuery query;
+        query.prepare("UPDATE EMPLOYEES SET PASSWORD = :PASSWORD WHERE LOGIN LIKE :LOGIN");
+        query.bindValue(":LOGIN",login);
+        query.bindValue(":PASSWORD",hashed_password_string);
+        if (query.exec()){
+            ui->label_3->hide();
+            ui->label_4->hide();
+            ui->label_5->hide();
+            ui->label_6->hide();
+            ui->lineEdit->hide();
+            ui->lineEdit_password_2->hide();
+            ui->lineEdit_code->hide();
+            ui->pushButton_2->hide();
+
+            ui->label->show();
+            ui->label_2->show();
+            ui->lineEdit_login->show();
+            ui->lineEdit_password->show();
+            ui->pushButton->show();
+            ui->pushButton__login->show();
+            ui->lineEdit_password->setText("");
+        }
+    }else{
+        QMessageBox::warning(nullptr, QObject::tr("Not OK"),
+                    QObject::tr("Password confirmation failed.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
     }
 
 }else{
