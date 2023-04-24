@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "destitute.h"
+#include "capteur.h"
+#include "donation.h"
+
 #include <QMessageBox>
 #include <QSqlError>
 #include <QRegularExpression>
@@ -47,64 +50,20 @@ MainWindow::MainWindow(QWidget *parent)
     ui->quickWidget->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
     ui->quickWidget->show();
 
-/*
-    // Create a QQuickView to display the QML content
-        QQuickView *view = new QQuickView();
-        view->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
-       // view.show();
-        if (view->status() == QQuickView::Error) {
-            qDebug() << "Error loading QML file:" << view->errors();
-        } else {
-             qDebug() << "QML file loaded";
-        // Create a widget to contain the QQuickView
-        QWidget *container = QWidget::createWindowContainer(view, this);
+    int ret=C.connect_arduino();
+    qDebug() <<"ret="<<ret;
+    switch(ret){
+    case(0):qDebug()<<"Arduino is available and connected to : "<< C.getarduino_port_name();
+        break;
+    case(1):qDebug()<<"Arduino is available but not connected to : "<< C.getarduino_port_name();
+        break;
+    case(-1):qDebug()<<"Arduino is not available ";
+    }
 
-        // Create a layout for the container widget
-        QVBoxLayout *layout = new QVBoxLayout(ui->centalWidgetM);
-        layout->addWidget(container);
-
-}*/
-   // ui->quickMap->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
-   // ui->quickMap->show();
-   // ui->map->show();
-    /*QQuickView view;
-        view.setResizeMode(QQuickView::SizeRootObjectToView);
-        view.setSource(QUrl("qrc:/main.qml"));
-        view.show();
+    QObject::connect(C.getserial(),SIGNAL(readyRead()),this,SLOT(Read()));
 
 
-        // Get a pointer to the map item
-            QQuickItem *mapItem = view.rootObject()->findChild<QQuickItem*>("mapItem");
-      //  QtQuick::QQuickItem *mapItem = view.rootObject()->findChild<QtQuick::QQuickItem*>("mapItem");
 
-            // Pin a location on the map
-            QString locationString = "Paris, France";
-            De.pinLocationOnMap(mapItem, locationString);
-            */
-/*
-    QPieSeries *series = new QPieSeries();
-        series->setHoleSize(0.35);
-        series->append("Protein 4.28%", 4.28);
-        QPieSlice *slice = series->append("Fat 15.6%", 15.6);
-
-        slice->setExploded();
-        slice->setLabelVisible();
-        series->append("Other 23.8%", 23.8);
-        series->append("Other 56.4%", 56.4);
-
-
-        QChart *chart = new QChart();
-        chart->addSeries(series);
-        chart->setAnimationOptions(QChart::SeriesAnimations);
-        chart->setTitle("Donut Chart Example");
-        chart->setTheme(QChart::ChartThemeBlueCerulean);
-
-
-        QChartView *chartview = new QChartView(chart);
-        chartview->setRenderHint(QPainter::Antialiasing);
-
-        chartview->setParent(ui->stats);
-        */
 }
 
 MainWindow::~MainWindow()
@@ -112,6 +71,72 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::Read()
+{
+   data= C.read_from_arduino();
+   //qDebug()<<"dataaaa:"<<data;
+   /*QStringList values = QString(data).split("/");
+   if (values.length() == 2) {
+       float value1 = values.at(0).toFloat();
+       float value2 = values.at(1).toFloat();
+       qDebug() << "Received values:" << value1 << value2;
+   }*/
+   /*QStringList values = QString(data).trimmed().split("/");
+   if (values.size() == 2) {
+       float value1 = values[0].toFloat();
+       float value2 = values[1].toFloat();
+       */
+   //float value = data.toFloat();
+   //qDebug()<<"value:"<<value;
+     //  qDebug() << "Received values:" << value1 << value2;
+
+       if(data=="1")
+       {
+           // Generate the next ID
+                   QSqlQuery query("SELECT MAX(donation_id) FROM donations");
+                   query.next();
+                   QString lastId = query.value(0).toString();
+                   int nextIndex = lastId.isEmpty() ? 1 : lastId.right(3).toInt() + 1;  // extract the numeric part of the ID and increment it
+                   QString donation_id = "DON" + QString("%1").arg(nextIndex, 3, 10, QChar('0')); // create the new ID
+
+
+                //setting default values
+               double amount=0;
+           int quantity=0;
+           //ui->le_id->hide();
+
+           //QString donation_id=ui->le_id->text();
+           QString category_name = "clothes";
+           QString name="Unkown";
+           QString phone_number="Unkown";
+           QString description="Unkown";
+
+           donation D(donation_id,category_name,name,description,amount,quantity,phone_number);
+           bool test=D.ajouter();
+           if(test)
+           {
+               //Refresh (actualiser)
+               // ui->tab_donation->setModel(Etmp.afficher());
+
+           //QMessageBox::information(nullptr, QObject::tr("OK"),
+          // QObject::tr("Ajout effectué\n"
+                       // "Click cancel to exit."),QMessageBox::Cancel);
+               qDebug()<<"added";
+           }
+           else
+           QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
+           QObject::tr("Ajout non effectué\n"
+                        "Click cancel to exit."),QMessageBox::Cancel);
+       }
+  /*
+   float value = data.toFloat();
+   qDebug()<<"value:"<<value;
+   float x=6;//3ordh boite
+   if(value<x)
+   {
+       //add dons
+   }*/
+}
 void MainWindow::centerAndResize() {
 
    // get the dimension available on this screen

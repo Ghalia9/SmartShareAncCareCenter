@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QMainWindow>
 #include <destitute.h>
+#include <capteur.h>
 
 #include<QtCharts>
 #include<QChartView>
@@ -25,6 +26,7 @@ public:
     ~MainWindow();
     void centerAndResize();
 
+
 private slots:
     void on_pb_add_clicked();
 
@@ -44,8 +46,14 @@ private slots:
 
     void on_listQR_activated(const QModelIndex &index);
 
+    void Read();
+
+
 private:
     Ui::MainWindow *ui;
     Destitute De;
+
+    QByteArray data;
+     Capteur C;
 };
 #endif // MAINWINDOW_H

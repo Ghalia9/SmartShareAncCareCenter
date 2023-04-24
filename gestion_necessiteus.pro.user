@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.0, 2023-04-13T00:57:36. -->
+<!-- Written by QtCreator 4.11.0, 2023-04-24T01:15:53. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -287,8 +287,9 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/projet_center/gestion_necessiteus/gestion_necessiteus.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/projet_center/gestion_necessiteus/gestion_necessiteus.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">gestion_necessiteus2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/ProjetCpp/gestion_necessiteus.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/ProjetCpp/gestion_necessiteus.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -296,8 +297,8 @@
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseMultiProcess">false</value>
-    <value type="bool" key="RunConfiguration.UseQmlDebugger">true</value>
-    <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">false</value>
+    <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
+    <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
     <value type="QString" key="RunConfiguration.WorkingDirectory.default">D:/projet_center/build-gestion_necessiteus-Desktop_Qt_5_9_9_MinGW_32bit-Debug</value>
    </valuemap>

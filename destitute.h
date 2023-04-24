@@ -61,6 +61,7 @@ public:
     QImage generateQRCode(QString);
     QString getData(QString);
     void pinLocationOnMap(QQuickItem *mapItem, const QString &locationString);
+
 };
 
 #endif // DESTITUTE_H

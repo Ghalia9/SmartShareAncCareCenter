@@ -5,6 +5,8 @@ QT += quick
 QT += widgets
 QT += quickwidgets
 
+QT += serialport
+
 QT       += core gui printsupport charts
 
 include(QZXing/QZXing.pri)  #sets up the library for your project.
@@ -35,14 +37,18 @@ LIBS +=  -L$$PWD/openssl/libssl.lib
 
 ######################################################
 SOURCES += \
+    capteur.cpp \
     connection.cpp \
     destitute.cpp \
+    donation.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    capteur.h \
     connection.h \
     destitute.h \
+    donation.h \
     mainwindow.h
 
 FORMS += \
