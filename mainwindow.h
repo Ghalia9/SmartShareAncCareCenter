@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "employee.h"
+#include "rfid.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -34,8 +35,13 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void Read();
+
 private:
     Ui::MainWindow *ui;
     employee etmp;
+
+    QByteArray Data;
+    RFID C;
 };
 #endif // MAINWINDOW_H

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "employee.h"
 #include "todolistwidget.h"
+
 #include <QMessageBox>
 #include <QtSql>
 #include <QDebug>
@@ -72,6 +73,27 @@ CToDoList* toDoListWidget= new  CToDoList();//creating new instance for the to d
 ui->tabWidget->addTab(toDoListWidget, "To-Do List");
 ui->lineEdit_id_4->hide();
 ui->pushButton_clear->hide();
+
+
+int ret=C.connect_arduino();
+    qDebug() <<"ret="<<ret;
+    switch(ret){
+    case(0):qDebug()<<"Arduino is available and connected to : "<< C.getarduino_port_name();
+        break;
+    case(1):qDebug()<<"Arduino is available but not connected to : "<< C.getarduino_port_name();
+        break;
+    case(-1):qDebug()<<"Arduino is not available ";
+    }
+
+    QObject::connect(C.getserial(),SIGNAL(readyRead()),this,SLOT(Read()));
+
+
+}
+void MainWindow::Read(){
+
+   Data= C.read_from_arduino();
+   qDebug()<<"dataaaa:"<<Data;
+      //do sthg
 }
 
 MainWindow::~MainWindow()

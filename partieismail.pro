@@ -1,5 +1,5 @@
 QT       += core gui printsupport charts
-QT += sql
+QT += sql network serialport
 
 CONFIG += c++11
 
@@ -21,6 +21,8 @@ SOURCES += \
     loginpage.cpp \
     main.cpp \
     mainwindow.cpp \
+    rfid.cpp \
+    smtp.cpp \
     todolistwidget.cpp
 
 HEADERS += \
@@ -29,6 +31,8 @@ HEADERS += \
     ghalia.h \
     loginpage.h \
     mainwindow.h \
+    rfid.h \
+    smtp.h \
     todolistwidget.h
 
 FORMS += \
