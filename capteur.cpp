@@ -40,25 +40,14 @@ int Capteur::connect_arduino()
        // serial.setPortName(arduino_port_name);
         serial->setPortName(arduino_port_name);
 
-    if(serial->open (QSerialPort::ReadWrite)){
-
-    /*serial.setBaudRate (QSerialPort::Baud9600); // débit: 9680 bits/s
-
-    serial.setDataBits (QSerialPort::Data8); //Longueur des données : 8 bits, serial->setParity (QSerialPort::NoParity); //1 bit de parité optionnel serial->setStopBits (QSerialPort::OneStop); //Nombre de bits de stop: 1 serial->setFlowControl (QSerialPort::NoFlowControl);
-
-    serial.setParity(QSerialPort::NoParity);
-
-    serial.setStopBits(QSerialPort::OneStop);
-
-    serial.setFlowControl(QSerialPort::NoFlowControl);
-*/
+        if(serial->open (QSerialPort::ReadWrite)){ //ouvrir la communication en mode read_write
         serial->setBaudRate(QSerialPort::Baud9600);
         serial->setDataBits(QSerialPort::Data8);
-        serial->setParity(QSerialPort::NoParity);
-        serial->setStopBits(QSerialPort::OneStop);
+        serial->setParity(QSerialPort::NoParity);//pas de bite de parité
+        serial->setStopBits(QSerialPort::OneStop);//1bit de stop
         serial->setFlowControl(QSerialPort::NoFlowControl);
-    return 0;
-}
+        return 0;
+    }
     return 1;
     }
     return -1;
@@ -80,16 +69,14 @@ QByteArray Capteur::read_from_arduino()
     qDebug()<<"haaaaaaaaaaaaaaaaaaa";
     */
     if(serial->isReadable()){
-        qDebug()<<"haaaaaaaaaaaaaaaaaaa2";
         data=serial->readAll();
-        //data = serial->readLine();
         qDebug()<<"received:"<<data;
 
         return data;
     }
 }
 
-int Capteur::write_to_arduino(QByteArray d)
+void Capteur::write_to_arduino(QByteArray d)
 {
     if(serial->isWritable()){
         serial->write(d);

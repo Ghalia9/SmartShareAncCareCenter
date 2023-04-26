@@ -11,7 +11,7 @@ public:
 
     int close_arduino(); // permet de femer la connexion
 
-    int write_to_arduino ( QByteArray ); // envoyer des données vers arduino QByteArray read_from_arduino(); //recevoir des données de la carte Arduino QSerialPort getserial(); // accesseur
+    void write_to_arduino ( QByteArray ); // envoyer des données vers arduino QByteArray read_from_arduino(); //recevoir des données de la carte Arduino QSerialPort getserial(); // accesseur
 
     QByteArray read_from_arduino();
 
