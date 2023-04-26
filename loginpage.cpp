@@ -121,8 +121,6 @@ void loginpage::on_pushButton__login_clicked()
            mainwindowshowen = mainWindow->isVisible();
            }
            else if (fct == "Destitute Manager"){
-//ghalia *ghaliap = new ghalia();
-//ghaliap->showMaximized();
                Destitute *ghaliap = new Destitute();
                ghaliap->showMaximized();
 
