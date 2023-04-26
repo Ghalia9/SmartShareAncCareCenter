@@ -1,5 +1,7 @@
 #include "loginpage.h"
-#include "ghalia.h"
+//#include "ghalia.h"
+#include "rfid.h"
+#include "destitute.h"
 #include "ui_loginpage.h"
 #include "employee.h"
 #include <QMessageBox>
@@ -9,6 +11,7 @@
 #include <QDebug>
 #include <QSqlQuery>
 int s=rand()%10000;
+bool mainwindowshowen=false;
 loginpage::loginpage(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::loginpage)
@@ -27,6 +30,17 @@ loginpage::loginpage(QWidget *parent) :
     ui->pushButton_2->hide();
 
 
+    int ret=C.connect_arduino();
+        qDebug() <<"ret="<<ret;
+        switch(ret){
+        case(0):qDebug()<<"Arduino is available and connected to : "<< C.getarduino_port_name();
+            break;
+        case(1):qDebug()<<"Arduino is available but not connected to : "<< C.getarduino_port_name();
+            break;
+        case(-1):qDebug()<<"Arduino is not available ";
+        }
+
+        QObject::connect(C.getserial(),SIGNAL(readyRead()),this,SLOT(card()));
 
 }
 
@@ -35,6 +49,51 @@ loginpage::~loginpage()
     delete ui;
 }
 
+
+void loginpage::card (){
+    int i;
+    QString cardid = C.read_from_arduino();
+
+    if (cardid != ""){
+    QSqlQuery query;
+    query.prepare("SELECT * FROM employees WHERE card_id = :cardid");
+    query.bindValue(":cardid", cardid);
+    bool success = query.exec();
+    if (success && query.next()) {
+i = C.write_to_arduino("true");
+        this->hide();
+        //here we will open window by function
+        QString fct =  query.value(5).toString();
+        QString name = query.value(3).toString();
+        //send to arduino
+
+        i = C.write_to_arduino(name);
+
+        if (fct == "Administrator" && !mainwindowshowen){
+
+        MainWindow *mainWindow = new MainWindow();
+
+        mainWindow->showMaximized();
+        mainwindowshowen = mainWindow->isVisible();
+
+        qDebug()<<mainwindowshowen;}
+
+        else if (fct == "Destitute Manager"){
+
+            Destitute *ghaliap = new Destitute();
+            ghaliap->showMaximized();
+        }
+    } else {
+        // Login failed
+        i = C.write_to_arduino("false");
+        qDebug()<<mainwindowshowen;
+                  if (!mainwindowshowen){
+        QMessageBox::warning(this, "Login", "Card not recognized!");
+                  }
+    }
+
+}
+}
 void loginpage::on_pushButton__login_clicked()
 {
        QString username = ui->lineEdit_login->text();
@@ -55,17 +114,24 @@ void loginpage::on_pushButton__login_clicked()
            this->hide();
            //here we will open window by function
            QString fct =  query.value(5).toString();
+
            if (fct == "Administrator"){
            MainWindow *mainWindow = new MainWindow();
-           mainWindow->showMaximized();}
+           mainWindow->showMaximized();
+           mainwindowshowen = mainWindow->isVisible();
+           }
            else if (fct == "Destitute Manager"){
-ghalia *ghaliap = new ghalia();
-ghaliap->showMaximized();
+//ghalia *ghaliap = new ghalia();
+//ghaliap->showMaximized();
+               Destitute *ghaliap = new Destitute();
+               ghaliap->showMaximized();
 
            }
        } else {
            // Login failed
+
            QMessageBox::warning(this, "Login", "Invalid login credentials!");
+
        }
 
 }

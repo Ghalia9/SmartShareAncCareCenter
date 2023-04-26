@@ -16,8 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     connection.cpp \
+    destitute.cpp \
     employee.cpp \
-    ghalia.cpp \
     loginpage.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -27,8 +27,8 @@ SOURCES += \
 
 HEADERS += \
     connection.h \
+    destitute.h \
     employee.h \
-    ghalia.h \
     loginpage.h \
     mainwindow.h \
     rfid.h \
@@ -36,7 +36,7 @@ HEADERS += \
     todolistwidget.h
 
 FORMS += \
-    ghalia.ui \
+    destitute.ui \
     loginpage.ui \
     mainwindow.ui
 

@@ -16,6 +16,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    bool showen = false;
+
 private slots:
     void on_pushButton_6_clicked();
 
@@ -37,11 +39,13 @@ private slots:
 
     void Read();
 
+    void on_pushButton_logout_clicked();
+
 private:
     Ui::MainWindow *ui;
     employee etmp;
 
-    QByteArray Data;
+    QString Data;
     RFID C;
 };
 #endif // MAINWINDOW_H

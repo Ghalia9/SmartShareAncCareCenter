@@ -6,6 +6,7 @@ RFID::RFID()
     arduino_port_name="";
     arduino_is_available=false;
     serial=new QSerialPort;
+SerialBuffer="";
 }
 
 QString RFID::getarduino_port_name()
@@ -15,6 +16,7 @@ QString RFID::getarduino_port_name()
 
 QSerialPort* RFID::getserial()
 {
+    qDebug()<<"getting serial now";
     return serial;
 }
 int RFID::connect_arduino()
@@ -127,29 +129,28 @@ QByteArray Capteur::read_from_arduino()
 }
 */
 
-QByteArray RFID::read_from_arduino()
-{/*
-    QSerialPort *serial =getserial();
-    qDebug()<<"serial:"<<serial;
-    qDebug()<<"haaaaaaaaaaaaaaaaaaa";
-    */
-    if(serial->isReadable()){
-        qDebug()<<"haaaaaaaaaaaaaaaaaaa2";
-        data=serial->readAll();
-        //data = serial->readLine();
-        qDebug()<<"received:"<<data;
-
-        return data;
+QString RFID::read_from_arduino()
+{
+    SerialData = serial->readAll();
+    SerialBuffer += QString(SerialData).trimmed();
+    if (SerialBuffer.length() >= 8) {
+        QString completeCardID = SerialBuffer.left(8);
+        qDebug() << "Received data: " << completeCardID;
+        SerialBuffer.remove(0, 20);
+        return completeCardID;
     }
+    return "";
 }
-int RFID::write_to_arduino(QByteArray d)
+
+int RFID::write_to_arduino(QString d)
 {
     if(serial->isWritable()){
-        serial->write(d);
+        QByteArray dataBytes = d.toUtf8();
+       serial->write(dataBytes);
     }else{
         qDebug()<<"Couldn't write to serial!";
     }
-
+return 1;
 }
 /*
 QString Capteur::getarduino_port_name()

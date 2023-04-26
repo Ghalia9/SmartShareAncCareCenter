@@ -1,8 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "employee.h"
+#include "loginpage.h"
 #include "todolistwidget.h"
-
+#include "rfid.h"
 #include <QMessageBox>
 #include <QtSql>
 #include <QDebug>
@@ -23,7 +24,8 @@
 #include <QPieSlice>
 #include <QRegularExpression>
 #include <QCryptographicHash>
-
+#include <QThread>
+#include <QTimer>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -75,24 +77,27 @@ ui->lineEdit_id_4->hide();
 ui->pushButton_clear->hide();
 
 
-int ret=C.connect_arduino();
-    qDebug() <<"ret="<<ret;
-    switch(ret){
-    case(0):qDebug()<<"Arduino is available and connected to : "<< C.getarduino_port_name();
-        break;
-    case(1):qDebug()<<"Arduino is available but not connected to : "<< C.getarduino_port_name();
-        break;
-    case(-1):qDebug()<<"Arduino is not available ";
-    }
+//int ret=C.connect_arduino();
+//    qDebug() <<"ret="<<ret;
+//    switch(ret){
+//    case(0):qDebug()<<"Arduino is available and connected to : "<< C.getarduino_port_name();
+//        break;
+//    case(1):qDebug()<<"Arduino is available but not connected to : "<< C.getarduino_port_name();
+//        break;
+//    case(-1):qDebug()<<"Arduino is not available ";
+//    }
 
-    QObject::connect(C.getserial(),SIGNAL(readyRead()),this,SLOT(Read()));
+//    QObject::connect(C.getserial(),SIGNAL(readyRead()),this,SLOT(Read()));
 
 
 }
 void MainWindow::Read(){
 
-   Data= C.read_from_arduino();
-   qDebug()<<"dataaaa:"<<Data;
+   Data = C.read_from_arduino();
+
+//   Data = Data.trimmed();
+//   Data.replace("\x00","");
+//   qDebug()<<"dataaaa:"<<Data;
       //do sthg
 }
 
@@ -208,6 +213,7 @@ void MainWindow::on_tableView_activated(const QModelIndex &index)
         while(qry.next()){
         ui->lineEdit_id_4->setText(qry.value(0).toString());
 ui->lineEdit_iddelete->setText(qry.value(0).toString());
+ui->lineEdit_idempcard->setText(qry.value(0).toString());
         ui->lineEdit_lastname_4->setText(qry.value(1).toString());
         ui->lineEdit_firstname_4->setText(qry.value(2).toString());
         ui->lineEdit_login_4->setText(qry.value(3).toString());
@@ -308,10 +314,36 @@ void MainWindow::on_pushButton_clear_clicked()
     ui->lineEdit_password_4->clear();
 ui->lineEdit_contact_4->clear();
     ui->doubleSpinBox->clear();
+    ui->lineEdit_idempcard->clear();
 }
 
 void MainWindow::on_pushButton_4_clicked()
 {
+    QString employeeid=ui->lineEdit_idempcard->text();
+    QString cardid=ui->lineEdit_idcard->text();
+
+    QSqlQuery query;
+    query.prepare("UPDATE EMPLOYEES SET CARD_ID = :CARDID WHERE EMPLOYEE_ID like :id");
+    query.bindValue(":id",employeeid);
+    query.bindValue(":CARDID",cardid);
+    if (query.exec()){
+
+ui->tableView->setModel(etmp.afficher());
+QTimer time;
+ui->label_cardadded->setText("Card added successfuly");
+time.setSingleShot(true);
+QObject::connect(&time, &QTimer::timeout,ui->label_cardadded, &QLabel::clear);
+time.start(2000);
+    }else{
+        qDebug()<<query.lastError().text();
+    }
 
 }
 
+
+void MainWindow::on_pushButton_logout_clicked()
+{
+    this->hide();
+loginpage *l =new  loginpage();
+l->show();
+}
