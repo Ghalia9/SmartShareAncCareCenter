@@ -145,7 +145,7 @@ QChart *ThemeWidget::createPieChart() const
     qreal pieSize = 10.0;
     QPieSeries *series = new QPieSeries(chart);
 
-    // Get the sum of budgets and collections from the Collects table
+    // Get the sum of budgets and collections from the donations table
     QSqlQuery queryDonations("SELECT SUM(AMOUNT) FROM DONATIONS");
     QSqlQuery queryCollections("SELECT SUM(COLLECTIONS) FROM COLLECTS");
 

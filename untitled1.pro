@@ -14,6 +14,7 @@ QT += qml quick sql
 QT += charts
 QT += quickwidgets
 QT += sql widgets printsupport
+QT       += serialport
 
 
 
@@ -37,6 +38,7 @@ CONFIG += c++11
 
 SOURCES += \
     Connection.cpp \
+    arduino.cpp \
     dialog.cpp \
     donation.cpp \
         main.cpp \
@@ -45,6 +47,7 @@ SOURCES += \
 
 HEADERS += \
     Connection.h \
+    arduino.h \
     dialog.h \
     donation.h \
         mainwindow.h \
@@ -57,3 +60,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    res.qrc

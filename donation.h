@@ -19,7 +19,7 @@ class donation
     double amount;
     public:
     donation(){}
-    donation(QString,QString,QString,QString,double,int,QString);
+    donation(QString,QString,QString,QString,int,double,QString);
     //Getters
     QString getDonationID(){return donation_id;}
     QString getCategoryName(){return category_name;}

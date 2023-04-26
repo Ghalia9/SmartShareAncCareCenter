@@ -18,14 +18,14 @@
 
 
 
-donation::donation(QString donation_id,QString category_name,QString name,QString description,double amount,int quantity,QString phone_number)
+donation::donation(QString donation_id,QString category_name,QString name,QString description,int quantity,double amount,QString phone_number)
 {
     this->donation_id=donation_id;
     this->category_name=category_name;
     this->name=name;
     this->description=description;
-    this->amount=amount;
     this->quantity=quantity;
+    this->amount=amount;
     this->phone_number=phone_number;
 
 
@@ -62,8 +62,8 @@ QSqlQueryModel * donation::afficher()
     model->setHeaderData(1,Qt::Horizontal,QObject::tr("CATEGORY_NAME"));
     model->setHeaderData(2,Qt::Horizontal,QObject::tr("NAME"));
     model->setHeaderData(3,Qt::Horizontal,QObject::tr("DESCRIPTION"));
-    model->setHeaderData(4,Qt::Horizontal,QObject::tr("AMOUNT"));
-    model->setHeaderData(5,Qt::Horizontal,QObject::tr("QUANTITY"));
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("QUANTITY"));
+    model->setHeaderData(5,Qt::Horizontal,QObject::tr("AMOUNT"));
     model->setHeaderData(6,Qt::Horizontal,QObject::tr("PHONE NUMBER"));
 
     return model;
@@ -105,9 +105,9 @@ QSqlQueryModel* donation ::rechercherID(QString recherche)
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("category_name"));
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("name"));
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("description"));
-    model->setHeaderData(5, Qt::Horizontal, QObject::tr("quantity"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("quantity"));
 
-    model->setHeaderData(4, Qt::Horizontal, QObject::tr("amount"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("amount"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("phone_number"));
 
     return model;
@@ -122,9 +122,9 @@ QSqlQueryModel * donation::sortID()
   model->setHeaderData(1, Qt::Horizontal, QObject::tr("category_name"));
   model->setHeaderData(2, Qt::Horizontal, QObject::tr("name"));
   model->setHeaderData(3, Qt::Horizontal, QObject::tr("description"));
-  model->setHeaderData(5, Qt::Horizontal, QObject::tr("quantity"));
+  model->setHeaderData(4, Qt::Horizontal, QObject::tr("quantity"));
 
-  model->setHeaderData(4, Qt::Horizontal, QObject::tr("amount"));
+  model->setHeaderData(5, Qt::Horizontal, QObject::tr("amount"));
   model->setHeaderData(6, Qt::Horizontal, QObject::tr("phone_number"));
   return model;
 
@@ -137,9 +137,9 @@ QSqlQueryModel * donation::sortCategoryName()
   model->setHeaderData(1, Qt::Horizontal, QObject::tr("category_name"));
   model->setHeaderData(2, Qt::Horizontal, QObject::tr("name"));
   model->setHeaderData(3, Qt::Horizontal, QObject::tr("description"));
-  model->setHeaderData(5, Qt::Horizontal, QObject::tr("quantity"));
+  model->setHeaderData(4, Qt::Horizontal, QObject::tr("quantity"));
 
-  model->setHeaderData(4, Qt::Horizontal, QObject::tr("amount"));
+  model->setHeaderData(5, Qt::Horizontal, QObject::tr("amount"));
   model->setHeaderData(6, Qt::Horizontal, QObject::tr("phone_number"));
   return model;
 
@@ -156,9 +156,9 @@ QSqlQueryModel* donation::rechercherCategoryName(QString recherche)
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("category_name"));
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("name"));
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("description"));
-    model->setHeaderData(5, Qt::Horizontal, QObject::tr("quantity"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("quantity"));
 
-    model->setHeaderData(4, Qt::Horizontal, QObject::tr("amount"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("amount"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("phone_number"));
     return model;
 }
@@ -172,9 +172,9 @@ QSqlQueryModel* donation::recherchernom(QString recherche)
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("category_name"));
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("name"));
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("description"));
-    model->setHeaderData(5, Qt::Horizontal, QObject::tr("quantity"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("quantity"));
 
-    model->setHeaderData(4, Qt::Horizontal, QObject::tr("amount"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("amount"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("phone_number"));
     return model;
 }
@@ -190,9 +190,9 @@ QSqlQueryModel* donation ::rechercherID2(QString recherche)
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("category_name"));
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("name"));
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("description"));
-    model->setHeaderData(5, Qt::Horizontal, QObject::tr("quantity"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("quantity"));
 
-    model->setHeaderData(4, Qt::Horizontal, QObject::tr("amount"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("amount"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("phone_number"));
     return model;
 }

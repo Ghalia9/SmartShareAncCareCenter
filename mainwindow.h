@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "donation.h"
+#include "arduino.h"
 namespace Ui {
 class MainWindow;
 }
@@ -43,9 +44,13 @@ private slots:
 
     void on_pb_catalogue_clicked();
 
+    void on_pushButton5_clicked();
+
 private:
     Ui::MainWindow *ui;
     donation Etmp;
+    QByteArray data;
+    Arduino A;
   //  donation donationObj;
 
 };
