@@ -6,6 +6,7 @@
 #include "smtp.h"
 #include <QMainWindow>
 #include "collects.h"
+#include "arduino.h"
 namespace Ui {
 class MainWindow;
 }
@@ -41,7 +42,7 @@ private slots:
     void on_tab_read_activated(const QModelIndex &index);
 
     void on_calendarWidget_clicked(const QDate &date);
-
+void on_arduino1_clicked();
 private slots:
     void sendMail();
     void mailSent();
@@ -52,6 +53,7 @@ private:
     Collects Etmp;
    // Dialog *dialog;
     QStringList files;
+    Arduino A;
 
 };
 

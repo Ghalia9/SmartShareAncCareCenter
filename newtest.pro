@@ -3,7 +3,7 @@
 # Project created by QtCreator 2018-10-26T21:45:23
 #
 #-------------------------------------------------
-
+QT += serialport
 QT       += core gui sql
 QT       += core gui network
 QT += printsupport
@@ -31,6 +31,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    arduino.cpp \
     collects.cpp \
     dialog.cpp \
         main.cpp \
@@ -40,6 +41,7 @@ SOURCES += \
     themewidget.cpp
 
 HEADERS += \
+    arduino.h \
     collects.h \
     dialog.h \
         mainwindow.h \
