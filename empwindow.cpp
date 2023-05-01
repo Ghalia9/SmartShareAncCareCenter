@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "empwindow.h"
+#include "ui_empwindow.h"
 #include "employee.h"
 #include "loginpage.h"
 #include "todolistwidget.h"
@@ -28,9 +28,9 @@
 #include <QTimer>
 
 
-MainWindow::MainWindow(QWidget *parent)
+empwindow::empwindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::empwindow)
 {
     ui->setupUi(this);
 
@@ -91,7 +91,7 @@ ui->pushButton_clear->hide();
 
 
 }
-void MainWindow::Read(){
+void empwindow::Read(){
 
    Data = C.read_from_arduino();
 
@@ -101,13 +101,13 @@ void MainWindow::Read(){
       //do sthg
 }
 
-MainWindow::~MainWindow()
+empwindow::~empwindow()
 {
     delete ui;
 }
 
 
-void MainWindow::on_pushButton_6_clicked(){
+void empwindow::on_pushButton_6_clicked(){
 
 
     //QString id=ui->lineEdit_id_4->text();
@@ -153,7 +153,7 @@ if(test)
     }
     }
 
-void MainWindow::on_pushButton_5_clicked()
+void empwindow::on_pushButton_5_clicked()
 {
     QString id=ui->lineEdit_iddelete->text();
     bool test=etmp.supprimer(id);
@@ -173,7 +173,7 @@ void MainWindow::on_pushButton_5_clicked()
 }
 
 
-void MainWindow::on_pushButton_edit_clicked()
+void empwindow::on_pushButton_edit_clicked()
 {
     QString id=ui->lineEdit_id_4->text();
     QString nom=ui->lineEdit_lastname_4->text();
@@ -203,7 +203,7 @@ if(test)
                                 "Click Cancel to exit."), QMessageBox::Cancel);
 }
 
-void MainWindow::on_tableView_activated(const QModelIndex &index)
+void empwindow::on_tableView_activated(const QModelIndex &index)
 {
     QString val=index.sibling(index.row(), index.column()).data().toString();
     QSqlQuery qry;
@@ -230,7 +230,7 @@ ui->lineEdit_idempcard->setText(qry.value(0).toString());
 
 }
 
-void MainWindow::on_pushButton_clicked()
+void empwindow::on_pushButton_clicked()
 {
   int res=1;
   QString text=ui->lineEdit_search->text();
@@ -250,7 +250,7 @@ void MainWindow::on_pushButton_clicked()
   ui->tableView->setModel(etmp.rechercher(text,res));
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void empwindow::on_pushButton_2_clicked()
 {
     QString x = ui->comboBox->currentText();
         if (x == "Ascending salary") {
@@ -261,7 +261,7 @@ void MainWindow::on_pushButton_2_clicked()
 
 }
 
-void MainWindow::on_pushButton_3_clicked()
+void empwindow::on_pushButton_3_clicked()
 {
     QString fileName = QFileDialog::getSaveFileName(this, "Save PDF", "example.pdf", "PDF files (*.pdf)");
             if (fileName.isEmpty()) {
@@ -305,7 +305,7 @@ void MainWindow::on_pushButton_3_clicked()
 
 
 
-void MainWindow::on_pushButton_clear_clicked()
+void empwindow::on_pushButton_clear_clicked()
 {
     ui->lineEdit_id_4->clear();
     ui->lineEdit_lastname_4->clear();
@@ -317,7 +317,7 @@ ui->lineEdit_contact_4->clear();
     ui->lineEdit_idempcard->clear();
 }
 
-void MainWindow::on_pushButton_4_clicked()
+void empwindow::on_pushButton_4_clicked()
 {
     QString employeeid=ui->lineEdit_idempcard->text();
     QString cardid=ui->lineEdit_idcard->text();
@@ -341,9 +341,9 @@ time.start(2000);
 }
 
 
-void MainWindow::on_pushButton_logout_clicked()
+void empwindow::on_pushButton_logout_clicked()
 {
     this->hide();
-loginpage *l =new  loginpage();
-l->show();
+//loginpage *l =new  loginpage();
+//l->show();
 }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>empwindow</class>
+ <widget class="QMainWindow" name="empwindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>2181</width>
-    <height>958</height>
+    <height>1043</height>
    </rect>
   </property>
   <property name="palette">

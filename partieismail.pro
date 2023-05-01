@@ -18,9 +18,9 @@ SOURCES += \
     connection.cpp \
     destitute.cpp \
     employee.cpp \
+    empwindow.cpp \
     loginpage.cpp \
     main.cpp \
-    mainwindow.cpp \
     rfid.cpp \
     smtp.cpp \
     todolistwidget.cpp
@@ -29,16 +29,16 @@ HEADERS += \
     connection.h \
     destitute.h \
     employee.h \
+    empwindow.h \
     loginpage.h \
-    mainwindow.h \
     rfid.h \
     smtp.h \
     todolistwidget.h
 
 FORMS += \
     destitute.ui \
-    loginpage.ui \
-    mainwindow.ui
+    empwindow.ui \
+    loginpage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

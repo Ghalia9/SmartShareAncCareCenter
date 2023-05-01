@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "empwindow.h"
 #include "loginpage.h"
 #include <QApplication>
 #include <QMessageBox>
@@ -11,11 +11,11 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 //login window
 
-//  Mainwindow
+//  empwindow
     Connection c;
     bool test=c.createconnect(); //etablir la connexion
     loginpage l;
-    MainWindow w;
+    empwindow w;
     if(test)
     {l.show();
         QMessageBox::information(nullptr, QObject::tr("database is open"),

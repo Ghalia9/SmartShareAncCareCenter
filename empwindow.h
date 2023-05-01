@@ -1,20 +1,21 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef empwindow_H
+#define empwindow_H
+
 #include "employee.h"
 #include "rfid.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class empwindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class empwindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    empwindow(QWidget *parent = nullptr);
+    ~empwindow();
 
     bool showen = false;
 
@@ -42,10 +43,10 @@ private slots:
     void on_pushButton_logout_clicked();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::empwindow *ui;
     employee etmp;
 
     QString Data;
     RFID C;
 };
-#endif // MAINWINDOW_H
+#endif // empwindow_H

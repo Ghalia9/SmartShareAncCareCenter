@@ -5,13 +5,13 @@
 #include "ui_loginpage.h"
 #include "employee.h"
 #include <QMessageBox>
-#include "mainwindow.h"
+#include "empwindow.h"
 #include <QCryptographicHash>
 #include "smtp.h"
 #include <QDebug>
 #include <QSqlQuery>
 int s=rand()%10000;
-bool mainwindowshowen=false;
+bool empwindowshowen=false;
 loginpage::loginpage(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::loginpage)
@@ -69,14 +69,14 @@ i = C.write_to_arduino("true");
 
         i = C.write_to_arduino(name);
 
-        if (fct == "Administrator" && !mainwindowshowen){
+        if (fct == "Administrator" && !empwindowshowen){
 
-        MainWindow *mainWindow = new MainWindow();
+        empwindow *emp = new empwindow();
 
-        mainWindow->showMaximized();
-        mainwindowshowen = mainWindow->isVisible();
+        emp->showMaximized();
+        empwindowshowen = emp->isVisible();
 
-        qDebug()<<mainwindowshowen;}
+        qDebug()<<empwindowshowen;}
 
         else if (fct == "Destitute Manager"){
 
@@ -86,8 +86,8 @@ i = C.write_to_arduino("true");
     } else {
         // Login failed
         i = C.write_to_arduino("false");
-        qDebug()<<mainwindowshowen;
-                  if (!mainwindowshowen){
+        qDebug()<<empwindowshowen;
+                  if (!empwindowshowen){
         QMessageBox::warning(this, "Login", "Card not recognized!");
                   }
     }
@@ -116,9 +116,9 @@ void loginpage::on_pushButton__login_clicked()
            QString fct =  query.value(5).toString();
 
            if (fct == "Administrator"){
-           MainWindow *mainWindow = new MainWindow();
-           mainWindow->showMaximized();
-           mainwindowshowen = mainWindow->isVisible();
+           empwindow *emp = new empwindow();
+           emp->showMaximized();
+           empwindowshowen = emp->isVisible();
            }
            else if (fct == "Destitute Manager"){
                Destitute *ghaliap = new Destitute();
