@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "destituteWindow.h"
+#include "ui_destituteWindow.h"
 #include "destitute.h"
 #include "capteur.h"
 #include "donation.h"
@@ -36,9 +36,9 @@
 //web
 #include <QApplication>
 //#include <QWebEngineView>
-MainWindow::MainWindow(QWidget *parent)
+destituteWindow::destituteWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::destituteWindow)
 {
     ui->setupUi(this);
     ui->showtab->setModel(De.Show());
@@ -66,12 +66,12 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
-MainWindow::~MainWindow()
+destituteWindow::~destituteWindow()
 {
     delete ui;
 }
 
-void MainWindow::Read()
+void destituteWindow::Read()
 {
    data= C.read_from_arduino();//clothes
        if(data=="1")
@@ -91,7 +91,7 @@ void MainWindow::Read()
            //ui->le_id->hide();
 
            //QString donation_id=ui->le_id->text();
-           QString category_name = "clothes";
+           QString category_name = "Vetements";
            QString name="Unkown";
            QString phone_number="Unkown";
            QString description="Unkown";
@@ -131,7 +131,7 @@ void MainWindow::Read()
            //ui->le_id->hide();
 
            //QString donation_id=ui->le_id->text();
-           QString category_name = "food";
+           QString category_name = "Nourritures";
            QString name="Unkown";
            QString phone_number="Unkown";
            QString description="Unkown";
@@ -162,7 +162,7 @@ void MainWindow::Read()
        //add dons
    }*/
 }
-void MainWindow::centerAndResize() {
+void destituteWindow::centerAndResize() {
 
    // get the dimension available on this screen
    QSize availableSize = qApp->desktop()->availableGeometry().size();
@@ -183,7 +183,7 @@ void MainWindow::centerAndResize() {
    );
 }
 
-void MainWindow::on_pb_add_clicked()
+void destituteWindow::on_pb_add_clicked()
 {
    QString fn=ui->the_firstname->text();
    QString ln=ui->the_lastname->text();
@@ -226,7 +226,7 @@ void MainWindow::on_pb_add_clicked()
            QMessageBox::information(nullptr, QObject::tr("OK"),
                        QObject::tr("Added successfuly.\n"
                                    "Click Cancel to exit."), QMessageBox::Cancel);
-           MainWindow w;
+           destituteWindow w;
             ui->pb_clear->click();
           // w.on_pb_clear_clicked();
 
@@ -249,7 +249,7 @@ void MainWindow::on_pb_add_clicked()
 
 }
 
-void MainWindow::on_pb_delete_clicked()
+void destituteWindow::on_pb_delete_clicked()
 {
     ui->the_id->setEnabled(true);
     QString id=ui->the_id->text();
@@ -261,7 +261,7 @@ void MainWindow::on_pb_delete_clicked()
         QMessageBox::information(nullptr, QObject::tr("OK"),
                     QObject::tr("Deleted successfuly.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
-        MainWindow w;
+        destituteWindow w;
          ui->pb_clear->click();
 
     }
@@ -273,7 +273,7 @@ void MainWindow::on_pb_delete_clicked()
 
 }
 
-void MainWindow::on_pb_update_clicked()
+void destituteWindow::on_pb_update_clicked()
 {
     QString fn=ui->the_firstname->text();
     QString ln=ui->the_lastname->text();
@@ -289,7 +289,7 @@ void MainWindow::on_pb_update_clicked()
          QMessageBox::information(nullptr, QObject::tr("OK"),
                      QObject::tr("Updated successfuly.\n"
                                  "Click Cancel to exit."), QMessageBox::Cancel);
-         MainWindow w;
+         destituteWindow w;
           ui->pb_clear->click();
 
      }
@@ -301,7 +301,7 @@ void MainWindow::on_pb_update_clicked()
 
 }
 
-void MainWindow::on_showtab_activated(const QModelIndex &index)
+void destituteWindow::on_showtab_activated(const QModelIndex &index)
 {
     ui->the_id->setEnabled(false);
     QString val=ui->showtab->model()->data(index).toString();
@@ -333,18 +333,18 @@ void MainWindow::on_showtab_activated(const QModelIndex &index)
 
 
 
-void MainWindow::on_pb_search_clicked()
+void destituteWindow::on_pb_search_clicked()
 {
     QString val=ui->the_search->text();
     ui->showtab->setModel(De.Search(val));
 }
 
-void MainWindow::on_pb_sort_clicked()
+void destituteWindow::on_pb_sort_clicked()
 {
     ui->showtab->setModel(De.Sort());
 }
 
-void MainWindow::on_pb_pdf_clicked()
+void destituteWindow::on_pb_pdf_clicked()
 {
     QString fileName = QFileDialog::getSaveFileName(this, "Save PDF", QDir::homePath(), "PDF files (*.pdf)");
     if (fileName.isEmpty())
@@ -409,7 +409,7 @@ void MainWindow::on_pb_pdf_clicked()
                  }
 }
 
-void MainWindow::on_pb_clear_clicked()
+void destituteWindow::on_pb_clear_clicked()
 {
     ui->the_id->clear();
     ui->the_firstname->clear();
@@ -417,21 +417,40 @@ void MainWindow::on_pb_clear_clicked()
     ui->the_level->clear();
     ui->the_contact->clear();
 }
-/*
-void MainWindow::on_pushButton_clicked()
-{
-    QString id=ui->id->text();
-    QString data=De.getData(id);
-    QImage img=De.generateQRCode(data);
-    ui->qr_code->setPixmap(QPixmap::fromImage(img));
 
-}
-*/
-void MainWindow::on_listQR_activated(const QModelIndex &index)
+void destituteWindow::on_listQR_activated(const QModelIndex &index)
 {
     QString val=ui->listQR->model()->data(index).toString();
      qDebug()<< "VAL= "<<val;
      QString data=De.getData(val);
      QImage img=De.generateQRCode(data);
      ui->qr_code->setPixmap(QPixmap::fromImage(img));
+}
+
+void destituteWindow::on_actiongeneral_triggered()//employee button
+{
+    QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
+                QObject::tr("You are not allowed to this section you need to login as an Admin to access it! :/\n"
+                            "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+void destituteWindow::on_actionDonations_triggered()
+{
+    QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
+                QObject::tr("You are not allowed to this section you need to login as a Donations Manager to access it! :/\n"
+                            "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+void destituteWindow::on_actionServices_triggered()
+{
+    QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
+                QObject::tr("You are not allowed to this section you need to login as a Services Manager to access it! :/\n"
+                            "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+void destituteWindow::on_actionEvents_triggered()
+{
+    QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
+                QObject::tr("You are not allowed to this section you need to login as an Events Manager to access it! :/\n"
+                            "Click Cancel to exit."), QMessageBox::Cancel);
 }

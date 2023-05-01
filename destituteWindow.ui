@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>destituteWindow</class>
+ <widget class="QMainWindow" name="destituteWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -1197,7 +1197,10 @@ background-color: rgb(133, 214, 255);</string>
      <normaloff>:/images/Destitute.png</normaloff>:/images/Destitute.png</iconset>
    </property>
    <property name="text">
-    <string>Distitutes</string>
+    <string>Destitute</string>
+   </property>
+   <property name="toolTip">
+    <string>Destitute</string>
    </property>
   </action>
   <action name="actionAbout">

@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef destituteWindow_H
+#define destituteWindow_H
 #include <QDesktopWidget>
 #include <QDebug>
 #include <QMainWindow>
@@ -14,16 +14,16 @@
 #include <QBarSeries>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class destituteWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class destituteWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    destituteWindow(QWidget *parent = nullptr);
+    ~destituteWindow();
     void centerAndResize();
 
 
@@ -49,11 +49,19 @@ private slots:
     void Read();
 
 
+    void on_actiongeneral_triggered();
+
+    void on_actionDonations_triggered();
+
+    void on_actionServices_triggered();
+
+    void on_actionEvents_triggered();
+
 private:
-    Ui::MainWindow *ui;
+    Ui::destituteWindow *ui;
     Destitute De;
 
     QByteArray data;
      Capteur C;
 };
-#endif // MAINWINDOW_H
+#endif // destituteWindow_H

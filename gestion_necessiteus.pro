@@ -40,19 +40,19 @@ SOURCES += \
     capteur.cpp \
     connection.cpp \
     destitute.cpp \
+    destituteWindow.cpp \
     donation.cpp \
-    main.cpp \
-    mainwindow.cpp
+    main.cpp
 
 HEADERS += \
     capteur.h \
     connection.h \
     destitute.h \
-    donation.h \
-    mainwindow.h
+    destituteWindow.h \
+    donation.h
 
 FORMS += \
-    mainwindow.ui
+    destituteWindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
