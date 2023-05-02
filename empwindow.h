@@ -42,6 +42,8 @@ private slots:
 
     void on_pushButton_logout_clicked();
 
+    void on_actionDistitute_triggered();
+
 private:
     Ui::empwindow *ui;
     employee etmp;

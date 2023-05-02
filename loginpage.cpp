@@ -76,7 +76,7 @@ i = C.write_to_arduino("true");
 
         empwindow *emp = new empwindow();
 
-        emp->showMaximized();
+        emp->show();
         empwindowshowen = emp->isVisible();
 
         qDebug()<<empwindowshowen;}
@@ -84,7 +84,7 @@ i = C.write_to_arduino("true");
         else if (fct == "Destitute Manager"){
 
             destituteWindow *ghaliap = new destituteWindow();
-            ghaliap->showMaximized();
+            ghaliap->show();
         }
     } else {
         // Login failed
@@ -124,12 +124,12 @@ void loginpage::on_pushButton__login_clicked()
                     qDebug()<<fct;
                    if (fct == "Administrator"){
                    empwindow *emp = new empwindow();
-                   emp->showMaximized();
+                   emp->show();
                    empwindowshowen = emp->isVisible();
                    }
                    else if (fct == "Destitute Manager"){
                     destituteWindow *ghaliap = new destituteWindow();
-                     ghaliap->showMaximized();
+                     ghaliap->show();
 
                    }
                } else {

@@ -1,6 +1,7 @@
 #include "empwindow.h"
 #include "ui_empwindow.h"
 #include "employee.h"
+#include "destituteWindow.h"
 #include "loginpage.h"
 #include "todolistwidget.h"
 #include "rfid.h"
@@ -346,4 +347,12 @@ void empwindow::on_pushButton_logout_clicked()
     this->hide();
 //loginpage *l =new  loginpage();
 //l->show();
+}
+
+void empwindow::on_actionDistitute_triggered()
+{
+destituteWindow *Dest = new destituteWindow();
+Dest->showMaximized();
+this->hide();
+
 }
