@@ -41,6 +41,7 @@ SOURCES += \
     destituteWindow.cpp \
     dialog.cpp \
     donation.cpp \
+    donationswindow.cpp \
     employee.cpp \
     empwindow.cpp \
     loginpage.cpp \
@@ -62,6 +63,7 @@ HEADERS += \
     destituteWindow.h \
     dialog.h \
     donation.h \
+    donationswindow.h \
     employee.h \
     empwindow.h \
     loginpage.h \
@@ -76,6 +78,8 @@ FORMS += \
     destitute.ui \
     destituteWindow.ui \
     dialog.ui \
+    donationsmainwindow.ui.autosave \
+    donationswindow.ui \
     empwindow.ui \
     loginpage.ui \
     todolistwidget.ui
@@ -88,8 +92,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     qml.qrc \
     qml.qrc \
+    qml.qrc \
     res.qrc \
     res.qrc \
+    res.qrc \
+    resources.qrc \
     resources.qrc \
     resources.qrc
 
@@ -98,18 +105,27 @@ DISTFILES += \
     Donations.png \
     Employees.png \
     Events.png \
+    Food-PNG-Image.png \
     Services.png \
     Untitled-1-01.png \
+    add.png \
+    burger-savoureux-isole-fond-blanc-restauration-rapide-hamburger-frais-du-boeuf-du-fromage.jpg \
     calendar.qml \
+    clothes.png \
     employeeprofile.png \
+    food.png \
+    logo application.png \
     logo application.png \
     main.qml \
     partieismail.pro.user \
     partieismail.pro.user.b8621b6 \
     partieismail.pro.user.f30694c \
+    partieismail.pro.user.f76aa42 \
+    pates-tagliatelles-aux-tomates-au-poulet.jpg \
     pin.png \
     qsdfg-01.png \
     remove.png \
     sdf1-01.png \
     xxxxxxccccccccccccc-01.png \
-    xxxxxxxxx-01.png
+    xxxxxxxxx-01.png \
+    —Pngtree—hand painted cartoon clothing display_3476811.png

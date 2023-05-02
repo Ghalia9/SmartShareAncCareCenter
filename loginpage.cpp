@@ -1,6 +1,8 @@
 #include "loginpage.h"
 //#include "ghalia.h"
 #include "rfid.h"
+#include "donationswindow.h"
+#include "donation.h"
 #include "destitute.h"
 #include "destituteWindow.h"
 #include "ui_loginpage.h"
@@ -87,6 +89,16 @@ i = C.write_to_arduino("true");
             destituteWindow *ghaliap = new destituteWindow();
             ghaliap->show();
         }
+       else if (fct == "Donations Manager"){
+
+            donationswindow *eyap = new donationswindow();
+            eyap->show();
+        }
+        else if (fct == "Events Manager"){
+        CollectsMainWindow *koussayp = new CollectsMainWindow();
+        koussayp->show();
+
+        }
     } else {
         // Login failed
         i = C.write_to_arduino("false");
@@ -138,6 +150,11 @@ void loginpage::on_pushButton__login_clicked()
                    koussayp->show();
 
                    }
+                   else if (fct == "Donations Manager"){
+
+                        donationswindow *eyap = new donationswindow();
+                        eyap->show();
+                    }
                } else {
                    // Login failed
 
