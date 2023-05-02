@@ -9,6 +9,7 @@
 #include "empwindow.h"
 #include <QCryptographicHash>
 #include "smtp.h"
+#include "CollectsMainWindow.h"
 #include <QDebug>
 #include <QSqlQuery>
 #include <QtSql>
@@ -130,6 +131,11 @@ void loginpage::on_pushButton__login_clicked()
                    else if (fct == "Destitute Manager"){
                     destituteWindow *ghaliap = new destituteWindow();
                      ghaliap->show();
+
+                   }
+                   else if (fct == "Events Manager"){
+                   CollectsMainWindow *koussayp = new CollectsMainWindow();
+                   koussayp->show();
 
                    }
                } else {

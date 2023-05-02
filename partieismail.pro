@@ -32,10 +32,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    CollectsMainWindow.cpp \
+    arduino.cpp \
     capteur.cpp \
+    collects.cpp \
     connection.cpp \
     destitute.cpp \
     destituteWindow.cpp \
+    dialog.cpp \
     donation.cpp \
     employee.cpp \
     empwindow.cpp \
@@ -43,25 +47,38 @@ SOURCES += \
     main.cpp \
     rfid.cpp \
     smtp.cpp \
+    smtpk.cpp \
+    themewidget.cpp \
     todolistwidget.cpp
 
 HEADERS += \
+    CollectsMainWindow.h \
+    RFID_LCD_module.ino \
+    arduino.h \
     capteur.h \
+    collects.h \
     connection.h \
     destitute.h \
     destituteWindow.h \
+    dialog.h \
     donation.h \
     employee.h \
     empwindow.h \
     loginpage.h \
     rfid.h \
     smtp.h \
+    smtpk.h \
+    themewidget.h \
     todolistwidget.h
 
 FORMS += \
+    CollectsMainWindow.ui \
+    destitute.ui \
     destituteWindow.ui \
+    dialog.ui \
     empwindow.ui \
-    loginpage.ui
+    loginpage.ui \
+    todolistwidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -70,5 +87,29 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     qml.qrc \
+    qml.qrc \
     res.qrc \
+    res.qrc \
+    resources.qrc \
     resources.qrc
+
+DISTFILES += \
+    Destitute.png \
+    Donations.png \
+    Employees.png \
+    Events.png \
+    Services.png \
+    Untitled-1-01.png \
+    calendar.qml \
+    employeeprofile.png \
+    logo application.png \
+    main.qml \
+    partieismail.pro.user \
+    partieismail.pro.user.b8621b6 \
+    partieismail.pro.user.f30694c \
+    pin.png \
+    qsdfg-01.png \
+    remove.png \
+    sdf1-01.png \
+    xxxxxxccccccccccccc-01.png \
+    xxxxxxxxx-01.png
