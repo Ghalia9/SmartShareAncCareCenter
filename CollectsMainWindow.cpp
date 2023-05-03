@@ -44,7 +44,8 @@ CollectsMainWindow::CollectsMainWindow(QWidget *parent) :
         case(1):qDebug() << "arduino is available but not connected to :" <<A.getarduino_port_name();
            break;
         case(-1):qDebug() << "arduino is not available";
-        } // QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label())); // permet de lancer
+        }
+        //QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(koussay())); // permet de lancer
      //le slot update_label suite à la reception du signal readyRead (reception des données).
 
     ui->tab_read->setModel(Etmp.afficher());
@@ -88,6 +89,112 @@ CollectsMainWindow::CollectsMainWindow(QWidget *parent) :
 CollectsMainWindow::~CollectsMainWindow()
 {
     delete ui;
+}
+void CollectsMainWindow::koussay()
+{
+    qDebug()<<"pop:22";
+
+    //The Serial library provides functions for sending and receiving data over the serial connection
+      // Read the id from the serial port
+      QString serviceId = "";
+//      if (A.getserial()->isOpen() && A.getserial()->isReadable()) {
+//          QByteArray data = A.getserial()->readLine();
+//          serviceId = QString::fromUtf8(data).trimmed();
+//          qDebug()<<serviceId;
+//      }
+      serviceId=A.read_from_arduino();
+      qDebug()<<"pop:"<<serviceId;
+
+      // Check if the service ID exists in the database
+      QSqlQuery idQuery;
+      idQuery.prepare("SELECT COUNT(*) FROM services WHERE service_id = :id");
+      idQuery.bindValue(":id", serviceId);
+      if (idQuery.exec() && idQuery.next() && idQuery.value(0).toInt() > 0) {
+          // Query the SERVICES table to get the budget of the specified service
+          QSqlQuery serviceQuery;
+          serviceQuery.prepare("SELECT budget, service_name FROM services WHERE service_id = :id");
+          serviceQuery.bindValue(":id", serviceId);
+          if (serviceQuery.exec() && serviceQuery.next()) {
+              double budget = serviceQuery.value(0).toDouble();
+              QString service_name = serviceQuery.value(1).toString();
+
+              if (budget > 0) {
+                  // Query the DONATIONS table to get the sum of donation amounts
+                  QSqlQuery donationQuery;
+                  donationQuery.prepare("SELECT SUM(amount) FROM donations");
+                  if (donationQuery.exec() && donationQuery.next()) {
+                      double donationSum = donationQuery.value(0).toDouble();
+
+                      // Compare the budget to the sum of donation amounts
+                      if (budget > donationSum) {
+                         /* // Send "0" to Arduino if the budget is greater than the sum of donations
+                          QByteArray data("0");
+                          A.write_to_arduino(data);*/
+                          // Send "0" to Arduino if the budget is greater than the sum of donations
+                                                        QByteArray data("0");
+                                                        A.write_to_arduino(data);
+
+                                                        // Ask the user if they want to delete or modify the budget of the service
+                                                        QMessageBox msgBox;
+                                                        msgBox.setText("Budget is greater than sum of donations");
+                                                        msgBox.setInformativeText("Do you want to delete the service or no ?");
+                                                        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                                                        msgBox.setDefaultButton(QMessageBox::No);
+                                                        int ret = msgBox.exec();
+                                                        if (ret == QMessageBox::Yes) {
+                                                            // Delete the service from the database
+                                                            QSqlQuery deleteQuery;
+                                                            deleteQuery.prepare("DELETE FROM services WHERE service_id = :id");
+                                                            deleteQuery.bindValue(":id", serviceId);
+                                                            deleteQuery.exec();
+                                                        } else {
+                                                            msgBox.done(QDialog::Rejected);
+                                                        }
+
+                                                            // Send "0" to Arduino if the budget is greater than the sum of donations
+                      } else {
+                          // Send "1" to Arduino if the budget is less than or equal to the sum of donations
+                          QByteArray data("1");
+                          qDebug()<<"approved";
+                          A.write_to_arduino(data);
+                      }
+                  }
+              } else {
+                  // Query the DONATIONS table to get the sum of donation quantities for the specified service category
+                  QSqlQuery donationQuery;
+                  donationQuery.prepare("SELECT SUM(quantity) FROM donations WHERE category_name = :category");
+                  donationQuery.bindValue(":category", service_name);
+                  if (donationQuery.exec() && donationQuery.next()) {
+                      double qdonationSum = donationQuery.value(0).toDouble();
+
+                      // Query the SERVICES table to get the budget of the specified service
+                      QSqlQuery serviceQuery;
+                      serviceQuery.prepare("SELECT don_quantity FROM services WHERE service_id = :id");
+                      serviceQuery.bindValue(":id", serviceId);
+                      if (serviceQuery.exec() && serviceQuery.next()) {
+                          int don_quantity = serviceQuery.value(0).toDouble();
+
+                          // Compare the service_name to the sum of donation quantities
+                          if (don_quantity > qdonationSum) {
+                              // Send "0" to Arduino if the service_name is greater than the sum of donation quantities
+                              QByteArray data("0");
+                              A.write_to_arduino(data);
+                          } else {
+                              // Send "1" to Arduino if the service_name is less than or equal to the sum of donation quantities
+                              QByteArray data("1");
+                              A.write_to_arduino(data);
+                          }
+                      }
+                  }
+              }
+          }
+      } else {
+          // Send "3" to Arduino if the service ID is not found in the database
+          //qDebug()<<idQuery.lastError();
+          QByteArray data("3");
+          A.write_to_arduino(data);
+      }
+      qDebug()<<"end fct";
 }
 
 void CollectsMainWindow::on_pushButton_ajouter_clicked()

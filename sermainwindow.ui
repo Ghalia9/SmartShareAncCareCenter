@@ -224,17 +224,22 @@ color: rgb(255, 170, 255);</string>
           </property>
           <item>
            <property name="text">
-            <string>Vetements</string>
+            <string>food</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Nourritures</string>
+            <string>blankets</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Argent</string>
+            <string>clothes</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>money</string>
            </property>
           </item>
          </widget>

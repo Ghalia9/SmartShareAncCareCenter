@@ -38,7 +38,7 @@ int Capteur::connect_arduino()
     if(arduino_is_available) { // configuration de la communication (debit...)
    // QSerialPort serial;
        // serial.setPortName(arduino_port_name);
-        serial->setPortName(arduino_port_name);
+        serial->setPortName("COM4");
 
         if(serial->open (QSerialPort::ReadWrite)){ //ouvrir la communication en mode read_write
         serial->setBaudRate(QSerialPort::Baud9600);

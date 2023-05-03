@@ -18,6 +18,7 @@ public:     //méthodes de la classe Arduino
     QSerialPort* getserial();   // accesseur
     QString getarduino_port_name();
     void verification();
+    QString SerialBuffer;
 private:
 QSerialPort * serial; //Cet objet rassemble des informations (vitesse, bits de données, etc.)
 //et des fonctions (envoi, lecture de réception,…) sur ce qu’est une voie série pour Arduino.

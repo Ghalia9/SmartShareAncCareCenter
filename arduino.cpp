@@ -29,7 +29,7 @@ int Arduino::connect_arduino()
                } } }
         qDebug() << "arduino_port_name is :" << arduino_port_name;
         if(arduino_is_available){ // configuration de la communication ( débit...)
-            serial->setPortName(arduino_port_name);
+            serial->setPortName("COM3");
             if(serial->open(QSerialPort::ReadWrite)){
                 serial->setBaudRate(QSerialPort::Baud9600); // débit : 9600 bits/s
                 serial->setDataBits(QSerialPort::Data8); //Longueur des données : 8 bits,
@@ -64,6 +64,14 @@ int Arduino::close_arduino()
 
          return data;
     }
+//     data = serial->readAll();
+//     SerialBuffer += QString(data).trimmed();
+//     if (SerialBuffer.length() >=4) {
+//         QString completeCardID = SerialBuffer.left(4);
+//         qDebug() << "Received data: " << completeCardID;
+//         SerialBuffer.remove(0, 20);
+//         return completeCardID;
+//     }
  }
 
 

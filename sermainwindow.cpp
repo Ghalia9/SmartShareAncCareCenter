@@ -151,9 +151,9 @@ void serMainWindow::on_pushButton_ajouter_clicked()
         }
     } else {  // Check if category_name and serviceName match and Donquantity is less than or equal to quantity sum
         QSqlQuery querySumQuantity;
-        querySumQuantity.prepare("SELECT SUM(quantity) FROM Donations WHERE category_name = :cat AND name = :name");
+        querySumQuantity.prepare("SELECT SUM(quantity) FROM Donations WHERE category_name = :cat ");
         querySumQuantity.bindValue(":cat", Dontype);
-        querySumQuantity.bindValue(":name", serviceName);
+       // querySumQuantity.bindValue(":name", serviceName);
         querySumQuantity.exec();
         querySumQuantity.next();
         int sumQuantity = querySumQuantity.value(0).toInt();
@@ -164,12 +164,29 @@ void serMainWindow::on_pushButton_ajouter_clicked()
 
     if (readyToPost) {
         Service S(IDservice, Dontype, serviceName, Donquantity, budget_S);
-        if (S.ajouter()) {
+        bool success = S.ajouter();
+        if (success) {
             ui->tab_service->setModel(Etmp.afficher());
-
             QMessageBox::information(nullptr, QObject::tr("OK"),
                 QObject::tr("Ajout effectué\n"
                             "Click cancel to exit."), QMessageBox::Cancel);
+
+            // Update the totaldons table
+            QSqlQuery queryUpdateTotal;
+            if (serviceName == "money") {
+                queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :budget WHERE category = 'money'");
+            } else {
+                queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :quantity WHERE category = :service");
+                queryUpdateTotal.bindValue(":service", Dontype);
+            }
+            queryUpdateTotal.bindValue(":budget", budget_S);
+            queryUpdateTotal.bindValue(":quantity", Donquantity);
+            success = queryUpdateTotal.exec();
+            if (!success) {
+                QMessageBox::warning(nullptr, QObject::tr("NOT OK"),
+                    QObject::tr("La mise à jour de la table totaldons a échoué.\n"
+                                "Click cancel to exit."), QMessageBox::Cancel);
+            }
         } else {
             QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
                 QObject::tr("Ajout non effectué\n"

@@ -241,22 +241,22 @@
        </property>
        <item>
         <property name="text">
-         <string>Clothes</string>
+         <string>clothes</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Blankets</string>
+         <string>blankets</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Food</string>
+         <string>food</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Money</string>
+         <string>money</string>
         </property>
        </item>
       </widget>

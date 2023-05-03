@@ -128,12 +128,26 @@ void donationswindow::on_pb_ajouter_clicked()
         QMessageBox::information(nullptr, QObject::tr("OK"), QObject::tr("Ajout effectué\n" "Click cancel to exit."), QMessageBox::Cancel);
 
         // Check if category is "money" and update totaldons table
-        if (category_name == "Money") {
+        if (category_name == "money") {
             QSqlQuery updateQuery;
             updateQuery.prepare("UPDATE totaldons SET total = total + :amount WHERE category = 'money'");
             updateQuery.bindValue(":amount", amount);
             updateQuery.exec();
         }
+        else {
+            QSqlQuery updateQuery;
+            updateQuery.prepare("UPDATE totaldons SET total = total + :quantity WHERE category = :category_name");
+            updateQuery.bindValue(":quantity", quantity);
+            updateQuery.bindValue(":category_name", category_name);
+            updateQuery.exec();
+            if (amount != 0) {
+                   QSqlQuery updateMoneyQuery;
+                   updateMoneyQuery.prepare("UPDATE totaldons SET total = total + :amount WHERE category = 'money'");
+                   updateMoneyQuery.bindValue(":amount", amount);
+                   updateMoneyQuery.exec();
+               }
+        }
+
     }
     else {
         QMessageBox::critical(nullptr, QObject::tr("NOT OK"), QObject::tr("Ajout non effectué\n" "Click cancel to exit."), QMessageBox::Cancel);

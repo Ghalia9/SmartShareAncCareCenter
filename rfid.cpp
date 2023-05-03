@@ -40,7 +40,7 @@ int RFID::connect_arduino()
     if(arduino_is_available) { // configuration de la communication (debit...)
    // QSerialPort serial;
        // serial.setPortName(arduino_port_name);
-        serial->setPortName(arduino_port_name);
+        serial->setPortName("COM5");
 
     if(serial->open (QSerialPort::ReadWrite)){
 
