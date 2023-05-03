@@ -42,6 +42,8 @@ serMainWindow::serMainWindow(QWidget *parent) :
      //le slot update_label suite à la reception du signal readyRead (reception des données).
      ui->tab_service->setModel(Etmp.afficher());
      //ui->le_ID->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{0,255}"), this));
+     ui->le_ID->setReadOnly(true);//le slot update_label suite à la reception du signal readyRead (reception des données).
+
      ui->cb_type->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{0,255}"), this));
      ui->le_name->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{0,255}"), this));
      ui->le_budget->setValidator(new QDoubleValidator(0, 9999999, 3, this));
@@ -125,7 +127,7 @@ void serMainWindow::on_pushButton_ajouter_clicked()
                 "Click cancel to exit."), QMessageBox::Cancel);
         }
     }
-}*/
+}
 void serMainWindow::on_pushButton_ajouter_clicked()
 {
     // Generate the next ID
@@ -198,7 +200,111 @@ void serMainWindow::on_pushButton_ajouter_clicked()
                         "Click cancel to exit."), QMessageBox::Cancel);
     }
 }
+*/
+void serMainWindow::on_pushButton_ajouter_clicked()
+{
+    // Generate the next ID
+    QSqlQuery query("SELECT MAX(IDservice) FROM Services");
+    query.next();
+    QString lastId = query.value(0).toString();
+    int nextIndex = lastId.isEmpty() ? 1 : lastId.right(3).toInt() + 1;  // extract the numeric part of the ID and increment it
+    QString IDservice = "A" + QString("%1").arg(nextIndex, 3, 10, QChar('0')); // create the new ID
 
+    QString Dontype = ui->cb_type->currentText();
+    QString serviceName = ui->le_name->text();
+    int Donquantity = ui->le_qnt->text().toInt();
+    float budget_S = ui->le_budget->text().toDouble();
+
+    // Check if the service is ready to be posted
+    bool readyToPost = false;
+    if (budget_S > 0) {  // Check if budget is positive
+        QSqlQuery querySumAmount("SELECT SUM(amount) FROM Donations");
+        querySumAmount.next();
+        float sumAmount = querySumAmount.value(0).toFloat();
+        if (budget_S <= sumAmount) {
+            readyToPost = true;
+        }
+    } else {  // Check if category_name and serviceName match and Donquantity is less than or equal to quantity sum
+        QSqlQuery querySumQuantity;
+        querySumQuantity.prepare("SELECT SUM(quantity) FROM Donations WHERE category_name = :cat ");
+        querySumQuantity.bindValue(":cat", Dontype);
+       // querySumQuantity.bindValue(":name", serviceName);
+        querySumQuantity.exec();
+        querySumQuantity.next();
+        int sumQuantity = querySumQuantity.value(0).toInt();
+        if (Donquantity <= sumQuantity) {
+            readyToPost = true;
+        }
+    }
+
+    if (readyToPost) {
+        Service S(IDservice, Dontype, serviceName, Donquantity, budget_S);
+        bool success = S.ajouter();
+        if (success) {
+            ui->tab_service->setModel(Etmp.afficher());
+            QMessageBox::information(nullptr, QObject::tr("OK"),
+                QObject::tr("Ajout effectué\n"
+                            "Click cancel to exit."), QMessageBox::Cancel);
+
+            // Update the totaldons table
+            QSqlQuery queryUpdateTotal;
+            if (serviceName == "money") {
+                queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :budget WHERE category = 'money'");
+            } else {
+                queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :quantity WHERE category = :service");
+                queryUpdateTotal.bindValue(":service", Dontype);
+            }
+            queryUpdateTotal.bindValue(":budget", budget_S);
+            queryUpdateTotal.bindValue(":quantity", Donquantity);
+            success = queryUpdateTotal.exec();
+            if (!success) {
+                QMessageBox::warning(nullptr, QObject::tr("NOT OK"),
+                    QObject::tr("La mise à jour de la table totaldons a échoué.\n"
+                                "Click cancel to exit."), QMessageBox::Cancel);
+            }
+        } else {
+            QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
+                QObject::tr("Ajout non effectué\n"
+                            "Click cancel to exit."), QMessageBox::Cancel);
+        }
+    } else {
+        QMessageBox::StandardButton reply = QMessageBox::question(nullptr, QObject::tr("NOT OK"),
+            QObject::tr("Le service n'est pas prêt à être publié.\n"
+                        "Voulez-vous quand même afficher le service ?"),
+            QMessageBox::Yes | QMessageBox::No);
+        if (reply == QMessageBox::Yes) {
+            Service S(IDservice, Dontype, serviceName, Donquantity, budget_S);
+            bool success = S.ajouter();
+            if (success) {
+                ui->tab_service->setModel(Etmp.afficher());
+                QMessageBox::information(nullptr, QObject::tr("OK"),
+                    QObject::tr("Ajout effectué\n"
+                                "Click cancel to exit."), QMessageBox::Cancel);
+
+                // Update the totaldons table
+                QSqlQuery queryUpdateTotal;
+                if (serviceName == "money") {
+                    queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :budget WHERE category = 'money'");
+                } else {
+                    queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :quantity WHERE category = :service");
+                    queryUpdateTotal.bindValue(":service", Dontype);
+                }
+                queryUpdateTotal.bindValue(":budget", budget_S);
+                queryUpdateTotal.bindValue(":quantity", Donquantity);
+                success = queryUpdateTotal.exec();
+                if (!success) {
+                    QMessageBox::warning(nullptr, QObject::tr("NOT OK"),
+                        QObject::tr("La mise à jour de la table totaldons a échoué.\n"
+                                    "Click cancel to exit."), QMessageBox::Cancel);
+                }
+            } else {
+                QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
+                    QObject::tr("Ajout non effectué\n"
+                                "Click cancel to exit."), QMessageBox::Cancel);
+            }
+        }
+    }
+}
 
 void serMainWindow::on_pushButton_supprimer_clicked()
 {
@@ -619,34 +725,50 @@ void serMainWindow::on_pb_arduino_clicked()
            }
 }
 
-void on_services_triggered()
+
+
+
+void serMainWindow::on_destitute_triggered()
 {
-QMessageBox::critical(nullptr,QObject::tr("Acess denied :/"),
-                          QObject::tr("You are not allowed to this action you need to login as an Admin to access it! :/\n"
-                                      "Click Cancel to exit. "),QMessageBox::Cancel);
+    QMessageBox::critical(nullptr,QObject::tr("Acess denied :/"),
+                              QObject::tr("You are not allowed to this action you need to login as an Admin to access it! :/\n"
+                                          "Click Cancel to exit. "),QMessageBox::Cancel);
 }
 
-void on_employees_triggered()
+void serMainWindow::on_collects_triggered()
 {
-QMessageBox::critical(nullptr,QObject::tr("Acess denied :/"),
-                          QObject::tr("You are not allowed to this action you need to login as an Admin to access it! :/\n"
-                                      "Click Cancel to exit. "),QMessageBox::Cancel);
+    QMessageBox::critical(nullptr,QObject::tr("Acess denied :/"),
+                              QObject::tr("You are not allowed to this action you need to login as an Admin to access it! :/\n"
+                                          "Click Cancel to exit. "),QMessageBox::Cancel);
 }
-void on_collects_triggered()
+
+void serMainWindow::on_employees_triggered()
 {
-QMessageBox::critical(nullptr,QObject::tr("Acess denied :/"),
-                          QObject::tr("You are not allowed to this action you need to login as an Admin to access it! :/\n"
-                                      "Click Cancel to exit. "),QMessageBox::Cancel);
+    QMessageBox::critical(nullptr,QObject::tr("Acess denied :/"),
+                              QObject::tr("You are not allowed to this action you need to login as an Admin to access it! :/\n"
+                                          "Click Cancel to exit. "),QMessageBox::Cancel);
 }
-void on_destitute_triggered()
+
+void serMainWindow::on_donations_triggered()
 {
-QMessageBox::critical(nullptr,QObject::tr("Acess denied :/"),
-                          QObject::tr("You are not allowed to this action you need to login as an Admin to access it! :/\n"
-                                      "Click Cancel to exit. "),QMessageBox::Cancel);
+    QMessageBox::critical(nullptr,QObject::tr("Acess denied :/"),
+                              QObject::tr("You are not allowed to this action you need to login as an Admin to access it! :/\n"
+                                          "Click Cancel to exit. "),QMessageBox::Cancel);
 }
-void on_donations_triggered()
+
+void serMainWindow::on_services_triggered()
 {
-QMessageBox::critical(nullptr,QObject::tr("Acess denied :/"),
-                          QObject::tr("You are not allowed to this action you need to login as an Admin to access it! :/\n"
-                                      "Click Cancel to exit. "),QMessageBox::Cancel);
+    QMessageBox::critical(nullptr,QObject::tr("Acess denied :/"),
+                              QObject::tr("You are not allowed to this action you need to login as an Admin to access it! :/\n"
+                                          "Click Cancel to exit. "),QMessageBox::Cancel);
+}
+
+void serMainWindow::on_logo_triggered()
+{
+
+}
+
+void serMainWindow::on_arduino1_clicked()
+{
+
 }

@@ -47,13 +47,15 @@ CollectsMainWindow::CollectsMainWindow(QWidget *parent) :
         }
         //QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(koussay())); // permet de lancer
      //le slot update_label suite à la reception du signal readyRead (reception des données).
+        ui->tab_mails->setModel(Etmp.afficher2());
+            ui->tab_mails->resizeColumnsToContents();
 
     ui->tab_read->setModel(Etmp.afficher());
     ui->le_budget->setValidator(new QDoubleValidator(0, 9999999, 3, this));
      ui->le_collect->setValidator(new QDoubleValidator(0, 9999999, 3, this));
   //   ui->le_date->setMinimumDate(QDate::currentDate());
    //  ui->le_date->setMinimumDateTime(QDateTime::currentDateTime());
-    ui->le_ID->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{0,255}"), this));
+     ui->le_ID->setReadOnly(true);//le slot update_label suite à la reception du signal readyRead (reception des données).
     ui->le_location->setValidator(new QRegExpValidator(QRegExp("[A-Za-z ]{0,255}"), this));
    //  ui->le_des->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9 ]{0,255}"), this));
 

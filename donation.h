@@ -48,7 +48,7 @@ class donation
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer(QString);
-
+QSqlQueryModel * afficher2();
     bool modifier();
         QSqlQueryModel* rechercherID(QString );
 

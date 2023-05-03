@@ -62,8 +62,8 @@ QSqlQueryModel * donation::afficher()
     model->setHeaderData(1,Qt::Horizontal,QObject::tr("CATEGORY_NAME"));
     model->setHeaderData(2,Qt::Horizontal,QObject::tr("NAME"));
     model->setHeaderData(3,Qt::Horizontal,QObject::tr("DESCRIPTION"));
-    model->setHeaderData(4,Qt::Horizontal,QObject::tr("AMOUNT"));
-    model->setHeaderData(5,Qt::Horizontal,QObject::tr("QUANTITY"));
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("QUANTITY"));
+    model->setHeaderData(5,Qt::Horizontal,QObject::tr("AMOUNT"));
     model->setHeaderData(6,Qt::Horizontal,QObject::tr("PHONE NUMBER"));
 
     return model;
@@ -194,5 +194,15 @@ QSqlQueryModel* donation ::rechercherID2(QString recherche)
 
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("amount"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("phone_number"));
+    return model;
+}
+QSqlQueryModel * donation::afficher2()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("select * from totaldons ");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("CATEGORY"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("TOTAL"));
+
+
     return model;
 }

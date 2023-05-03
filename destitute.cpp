@@ -304,6 +304,8 @@ QChartView * Destitute::STATS()
     else{
     model->setQuery(query);
     QPieSeries *series = new QPieSeries();
+    qreal s = 1.0;
+    series->setPieSize(s);
     for (int i = 0; i < model->rowCount(); ++i)
         {
         QModelIndex index = model->index(i, 0); // access the first column of the current row

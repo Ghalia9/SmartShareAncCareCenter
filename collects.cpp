@@ -277,4 +277,12 @@ QSqlQuery Collects::Edit(QString val)
     }
     return  query;
 }
+QSqlQueryModel * Collects::afficher2()
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("select contact from Employees ");
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("CONTACT"));
 
+
+    return model;
+}

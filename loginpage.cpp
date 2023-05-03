@@ -80,7 +80,7 @@ i = C.write_to_arduino("true");
 
         empwindow *emp = new empwindow();
 
-        emp->show();
+        emp->showMaximized();
         empwindowshowen = emp->isVisible();
 
         qDebug()<<empwindowshowen;}
@@ -88,18 +88,23 @@ i = C.write_to_arduino("true");
         else if (fct == "Destitute Manager"){
 
             destituteWindow *ghaliap = new destituteWindow();
-            ghaliap->show();
+            ghaliap->showMaximized();
         }
        else if (fct == "Donations Manager"){
 
             donationswindow *eyap = new donationswindow();
-            eyap->show();
+            eyap->showMaximized();
         }
         else if (fct == "Events Manager"){
         CollectsMainWindow *koussayp = new CollectsMainWindow();
-        koussayp->show();
+        koussayp->showMaximized();
 
         }
+        else if (fct == "Services Manager"){
+
+            serMainWindow *elap = new serMainWindow();
+             elap->showMaximized();
+         }
     } else {
         // Login failed
         i = C.write_to_arduino("false");
@@ -138,28 +143,28 @@ void loginpage::on_pushButton__login_clicked()
                     qDebug()<<fct;
                    if (fct == "Administrator"){
                    empwindow *emp = new empwindow();
-                   emp->show();
+                   emp->showMaximized();
                    empwindowshowen = emp->isVisible();
                    }
                    else if (fct == "Destitute Manager"){
                     destituteWindow *ghaliap = new destituteWindow();
-                     ghaliap->show();
+                     ghaliap->showMaximized();
 
                    }
                    else if (fct == "Events Manager"){
                    CollectsMainWindow *koussayp = new CollectsMainWindow();
-                   koussayp->show();
+                   koussayp->showMaximized();
 
                    }
                    else if (fct == "Donations Manager"){
 
                         donationswindow *eyap = new donationswindow();
-                        eyap->show();
+                        eyap->showMaximized();
                     }
                    else if (fct == "Services Manager"){
 
                        serMainWindow *elap = new serMainWindow();
-                        elap->show();
+                        elap->showMaximized();
                     }
                } else {
                    // Login failed

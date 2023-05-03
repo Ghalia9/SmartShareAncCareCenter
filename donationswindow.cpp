@@ -49,9 +49,12 @@ donationswindow::donationswindow(QWidget *parent) :
         case(-1):qDebug() << "arduino is not available";
         }
          //QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label())); // permet de lancer
-         //le slot update_label suite à la reception du signal readyRead (reception des données).
+
+        ui->tab_stock->setModel(Etmp.afficher2());
+            ui->tab_stock->resizeColumnsToContents();
+
+            ui->le_id->setReadOnly(true);//le slot update_label suite à la reception du signal readyRead (reception des données).
     ui->tab_donation->setModel(Etmp.afficher());
-    ui->le_id->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{0,255}"), this));
     ui->le_amount->setValidator(new QDoubleValidator(0, 9999999, 3, this));
     ui->le_quantity->setValidator(new QIntValidator(0, 9999999, this));
     //donationObj = *new donation();
@@ -1041,3 +1044,4 @@ void donationswindow::on_actionabout_this_app_triggered()
                           QObject::tr("You are not allowed to this section you need to login as an Admin to access it! :/\n"
                                       "Click cancel to exit"), QMessageBox::Cancel);
 }
+

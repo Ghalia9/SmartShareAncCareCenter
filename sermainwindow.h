@@ -45,6 +45,20 @@ private slots:
 
    void on_pb_arduino_clicked();
 
+   void on_collects_triggered();
+
+   void on_destitute_triggered();
+
+   void on_employees_triggered();
+
+   void on_donations_triggered();
+
+   void on_services_triggered();
+
+   void on_logo_triggered();
+
+   void on_arduino1_clicked();
+
 private:
     Ui::serMainWindow *ui;
     Service Etmp;

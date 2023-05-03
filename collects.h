@@ -52,7 +52,7 @@ public:
     QSqlQueryModel* rechercherID(QString );
     QSqlQueryModel* rechercherDate(QString );
     QSqlQueryModel* rechercherName(QString );
-
+QSqlQueryModel * afficher2();
    QSqlQueryModel * triDate();
    QSqlQueryModel * triCollects();
    QSqlQueryModel * triCosts();

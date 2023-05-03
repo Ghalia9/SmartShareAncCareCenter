@@ -45,7 +45,7 @@ destituteWindow::destituteWindow(QWidget *parent)
     ui->listQR->setModel(De.Show());
     ui->the_firstname->setValidator(new QRegExpValidator( QRegExp("[A-Za-z]+"), this ));
     ui->the_lastname->setValidator(new QRegExpValidator( QRegExp("[A-Za-z]+"), this ));
-    De.STATS()->setParent(ui->stats);
+    De.STATS()->setParent(ui->stats_2);
 
     ui->quickWidget->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
     ui->quickWidget->show();
