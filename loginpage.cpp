@@ -12,6 +12,7 @@
 #include <QCryptographicHash>
 #include "smtp.h"
 #include "CollectsMainWindow.h"
+#include "sermainwindow.h"
 #include <QDebug>
 #include <QSqlQuery>
 #include <QtSql>
@@ -154,6 +155,11 @@ void loginpage::on_pushButton__login_clicked()
 
                         donationswindow *eyap = new donationswindow();
                         eyap->show();
+                    }
+                   else if (fct == "Services Manager"){
+
+                       serMainWindow *elap = new serMainWindow();
+                        elap->show();
                     }
                } else {
                    // Login failed

@@ -44,9 +44,12 @@ SOURCES += \
     donationswindow.cpp \
     employee.cpp \
     empwindow.cpp \
+    exportexcelobject.cpp \
     loginpage.cpp \
     main.cpp \
     rfid.cpp \
+    sermainwindow.cpp \
+    service.cpp \
     smtp.cpp \
     smtpk.cpp \
     themewidget.cpp \
@@ -66,8 +69,11 @@ HEADERS += \
     donationswindow.h \
     employee.h \
     empwindow.h \
+    exportexcelobject.h \
     loginpage.h \
     rfid.h \
+    sermainwindow.h \
+    service.h \
     smtp.h \
     smtpk.h \
     themewidget.h \
@@ -82,6 +88,7 @@ FORMS += \
     donationswindow.ui \
     empwindow.ui \
     loginpage.ui \
+    sermainwindow.ui \
     todolistwidget.ui
 
 # Default rules for deployment.

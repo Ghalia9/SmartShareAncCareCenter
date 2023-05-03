@@ -46,7 +46,7 @@ private slots:
 
     void on_pushButton5_clicked();
 
-    void on_changeButton_clicked();
+    //void on_changeButton_clicked();
 
     void on_actionemployee_triggered();
 
