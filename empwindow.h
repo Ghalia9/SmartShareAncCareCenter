@@ -44,6 +44,16 @@ private slots:
 
     void on_actionDistitute_triggered();
 
+    void on_actionAbout_the_app_triggered();
+
+    void on_actionEmployees_triggered();
+
+    void on_actionDonation_triggered();
+
+    void on_actionServices_triggered();
+
+    void on_actionEvents_triggered();
+
 private:
     Ui::empwindow *ui;
     employee etmp;

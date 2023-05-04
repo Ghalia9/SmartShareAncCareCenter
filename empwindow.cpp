@@ -27,6 +27,11 @@
 #include <QCryptographicHash>
 #include <QThread>
 #include <QTimer>
+#include "CollectsMainWindow.h"
+#include "empwindow.h"
+#include "destituteWindow.h"
+#include "donationswindow.h"
+#include "sermainwindow.h"
 
 
 empwindow::empwindow(QWidget *parent)
@@ -355,4 +360,41 @@ destituteWindow *Dest = new destituteWindow();
 Dest->showMaximized();
 this->hide();
 
+}
+
+void empwindow::on_actionAbout_the_app_triggered()
+{
+    this->hide();
+    empwindowshowen=false;
+loginpage *l =new  loginpage();
+l->show();
+}
+
+void empwindow::on_actionEmployees_triggered()
+{
+
+    empwindow *p=new empwindow();
+        p->showMaximized();
+        this->hide();
+}
+
+void empwindow::on_actionDonation_triggered()
+{
+    donationswindow  *p=new donationswindow();
+        p->showMaximized();
+         this->hide();
+}
+
+void empwindow::on_actionServices_triggered()
+{
+    serMainWindow  *p=new serMainWindow();
+         p->showMaximized();
+          this->hide();
+}
+
+void empwindow::on_actionEvents_triggered()
+{
+    CollectsMainWindow  *p=new CollectsMainWindow();
+      p->showMaximized();
+       this->hide();
 }

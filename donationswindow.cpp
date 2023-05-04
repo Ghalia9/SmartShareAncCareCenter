@@ -29,7 +29,12 @@
 #include <dialog.h>
 #include <QPropertyAnimation>
 #include "arduino.h"
-
+#include "loginpage.h"
+#include "CollectsMainWindow.h"
+#include "empwindow.h"
+#include "destituteWindow.h"
+#include "donationswindow.h"
+#include "sermainwindow.h"
 
 
 
@@ -1004,44 +1009,75 @@ void donationswindow::on_pushButton5_clicked()
 
 
 void donationswindow::on_actionemployee_triggered()
-{
-    QMessageBox::critical(nullptr, QObject::tr("Access denied:/"),
-                          QObject::tr("You are not allowed to this section you need to login as an Admin to access it! :/\n"
-                                      "Click cancel to exit"), QMessageBox::Cancel);
+{  if (USER==1){
+        empwindow *p=new empwindow();
+    p->showMaximized();
+    this->hide();
+    }else{
+        QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
+                    QObject::tr("You are not allowed to this section you need to login as an Admin to access it! :/\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+    }
 }
 
 void donationswindow::on_actiondestitutes_triggered()
 {
-    QMessageBox::critical(nullptr, QObject::tr("Access denied:/"),
-                          QObject::tr("You are not allowed to this section you need to login as a destitutes manager to access it! :/\n"
-                                      "Click cancel to exit"), QMessageBox::Cancel);
+    if (USER==1){
+             destituteWindow  *p=new destituteWindow();
+       p->showMaximized();
+        this->hide();
+          }else{
+          QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
+                      QObject::tr("You are not allowed to this section you need to login as a Destitute Manager to access it! :/\n"
+                                  "Click Cancel to exit."), QMessageBox::Cancel);
+      }
 }
 
 void donationswindow::on_actiondonations_triggered()
 {
-    QMessageBox::critical(nullptr, QObject::tr("Access denied:/"),
-                          QObject::tr("You are not allowed to this section you need to login as a donations manager to access it! :/\n"
-                                      "Click cancel to exit"), QMessageBox::Cancel);
+    if (USER==1){
+               donationswindow  *p=new donationswindow();
+         p->showMaximized();
+          this->hide();
+            }else{
+            QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
+                        QObject::tr("You are not allowed to this section you need to login as a Donations Manager to access it! :/\n"
+                                    "Click Cancel to exit."), QMessageBox::Cancel);
+        }
 }
 
 void donationswindow::on_actionservices_triggered()
 {
-    QMessageBox::critical(nullptr, QObject::tr("Access denied:/"),
-                          QObject::tr("You are not allowed to this section you need to login as a services manager to access it! :/\n"
-                                      "Click cancel to exit"), QMessageBox::Cancel);
+    if (USER==1){
+               serMainWindow  *p=new serMainWindow();
+        p->showMaximized();
+         this->hide();
+           }else{
+           QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
+                       QObject::tr("You are not allowed to this section you need to login as a Services Manager to access it! :/\n"
+                                   "Click Cancel to exit."), QMessageBox::Cancel);
+       }
 }
 
 void donationswindow::on_actionevents_triggered()
 {
-    QMessageBox::critical(nullptr, QObject::tr("Access denied:/"),
-                          QObject::tr("You are not allowed to this section you need to login as an event manager to access it! :/\n"
-                                      "Click cancel to exit"), QMessageBox::Cancel);
+    if (USER==1){
+
+           CollectsMainWindow  *p=new CollectsMainWindow();
+    p->showMaximized();
+     this->hide();
+        }else{
+        QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
+                    QObject::tr("You are not allowed to this section you need to login as an Events Manager to access it! :/\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+    }
 }
 
 void donationswindow::on_actionabout_this_app_triggered()
 {
-    QMessageBox::critical(nullptr, QObject::tr("Access denied:/"),
-                          QObject::tr("You are not allowed to this section you need to login as an Admin to access it! :/\n"
-                                      "Click cancel to exit"), QMessageBox::Cancel);
+
+    this->hide();
+loginpage *l =new  loginpage();
+l->show();
 }
 

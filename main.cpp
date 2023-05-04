@@ -6,6 +6,7 @@
 #include <QCoreApplication>
 #include <QtSql>
 #include <QDebug>
+int REF=0;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

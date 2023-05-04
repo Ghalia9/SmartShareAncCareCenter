@@ -18,6 +18,7 @@
 #include <QtSql>
 int s=rand()%10000;
 bool empwindowshowen=false;
+int USER=0;
 loginpage::loginpage(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::loginpage)
@@ -35,7 +36,7 @@ loginpage::loginpage(QWidget *parent) :
     ui->lineEdit_password_2->hide();
     ui->lineEdit_code->hide();
     ui->pushButton_2->hide();
-
+    USER=0;
 
     int ret=C.connect_arduino();
         qDebug() <<"ret="<<ret;
@@ -77,7 +78,7 @@ i = C.write_to_arduino("true");
         i = C.write_to_arduino(name);
 
         if (fct == "Administrator" && !empwindowshowen){
-
+USER=1;
         empwindow *emp = new empwindow();
 
         emp->showMaximized();
@@ -145,6 +146,8 @@ void loginpage::on_pushButton__login_clicked()
                    empwindow *emp = new empwindow();
                    emp->showMaximized();
                    empwindowshowen = emp->isVisible();
+                   USER=1;
+
                    }
                    else if (fct == "Destitute Manager"){
                     destituteWindow *ghaliap = new destituteWindow();

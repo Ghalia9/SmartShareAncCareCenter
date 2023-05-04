@@ -894,6 +894,7 @@ border: 2px solid rgba(222, 226, 230, 0.8);
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionabout_this_app"/>
    <addaction name="actionemployee"/>
    <addaction name="actiondestitutes"/>
    <addaction name="actiondonations"/>
@@ -961,6 +962,10 @@ border: 2px solid rgba(222, 226, 230, 0.8);
    </property>
   </action>
   <action name="actionabout_this_app">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/images/logo application.png</normaloff>:/images/logo application.png</iconset>
+   </property>
    <property name="text">
     <string>about this app</string>
    </property>

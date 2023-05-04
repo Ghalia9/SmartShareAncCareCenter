@@ -59,6 +59,8 @@ private slots:
 
     void on_actiondestitutes_triggered();
 
+    void on_actionlogo_triggered();
+
 private:
     Ui::CollectsMainWindow *ui;
     Collects Etmp;

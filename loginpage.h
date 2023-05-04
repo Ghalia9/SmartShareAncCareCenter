@@ -4,7 +4,8 @@
 #include <QDialog>
 #include "smtp.h"
 #include "rfid.h"
-
+extern int USER;
+extern bool empwindowshowen;
 namespace Ui {
 class loginpage;
 }
@@ -16,7 +17,7 @@ class loginpage : public QDialog
 
 public:
     explicit loginpage(QWidget *parent = nullptr);
-
+//int USER;
     ~loginpage();
 
 private slots:

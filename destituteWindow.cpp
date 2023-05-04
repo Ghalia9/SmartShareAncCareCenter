@@ -3,7 +3,7 @@
 #include "destitute.h"
 #include "capteur.h"
 #include "donation.h"
-
+#include "loginpage.h"
 #include <QMessageBox>
 #include <QSqlError>
 #include <QRegularExpression>
@@ -36,6 +36,15 @@
 //web
 #include <QApplication>
 //#include <QWebEngineView>
+#include "collects.h"
+#include "CollectsMainWindow.h"
+#include "empwindow.h"
+#include "destituteWindow.h"
+#include "donationswindow.h"
+#include "sermainwindow.h"
+
+//#include "loginpage.h"
+
 destituteWindow::destituteWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::destituteWindow)
@@ -429,28 +438,60 @@ void destituteWindow::on_listQR_activated(const QModelIndex &index)
 
 void destituteWindow::on_actiongeneral_triggered()//employee button
 {
+if (USER==1){
+    empwindow *p=new empwindow();
+p->showMaximized();
+this->hide();
+}else{
     QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
                 QObject::tr("You are not allowed to this section you need to login as an Admin to access it! :/\n"
                             "Click Cancel to exit."), QMessageBox::Cancel);
 }
+}
 
 void destituteWindow::on_actionDonations_triggered()
 {
+    if (USER==1){
+       donationswindow  *p=new donationswindow();
+ p->showMaximized();
+  this->hide();
+    }else{
     QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
                 QObject::tr("You are not allowed to this section you need to login as a Donations Manager to access it! :/\n"
                             "Click Cancel to exit."), QMessageBox::Cancel);
 }
+}
 
 void destituteWindow::on_actionServices_triggered()
 {
+    if (USER==1){
+        serMainWindow  *p=new serMainWindow();
+ p->showMaximized();
+  this->hide();
+    }else{
     QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
                 QObject::tr("You are not allowed to this section you need to login as a Services Manager to access it! :/\n"
                             "Click Cancel to exit."), QMessageBox::Cancel);
 }
+}
 
 void destituteWindow::on_actionEvents_triggered()
 {
+    if (USER==1){
+
+       CollectsMainWindow  *p=new CollectsMainWindow();
+p->showMaximized();
+ this->hide();
+    }else{
     QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
                 QObject::tr("You are not allowed to this section you need to login as an Events Manager to access it! :/\n"
                             "Click Cancel to exit."), QMessageBox::Cancel);
+}
+}
+
+void destituteWindow::on_actionAbout_triggered()
+{
+    this->hide();
+loginpage *l =new  loginpage();
+l->show();
 }

@@ -57,6 +57,8 @@ private slots:
 
     void on_actionEvents_triggered();
 
+    void on_actionAbout_triggered();
+
 private:
     Ui::destituteWindow *ui;
     Destitute De;
