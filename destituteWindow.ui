@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>990</width>
-    <height>955</height>
+    <width>1581</width>
+    <height>1082</height>
    </rect>
   </property>
   <property name="palette">
@@ -16,27 +16,27 @@
      <colorrole role="Button">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>96</red>
-        <green>195</green>
-        <blue>244</blue>
+        <red>229</red>
+        <green>241</green>
+        <blue>251</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>96</red>
-        <green>195</green>
-        <blue>244</blue>
+        <red>229</red>
+        <green>241</green>
+        <blue>251</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Window">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>96</red>
-        <green>195</green>
-        <blue>244</blue>
+        <red>229</red>
+        <green>241</green>
+        <blue>251</blue>
        </color>
       </brush>
      </colorrole>
@@ -45,27 +45,27 @@
      <colorrole role="Button">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>96</red>
-        <green>195</green>
-        <blue>244</blue>
+        <red>229</red>
+        <green>241</green>
+        <blue>251</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>96</red>
-        <green>195</green>
-        <blue>244</blue>
+        <red>229</red>
+        <green>241</green>
+        <blue>251</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Window">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>96</red>
-        <green>195</green>
-        <blue>244</blue>
+        <red>229</red>
+        <green>241</green>
+        <blue>251</blue>
        </color>
       </brush>
      </colorrole>
@@ -74,27 +74,27 @@
      <colorrole role="Button">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>96</red>
-        <green>195</green>
-        <blue>244</blue>
+        <red>229</red>
+        <green>241</green>
+        <blue>251</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>96</red>
-        <green>195</green>
-        <blue>244</blue>
+        <red>229</red>
+        <green>241</green>
+        <blue>251</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Window">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>96</red>
-        <green>195</green>
-        <blue>244</blue>
+        <red>229</red>
+        <green>241</green>
+        <blue>251</blue>
        </color>
       </brush>
      </colorrole>
@@ -105,7 +105,86 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(96, 195, 244);</string>
+   <string notr="true">/* Set the font family and size */
+* {
+    font-family: Poppins;
+    font-size: 12pt;
+}
+
+/* Set the background color to light blue */
+QWidget {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the window title text */
+QMainWindow::title {
+    color: #444444;
+}
+
+/* Set the background color of the menu bar */
+QMenuBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the menu items */
+QMenuBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the menu items when they are hovered over */
+QMenuBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected menu item */
+QMenuBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the background color of the toolbar */
+QToolBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the toolbar items */
+QToolBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the toolbar items when they are hovered over */
+QToolBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected toolbar item */
+QToolBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the color of the labels */
+QLabel {
+    color: #444444;
+}
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_6">
@@ -143,181 +222,98 @@
         <string>General</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="2" rowspan="3">
-         <widget class="QGroupBox" name="groupBox_12">
-          <property name="font">
-           <font>
-            <family>Poppins</family>
-            <pointsize>14</pointsize>
-            <weight>50</weight>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">
-border-color: rgb(0, 0, 0);
-background-color: rgb(133, 214, 255);</string>
-          </property>
-          <property name="title">
-           <string>Show</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
-              <widget class="QLabel" name="label_21">
-               <property name="font">
-                <font>
-                 <family>Poppins</family>
-                 <pointsize>14</pointsize>
-                 <weight>50</weight>
-                 <italic>false</italic>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Adresse:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="the_search">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(255, 255, 255);</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pb_search">
-               <property name="font">
-                <font>
-                 <family>Poppins</family>
-                 <pointsize>14</pointsize>
-                 <weight>50</weight>
-                 <italic>false</italic>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(255, 255, 255);</string>
-               </property>
-               <property name="text">
-                <string>Search</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
-             <item>
-              <widget class="QLabel" name="label_22">
-               <property name="font">
-                <font>
-                 <family>Poppins</family>
-                 <pointsize>14</pointsize>
-                 <weight>50</weight>
-                 <italic>false</italic>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Sort by:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pb_sort">
-               <property name="font">
-                <font>
-                 <family>Poppins</family>
-                 <pointsize>14</pointsize>
-                 <weight>50</weight>
-                 <italic>false</italic>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(255, 255, 255);</string>
-               </property>
-               <property name="text">
-                <string>Sort by level</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QTableView" name="showtab">
-             <property name="styleSheet">
-              <string notr="true">
-background-color: rgb(255, 255, 255);</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QGroupBox" name="groupBox_5">
-          <property name="font">
-           <font>
-            <family>Poppins</family>
-            <pointsize>14</pointsize>
-            <weight>50</weight>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">
-background-color: rgb(133, 214, 255);</string>
-          </property>
-          <property name="title">
-           <string>PDF</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="pb_pdf">
-             <property name="font">
-              <font>
-               <family>Poppins</family>
-               <pointsize>14</pointsize>
-               <weight>50</weight>
-               <italic>false</italic>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color: rgb(255, 255, 255);
-background-color: rgb(255, 255, 255);</string>
-             </property>
-             <property name="text">
-              <string>Generate PDF</string>
-             </property>
-             <property name="checkable">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="1" column="0" rowspan="3">
          <widget class="QGroupBox" name="groupBox_stat_2">
           <property name="font">
            <font>
             <family>Poppins</family>
-            <pointsize>14</pointsize>
+            <pointsize>12</pointsize>
             <weight>50</weight>
             <italic>false</italic>
             <bold>false</bold>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">
-background-color: rgb(133, 214, 255);</string>
+           <string notr="true">/* Set the font family and size */
+* {
+    font-family: Poppins;
+    font-size: 12pt;
+}
+
+/* Set the background color to light blue */
+QWidget {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the window title text */
+QMainWindow::title {
+    color: #444444;
+}
+
+/* Set the background color of the menu bar */
+QMenuBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the menu items */
+QMenuBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the menu items when they are hovered over */
+QMenuBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected menu item */
+QMenuBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the background color of the toolbar */
+QToolBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the toolbar items */
+QToolBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the toolbar items when they are hovered over */
+QToolBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected toolbar item */
+QToolBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the color of the labels */
+QLabel {
+    color: #444444;
+}
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}
+</string>
           </property>
           <property name="title">
            <string>Statistics</string>
@@ -328,13 +324,152 @@ background-color: rgb(133, 214, 255);</string>
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>500</height>
+               <height>450</height>
               </size>
              </property>
              <property name="styleSheet">
               <string notr="true">background-color: rgb(255, 255, 255);</string>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout"/>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="font">
+           <font>
+            <family>Poppins</family>
+            <pointsize>12</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">/* Set the font family and size */
+* {
+    font-family: Poppins;
+    font-size: 12pt;
+}
+
+/* Set the background color to light blue */
+QWidget {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the window title text */
+QMainWindow::title {
+    color: #444444;
+}
+
+/* Set the background color of the menu bar */
+QMenuBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the menu items */
+QMenuBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the menu items when they are hovered over */
+QMenuBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected menu item */
+QMenuBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the background color of the toolbar */
+QToolBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the toolbar items */
+QToolBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the toolbar items when they are hovered over */
+QToolBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected toolbar item */
+QToolBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the color of the labels */
+QLabel {
+    color: #444444;
+}
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}
+</string>
+          </property>
+          <property name="title">
+           <string>PDF</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="pb_pdf">
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>12</pointsize>
+               <weight>50</weight>
+               <italic>false</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}</string>
+             </property>
+             <property name="text">
+              <string>Generate PDF</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
             </widget>
            </item>
           </layout>
@@ -351,7 +486,7 @@ background-color: rgb(133, 214, 255);</string>
           <property name="maximumSize">
            <size>
             <width>700</width>
-            <height>270</height>
+            <height>10000</height>
            </size>
           </property>
           <property name="palette">
@@ -360,27 +495,27 @@ background-color: rgb(133, 214, 255);</string>
              <colorrole role="Button">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>133</red>
-                <green>214</green>
-                <blue>255</blue>
+                <red>229</red>
+                <green>241</green>
+                <blue>251</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Base">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>133</red>
-                <green>214</green>
-                <blue>255</blue>
+                <red>229</red>
+                <green>241</green>
+                <blue>251</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Window">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>133</red>
-                <green>214</green>
-                <blue>255</blue>
+                <red>229</red>
+                <green>241</green>
+                <blue>251</blue>
                </color>
               </brush>
              </colorrole>
@@ -389,27 +524,27 @@ background-color: rgb(133, 214, 255);</string>
              <colorrole role="Button">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>133</red>
-                <green>214</green>
-                <blue>255</blue>
+                <red>229</red>
+                <green>241</green>
+                <blue>251</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Base">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>133</red>
-                <green>214</green>
-                <blue>255</blue>
+                <red>229</red>
+                <green>241</green>
+                <blue>251</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Window">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>133</red>
-                <green>214</green>
-                <blue>255</blue>
+                <red>229</red>
+                <green>241</green>
+                <blue>251</blue>
                </color>
               </brush>
              </colorrole>
@@ -418,27 +553,27 @@ background-color: rgb(133, 214, 255);</string>
              <colorrole role="Button">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>133</red>
-                <green>214</green>
-                <blue>255</blue>
+                <red>229</red>
+                <green>241</green>
+                <blue>251</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Base">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>133</red>
-                <green>214</green>
-                <blue>255</blue>
+                <red>229</red>
+                <green>241</green>
+                <blue>251</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Window">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>133</red>
-                <green>214</green>
-                <blue>255</blue>
+                <red>229</red>
+                <green>241</green>
+                <blue>251</blue>
                </color>
               </brush>
              </colorrole>
@@ -455,7 +590,26 @@ background-color: rgb(133, 214, 255);</string>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(133, 214, 255);</string>
+           <string notr="true">
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}</string>
           </property>
           <property name="title">
            <string>Add a destitute</string>
@@ -556,7 +710,24 @@ background-color: rgb(133, 214, 255);</string>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color: rgb(255, 255, 255);</string>
+                  <string notr="true">/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}</string>
                  </property>
                  <property name="text">
                   <string>Delete</string>
@@ -575,8 +746,24 @@ background-color: rgb(133, 214, 255);</string>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color: rgb(255, 255, 255);
-alternate-background-color: rgb(255, 255, 255);</string>
+                  <string notr="true">/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}</string>
                  </property>
                  <property name="text">
                   <string>Update</string>
@@ -595,7 +782,24 @@ alternate-background-color: rgb(255, 255, 255);</string>
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color: rgb(255, 255, 255);</string>
+                  <string notr="true">/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}</string>
                  </property>
                  <property name="text">
                   <string>Add</string>
@@ -646,7 +850,24 @@ alternate-background-color: rgb(255, 255, 255);</string>
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(255, 255, 255);</string>
+                <string notr="true">/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}</string>
                </property>
                <property name="text">
                 <string>Clear</string>
@@ -654,6 +875,233 @@ alternate-background-color: rgb(255, 255, 255);</string>
               </widget>
              </item>
             </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="2" rowspan="3">
+         <widget class="QGroupBox" name="groupBox_12">
+          <property name="font">
+           <font>
+            <family>Poppins</family>
+            <pointsize>12</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">/* Set the font family and size */
+* {
+    font-family: Poppins;
+    font-size: 12pt;
+}
+
+/* Set the background color to light blue */
+QWidget {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the window title text */
+QMainWindow::title {
+    color: #444444;
+}
+
+/* Set the background color of the menu bar */
+QMenuBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the menu items */
+QMenuBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the menu items when they are hovered over */
+QMenuBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected menu item */
+QMenuBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the background color of the toolbar */
+QToolBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the toolbar items */
+QToolBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the toolbar items when they are hovered over */
+QToolBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected toolbar item */
+QToolBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the color of the labels */
+QLabel {
+    color: #444444;
+}
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}
+</string>
+          </property>
+          <property name="title">
+           <string>Show</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QLabel" name="label_21">
+               <property name="font">
+                <font>
+                 <family>Poppins</family>
+                 <pointsize>12</pointsize>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Adresse:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="the_search">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 255, 255);</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pb_search">
+               <property name="font">
+                <font>
+                 <family>Poppins</family>
+                 <pointsize>12</pointsize>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}</string>
+               </property>
+               <property name="text">
+                <string>Search</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <item>
+              <widget class="QLabel" name="label_22">
+               <property name="font">
+                <font>
+                 <family>Poppins</family>
+                 <pointsize>12</pointsize>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Sort by:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pb_sort">
+               <property name="font">
+                <font>
+                 <family>Poppins</family>
+                 <pointsize>12</pointsize>
+                 <weight>50</weight>
+                 <italic>false</italic>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}</string>
+               </property>
+               <property name="text">
+                <string>Sort by level</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QTableView" name="showtab">
+             <property name="styleSheet">
+              <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -732,19 +1180,15 @@ alternate-background-color: rgb(255, 255, 255);</string>
        <attribute name="title">
         <string>Map</string>
        </attribute>
-       <widget class="QQuickWidget" name="quickWidget">
-        <property name="geometry">
-         <rect>
-          <x>270</x>
-          <y>120</y>
-          <width>561</width>
-          <height>471</height>
-         </rect>
-        </property>
-        <property name="resizeMode">
-         <enum>QQuickWidget::SizeRootObjectToView</enum>
-        </property>
-       </widget>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="0">
+         <widget class="QQuickWidget" name="quickWidget">
+          <property name="resizeMode">
+           <enum>QQuickWidget::SizeRootObjectToView</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -769,8 +1213,8 @@ alternate-background-color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>990</width>
-     <height>26</height>
+     <width>1581</width>
+     <height>34</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -778,7 +1222,7 @@ alternate-background-color: rgb(255, 255, 255);</string>
    </property>
    <widget class="QMenu" name="menuManagments">
     <property name="title">
-     <string>Managments</string>
+     <string>General</string>
     </property>
     <addaction name="actiongeneral"/>
     <addaction name="actionto_to_list"/>
@@ -802,8 +1246,7 @@ alternate-background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="styleSheet">
     <string notr="true">
-border-color: rgb(0, 0, 0);
-background-color: rgb(133, 214, 255);</string>
+background-color: rgb(85, 170, 255);</string>
    </property>
    <property name="iconSize">
     <size>

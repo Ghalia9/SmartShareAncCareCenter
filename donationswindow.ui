@@ -14,7 +14,86 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(96, 195, 244);</string>
+   <string notr="true">/* Set the font family and size */
+* {
+    font-family: Poppins;
+    font-size: 12pt;
+}
+
+/* Set the background color to light blue */
+QWidget {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the window title text */
+QMainWindow::title {
+    color: #444444;
+}
+
+/* Set the background color of the menu bar */
+QMenuBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the menu items */
+QMenuBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the menu items when they are hovered over */
+QMenuBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected menu item */
+QMenuBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the background color of the toolbar */
+QToolBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the toolbar items */
+QToolBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the toolbar items when they are hovered over */
+QToolBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected toolbar item */
+QToolBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the color of the labels */
+QLabel {
+    color: #444444;
+}
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_4">
@@ -23,8 +102,90 @@
       <property name="font">
        <font>
         <family>Poppins</family>
-        <pointsize>14</pointsize>
+        <pointsize>12</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* Set the font family and size */
+* {
+    font-family: Poppins;
+    font-size: 12pt;
+}
+
+/* Set the background color to light blue */
+QWidget {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the window title text */
+QMainWindow::title {
+    color: #444444;
+}
+
+/* Set the background color of the menu bar */
+QMenuBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the menu items */
+QMenuBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the menu items when they are hovered over */
+QMenuBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected menu item */
+QMenuBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the background color of the toolbar */
+QToolBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the toolbar items */
+QToolBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the toolbar items when they are hovered over */
+QToolBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected toolbar item */
+QToolBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the color of the labels */
+QLabel {
+    color: #444444;
+}
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}
+</string>
       </property>
       <property name="currentIndex">
        <number>0</number>
@@ -37,8 +198,86 @@
         <item row="1" column="1" rowspan="3">
          <widget class="QGroupBox" name="groupBox_7">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(133, 214, 255);
-font: 14pt &quot;Poppins&quot;;</string>
+           <string notr="true">/* Set the font family and size */
+* {
+    font-family: Poppins;
+    font-size: 12pt;
+}
+
+/* Set the background color to light blue */
+QWidget {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the window title text */
+QMainWindow::title {
+    color: #444444;
+}
+
+/* Set the background color of the menu bar */
+QMenuBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the menu items */
+QMenuBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the menu items when they are hovered over */
+QMenuBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected menu item */
+QMenuBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the background color of the toolbar */
+QToolBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the toolbar items */
+QToolBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the toolbar items when they are hovered over */
+QToolBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected toolbar item */
+QToolBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the color of the labels */
+QLabel {
+    color: #444444;
+}
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}
+</string>
           </property>
           <property name="title">
            <string>Search and sort</string>
@@ -105,8 +344,86 @@ font: 14pt &quot;Poppins&quot;;</string>
         <item row="3" column="0">
          <widget class="QGroupBox" name="groupBox_8">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(133, 214, 255);
-font: 14pt &quot;Poppins&quot;;</string>
+           <string notr="true">/* Set the font family and size */
+* {
+    font-family: Poppins;
+    font-size: 12pt;
+}
+
+/* Set the background color to light blue */
+QWidget {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the window title text */
+QMainWindow::title {
+    color: #444444;
+}
+
+/* Set the background color of the menu bar */
+QMenuBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the menu items */
+QMenuBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the menu items when they are hovered over */
+QMenuBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected menu item */
+QMenuBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the background color of the toolbar */
+QToolBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the toolbar items */
+QToolBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the toolbar items when they are hovered over */
+QToolBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected toolbar item */
+QToolBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the color of the labels */
+QLabel {
+    color: #444444;
+}
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}
+</string>
           </property>
           <property name="title">
            <string>generate pdf</string>
@@ -129,8 +446,86 @@ font: 14pt &quot;Poppins&quot;;</string>
         <item row="0" column="1">
          <widget class="QGroupBox" name="groupBox_4">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(133, 214, 255);
-font: 14pt &quot;Poppins&quot;;</string>
+           <string notr="true">/* Set the font family and size */
+* {
+    font-family: Poppins;
+    font-size: 12pt;
+}
+
+/* Set the background color to light blue */
+QWidget {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the window title text */
+QMainWindow::title {
+    color: #444444;
+}
+
+/* Set the background color of the menu bar */
+QMenuBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the menu items */
+QMenuBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the menu items when they are hovered over */
+QMenuBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected menu item */
+QMenuBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the background color of the toolbar */
+QToolBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the toolbar items */
+QToolBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the toolbar items when they are hovered over */
+QToolBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected toolbar item */
+QToolBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the color of the labels */
+QLabel {
+    color: #444444;
+}
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}
+</string>
           </property>
           <property name="title">
            <string>List of donations</string>
@@ -225,8 +620,86 @@ font: 14pt &quot;Poppins&quot;;</string>
         <item row="2" column="0">
          <widget class="QGroupBox" name="groupBox_6">
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(133, 214, 255);
-font: 14pt &quot;Poppins&quot;;</string>
+           <string notr="true">/* Set the font family and size */
+* {
+    font-family: Poppins;
+    font-size: 12pt;
+}
+
+/* Set the background color to light blue */
+QWidget {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the window title text */
+QMainWindow::title {
+    color: #444444;
+}
+
+/* Set the background color of the menu bar */
+QMenuBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the menu items */
+QMenuBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the menu items when they are hovered over */
+QMenuBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected menu item */
+QMenuBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the background color of the toolbar */
+QToolBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the toolbar items */
+QToolBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the toolbar items when they are hovered over */
+QToolBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected toolbar item */
+QToolBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the color of the labels */
+QLabel {
+    color: #444444;
+}
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}
+</string>
           </property>
           <property name="title">
            <string>Delete</string>
@@ -291,15 +764,93 @@ font: 14pt &quot;Poppins&quot;;</string>
           <property name="font">
            <font>
             <family>Poppins</family>
-            <pointsize>14</pointsize>
+            <pointsize>12</pointsize>
             <weight>50</weight>
             <italic>false</italic>
             <bold>false</bold>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(133, 214, 255);
-font: 14pt &quot;Poppins&quot;;</string>
+           <string notr="true">/* Set the font family and size */
+* {
+    font-family: Poppins;
+    font-size: 12pt;
+}
+
+/* Set the background color to light blue */
+QWidget {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the window title text */
+QMainWindow::title {
+    color: #444444;
+}
+
+/* Set the background color of the menu bar */
+QMenuBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the menu items */
+QMenuBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the menu items when they are hovered over */
+QMenuBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected menu item */
+QMenuBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the background color of the toolbar */
+QToolBar {
+    background-color: #E5F1FB;
+}
+
+/* Set the color of the toolbar items */
+QToolBar::item {
+    color: #444444;
+}
+
+/* Set the background color of the toolbar items when they are hovered over */
+QToolBar::item:hover {
+    background-color: #D0E7F9;
+}
+
+/* Set the color of the selected toolbar item */
+QToolBar::item:selected {
+    background-color: #C0DCF4;
+}
+
+/* Set the color of the labels */
+QLabel {
+    color: #444444;
+}
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}
+</string>
           </property>
           <property name="title">
            <string>Add donation</string>
@@ -487,8 +1038,8 @@ font: 14pt &quot;Poppins&quot;;</string>
         </property>
         <property name="font">
          <font>
-          <family>Montserrat</family>
-          <pointsize>8</pointsize>
+          <family>Poppins</family>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="styleSheet">
@@ -511,7 +1062,7 @@ border-radius:35px;
          </property>
          <property name="font">
           <font>
-           <family>Montserrat</family>
+           <family>Poppins</family>
            <pointsize>-1</pointsize>
            <weight>75</weight>
            <bold>true</bold>
@@ -538,8 +1089,8 @@ font-size:20px;</string>
          </property>
          <property name="font">
           <font>
-           <family>Montserrat</family>
-           <pointsize>11</pointsize>
+           <family>Poppins</family>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -559,8 +1110,8 @@ font-size:20px;</string>
          </property>
          <property name="font">
           <font>
-           <family>Montserrat</family>
-           <pointsize>11</pointsize>
+           <family>Poppins</family>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
            <kerning>true</kerning>
@@ -581,8 +1132,8 @@ font-size:20px;</string>
          </property>
          <property name="font">
           <font>
-           <family>Montserrat</family>
-           <pointsize>11</pointsize>
+           <family>Poppins</family>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -621,8 +1172,8 @@ border: 2px solid rgba(222, 226, 230, 0.8);
          </property>
          <property name="font">
           <font>
-           <family>Montserrat</family>
-           <pointsize>11</pointsize>
+           <family>Poppins</family>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -642,8 +1193,8 @@ border: 2px solid rgba(222, 226, 230, 0.8);
          </property>
          <property name="font">
           <font>
-           <family>Montserrat</family>
-           <pointsize>11</pointsize>
+           <family>Poppins</family>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -802,7 +1353,7 @@ border: 2px solid rgba(222, 226, 230, 0.8);
      <x>0</x>
      <y>0</y>
      <width>1662</width>
-     <height>26</height>
+     <height>34</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuapp">
@@ -824,11 +1375,12 @@ border: 2px solid rgba(222, 226, 230, 0.8);
     <string>toolBar</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 28pt &quot;MS Shell Dlg 2&quot;;</string>
+    <string notr="true">
+background-color: rgb(85, 170, 255);</string>
    </property>
    <property name="iconSize">
     <size>
-     <width>75</width>
+     <width>100</width>
      <height>100</height>
     </size>
    </property>

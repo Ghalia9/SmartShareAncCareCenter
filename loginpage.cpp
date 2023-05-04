@@ -24,7 +24,8 @@ loginpage::loginpage(QWidget *parent) :
     ui(new Ui::loginpage)
 {
     ui->setupUi(this);
-    QPixmap pix("D:/SmartShareAncCareCenter-GestionEmployees/logo application2.png");
+    QPixmap pix("/logo application2.png");
+    //QPixmap pix("D:/SmartShareAncCareCenter-GestionEmployees/logo application2.png");
     //QPixmap pix("C:/Users/moham/Desktop/Esprit/2 eme A16/Projet c++/conception/logo application2.png");
     ui->label_pic->setPixmap(pix);
     //forgot password ui

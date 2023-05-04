@@ -358,6 +358,7 @@ void empwindow::on_actionDistitute_triggered()
 {
 destituteWindow *Dest = new destituteWindow();
 Dest->showMaximized();
+this->destroy();
 this->hide();
 
 }
@@ -365,6 +366,7 @@ this->hide();
 void empwindow::on_actionAbout_the_app_triggered()
 {
     this->hide();
+    this->destroy();
     empwindowshowen=false;
 loginpage *l =new  loginpage();
 l->show();
@@ -376,6 +378,7 @@ void empwindow::on_actionEmployees_triggered()
     empwindow *p=new empwindow();
         p->showMaximized();
         this->hide();
+        this->destroy();
 }
 
 void empwindow::on_actionDonation_triggered()
@@ -383,6 +386,7 @@ void empwindow::on_actionDonation_triggered()
     donationswindow  *p=new donationswindow();
         p->showMaximized();
          this->hide();
+        this->destroy();
 }
 
 void empwindow::on_actionServices_triggered()
@@ -390,6 +394,7 @@ void empwindow::on_actionServices_triggered()
     serMainWindow  *p=new serMainWindow();
          p->showMaximized();
           this->hide();
+         this->destroy();
 }
 
 void empwindow::on_actionEvents_triggered()
@@ -397,4 +402,5 @@ void empwindow::on_actionEvents_triggered()
     CollectsMainWindow  *p=new CollectsMainWindow();
       p->showMaximized();
        this->hide();
+      this->destroy();
 }

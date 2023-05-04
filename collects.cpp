@@ -69,8 +69,8 @@ bool Collects::ajouter()
 
 QSqlQueryModel * Collects::afficher()
 {
-    QSqlQueryModel * model=new QSqlQueryModel();
- model->setQuery("SELECT * FROM Collects");
+    QSqlQueryModel * model = new QSqlQueryModel();
+    model->setQuery("SELECT * FROM Collects ORDER BY collect_id ASC");
 
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("Collect ID"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("Collect name"));
@@ -79,7 +79,6 @@ QSqlQueryModel * Collects::afficher()
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("Collect budget"));
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("Collections"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("Description"));
-
 
     return model;
 }

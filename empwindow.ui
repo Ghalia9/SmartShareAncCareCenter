@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1297</width>
-    <height>1017</height>
+    <width>1319</width>
+    <height>1094</height>
    </rect>
   </property>
   <property name="palette">
@@ -756,7 +756,7 @@ QPushButton:pressed {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1297</width>
+     <width>1319</width>
      <height>34</height>
     </rect>
    </property>
@@ -792,7 +792,8 @@ QPushButton:pressed {
     <string>toolBar</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(0, 170, 255);</string>
+    <string notr="true">
+background-color: rgb(85, 170, 255);</string>
    </property>
    <property name="iconSize">
     <size>

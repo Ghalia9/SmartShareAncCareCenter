@@ -792,7 +792,9 @@ void serMainWindow::on_services_triggered()
     if (USER==1){
         serMainWindow  *p=new serMainWindow();
  p->showMaximized();
-  this->hide();
+
+ this->hide();
+
     }else{
     QMessageBox::critical(nullptr, QObject::tr("Access denied :/"),
                 QObject::tr("You are not allowed to this section you need to login as a Services Manager to access it! :/\n"

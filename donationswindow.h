@@ -60,7 +60,7 @@ private slots:
 
     void on_actionabout_this_app_triggered();
 
-    void on_tab_stock_activated(const QModelIndex &index);
+    //void on_tab_stock_activated(const QModelIndex &index);
 
 private:
     Ui::donationswindow *ui;

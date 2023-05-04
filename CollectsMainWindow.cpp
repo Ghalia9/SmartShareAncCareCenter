@@ -261,28 +261,41 @@ void CollectsMainWindow::refreshCalendar()
 
 void CollectsMainWindow::on_pushButton_supprimer_clicked()
 {
-    Collects E1;
 
- E1.setCollectID(ui->le_IDS->text());
-bool test=Etmp.supprimer(E1.getCollectID());
+        Collects E1;
+        E1.setCollectID(ui->le_IDS->text());
 
-if(test)
-{
+        bool test = false;
 
-    // (actualiser)
-    ui->tab_read->setModel(Etmp.afficher());
+        if (Etmp.rechercherID(E1.getCollectID())->rowCount() > 0) {
+            test = Etmp.supprimer(E1.getCollectID());
+        }
 
-QMessageBox::information(nullptr, QObject::tr("OK"),
-QObject::tr("Suppression effectué\n"
-             "Click cancel to exit."),QMessageBox::Cancel);
-ui->le_IDS->clear();
-refreshCalendar();
+        if(test)
+        {
+            // (actualiser)
+            ui->tab_read->setModel(Etmp.afficher());
 
-}
-else
-QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
-QObject::tr("Suppression non effectué\n"
-             "Click cancel to exit."),QMessageBox::Cancel);
+            QMessageBox::information(nullptr, QObject::tr("OK"),
+            QObject::tr("Suppression effectué\n"
+                         "Click cancel to exit."),QMessageBox::Cancel);
+            ui->le_IDS->clear();
+            refreshCalendar();
+
+        }
+        else if (E1.getCollectID().isEmpty())
+        {
+            QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
+            QObject::tr("L'ID est vide.\n"
+                         "Click cancel to exit."),QMessageBox::Cancel);
+        }
+        else
+        {
+            QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
+            QObject::tr("L'ID entré n'existe pas dans la base de données.\n"
+                         "Click cancel to exit."),QMessageBox::Cancel);
+        }
+
 
 }
 
