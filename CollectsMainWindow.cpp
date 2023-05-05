@@ -116,12 +116,12 @@ void CollectsMainWindow::koussay()
 
       // Check if the service ID exists in the database
       QSqlQuery idQuery;
-      idQuery.prepare("SELECT COUNT(*) FROM services WHERE service_id = :id");
+      idQuery.prepare("SELECT COUNT(*) FROM services WHERE idservice = :id");
       idQuery.bindValue(":id", serviceId);
       if (idQuery.exec() && idQuery.next() && idQuery.value(0).toInt() > 0) {
           // Query the SERVICES table to get the budget of the specified service
           QSqlQuery serviceQuery;
-          serviceQuery.prepare("SELECT budget, service_name FROM services WHERE service_id = :id");
+          serviceQuery.prepare("SELECT budget, service_name FROM services WHERE idservice = :id");
           serviceQuery.bindValue(":id", serviceId);
           if (serviceQuery.exec() && serviceQuery.next()) {
               double budget = serviceQuery.value(0).toDouble();
@@ -153,7 +153,7 @@ void CollectsMainWindow::koussay()
                                                         if (ret == QMessageBox::Yes) {
                                                             // Delete the service from the database
                                                             QSqlQuery deleteQuery;
-                                                            deleteQuery.prepare("DELETE FROM services WHERE service_id = :id");
+                                                            deleteQuery.prepare("DELETE FROM services WHERE idservice = :id");
                                                             deleteQuery.bindValue(":id", serviceId);
                                                             deleteQuery.exec();
                                                         } else {
@@ -178,7 +178,7 @@ void CollectsMainWindow::koussay()
 
                       // Query the SERVICES table to get the budget of the specified service
                       QSqlQuery serviceQuery;
-                      serviceQuery.prepare("SELECT don_quantity FROM services WHERE service_id = :id");
+                      serviceQuery.prepare("SELECT don_quantity FROM services WHERE idservice = :id");
                       serviceQuery.bindValue(":id", serviceId);
                       if (serviceQuery.exec() && serviceQuery.next()) {
                           int don_quantity = serviceQuery.value(0).toDouble();
@@ -547,12 +547,12 @@ void CollectsMainWindow::on_arduino1_clicked()
 
     // Check if the service ID exists in the database
     QSqlQuery idQuery;
-    idQuery.prepare("SELECT COUNT(*) FROM services WHERE service_id = :id");
+    idQuery.prepare("SELECT COUNT(*) FROM services WHERE idservice = :id");
     idQuery.bindValue(":id", serviceId);
     if (idQuery.exec() && idQuery.next() && idQuery.value(0).toInt() > 0) {
         // Query the SERVICES table to get the budget of the specified service
         QSqlQuery serviceQuery;
-        serviceQuery.prepare("SELECT budget, service_name FROM services WHERE service_id = :id");
+        serviceQuery.prepare("SELECT budget_s, servicename FROM services WHERE idservice = :id");
         serviceQuery.bindValue(":id", serviceId);
         if (serviceQuery.exec() && serviceQuery.next()) {
             double budget = serviceQuery.value(0).toDouble();
@@ -583,7 +583,7 @@ void CollectsMainWindow::on_arduino1_clicked()
                                                       if (ret == QMessageBox::Yes) {
                                                           // Delete the service from the database
                                                           QSqlQuery deleteQuery;
-                                                          deleteQuery.prepare("DELETE FROM services WHERE service_id = :id");
+                                                          deleteQuery.prepare("DELETE FROM services WHERE idservice = :id");
                                                           deleteQuery.bindValue(":id", serviceId);
                                                           deleteQuery.exec();
                                                       } else {
@@ -607,7 +607,7 @@ void CollectsMainWindow::on_arduino1_clicked()
 
                     // Query the SERVICES table to get the budget of the specified service
                     QSqlQuery serviceQuery;
-                    serviceQuery.prepare("SELECT don_quantity FROM services WHERE service_id = :id");
+                    serviceQuery.prepare("SELECT don_quantity FROM services WHERE idservice = :id");
                     serviceQuery.bindValue(":id", serviceId);
                     if (serviceQuery.exec() && serviceQuery.next()) {
                         int don_quantity = serviceQuery.value(0).toDouble();
@@ -644,12 +644,12 @@ void CollectsMainWindow::on_arduino1_clicked()
         }
         // Check if the service ID exists in the database
         QSqlQuery idQuery;
-        idQuery.prepare("SELECT COUNT(*) FROM services WHERE service_id = :id");
+        idQuery.prepare("SELECT COUNT(*) FROM services WHERE idservice = :id");
         idQuery.bindValue(":id", serviceId);
         if (idQuery.exec() && idQuery.next() && idQuery.value(0).toInt() > 0) {
             // Query the SERVICES table to get the budget of the specified service
             QSqlQuery serviceQuery;
-            serviceQuery.prepare("SELECT budget, service_name FROM services WHERE service_id = :id");
+            serviceQuery.prepare("SELECT budget, service_name FROM services WHERE idservice = :id");
             serviceQuery.bindValue(":id", serviceId);
             if (serviceQuery.exec() && serviceQuery.next()) {
                 double budget = serviceQuery.value(0).toDouble();
@@ -657,12 +657,12 @@ void CollectsMainWindow::on_arduino1_clicked()
 
         // Check if the service ID exists in the database
         QSqlQuery idQuery;
-        idQuery.prepare("SELECT COUNT(*) FROM services WHERE service_id = :id");
+        idQuery.prepare("SELECT COUNT(*) FROM services WHERE idservice = :id");
         idQuery.bindValue(":id", serviceId);
         if (idQuery.exec() && idQuery.next() && idQuery.value(0).toInt() > 0) {
             // Query the SERVICES table to get the budget of the specified service
             QSqlQuery serviceQuery;
-            serviceQuery.prepare("SELECT budget, service_name FROM services WHERE service_id = :id");
+            serviceQuery.prepare("SELECT budget, service_name FROM services WHERE idservice = :id");
             serviceQuery.bindValue(":id", serviceId);
             if (serviceQuery.exec() && serviceQuery.next()) {
                 double budget = serviceQuery.value(0).toDouble();
@@ -690,7 +690,7 @@ void CollectsMainWindow::on_arduino1_clicked()
                             if (ret == QMessageBox::Yes) {
                                 // Delete the service from the database
                                 QSqlQuery deleteQuery;
-                                deleteQuery.prepare("DELETE FROM services WHERE service_id = :id");
+                                deleteQuery.prepare("DELETE FROM services WHERE idservice = :id");
                                 deleteQuery.bindValue(":id", serviceId);
                                 deleteQuery.exec();
                             } else {
@@ -718,7 +718,7 @@ void CollectsMainWindow::on_arduino1_clicked()
 
                     // Query the SERVICES table to get the budget of the specified service
                     QSqlQuery serviceQuery;
-                    serviceQuery.prepare("SELECT don_quantity FROM services WHERE service_id = :id");
+                    serviceQuery.prepare("SELECT don_quantity FROM services WHERE idservice = :id");
                     serviceQuery.bindValue(":id", serviceId);
                     if (serviceQuery.exec() && serviceQuery.next()) {
                         int don_quantity = serviceQuery.value(0).toDouble();
