@@ -285,9 +285,9 @@ void Destitute::PDF(QString fileName)
     painter.end();
 }
 }
-QChartView * Destitute::STATS()
+QChartView *Destitute::STATS()
 {
-    QSqlQueryModel * model=new QSqlQueryModel();
+    QSqlQueryModel *model = new QSqlQueryModel();
     QSqlQuery query;
     query.prepare("SELECT DESTITUTE_LEVEL , COUNT(*) FROM DESTITUE GROUP BY DESTITUTE_LEVEL");
 
@@ -299,61 +299,56 @@ QChartView * Destitute::STATS()
         QChartView *chartview = new QChartView();
         //chartview->setParent(ui->horizontalFrame);
         return chartview;
-
     }
-    else{
-    model->setQuery(query);
-    QPieSeries *series = new QPieSeries();
-    qreal s = 1.0;
-    series->setPieSize(s);
-    for (int i = 0; i < model->rowCount(); ++i)
-        {
-        QModelIndex index = model->index(i, 0); // access the first column of the current row
-        QVariant value = model->data(index);
-        QString nom=value.toString();
-        qDebug() << nom; // print the value
+    else {
+        model->setQuery(query);
+        QPieSeries *series = new QPieSeries();
+        int totalCount = 0;
+        while (model->canFetchMore()) {
+            model->fetchMore();
+        }
+        for (int i = 0; i < model->rowCount(); ++i) {
+            QModelIndex index = model->index(i, 0); // access the first column of the current row
+            QVariant value = model->data(index);
+            QString nom = value.toString();
+            qDebug() << nom; // print the value
 
-        QModelIndex indexCount = model->index(i, 1); // access the second column of the current row
+            QModelIndex indexCount = model->index(i, 1); // access the second column of the current row
             QVariant valueCount = model->data(indexCount);
-            qreal num =valueCount.toReal();
+            int num = valueCount.toInt();
             qDebug() << num; // print the value
-            float val=(num*100)/model->rowCount();
-            qDebug() << "%"<<val;
-            QString prc=QString::number(val);
-            QString aff=nom + "("+prc+"%"+")";
-            qDebug() << "msg"<<aff;
-            series->append(aff,num);
-            //series->setPieSize(0.5);
+            // calculate the percentage and format it as a string
+            float percentage = static_cast<float>(num) / model->rowCount() * 100;
+            QString prc = QString::number(percentage, 'f', 2);
+            //QString aff = nom + " (" + prc + "%)";
+            QString aff = nom;
+            qDebug() << "msg" << aff;
+            series->append(nom, num);
+            qDebug() << "aff=" << aff <<" num="<<num;
+
+            totalCount += num;
         }
 
+        QChart *chart = new QChart();
+        chart->addSeries(series);
+        chart->setTitle("Destitute level Pie Chart");
 
-      /*
+        // set the labels to display the percentage and the data name
+        for (QPieSlice *slice : series->slices()) {
+            QString name = slice->label();
+            int num = slice->value();
+            float percentage = static_cast<float>(num) / totalCount * 100;
+            QString prc = QString::number(percentage, 'f', 2);
+            slice->setLabel(name + "(" + prc + "%)");
+            qDebug() << "haaaaaaaaaaaa" << name + "\n" + prc + "%";
+        }
 
-    QPieSeries *series = new QPieSeries();
-    series->append("level1", 80);
-        series->append("level0", 70);
-        series->append("level3", 50);
-        series->append("level2", 40);
-        //series->append("PHP", 30);
-*/
-        QPieSlice *slice = series->slices().at(1);
-            slice->setExploded(true);
-            slice->setLabelVisible(true);
-            slice->setPen(QPen(Qt::darkGreen, 2));
-            slice->setBrush(Qt::green);
-
-
-            QChart *chart = new QChart();
-            chart->addSeries(series);
-            chart->setTitle("Destitute level Pie Chart");
-
-
-            QChartView *chartview = new QChartView(chart);
-            //chartview->setParent(ui->horizontalFrame);
-            return chartview;
-
-
-            }
+        QChartView *chartview = new QChartView(chart);
+        chartview->setRenderHint(QPainter::Antialiasing);
+                chartview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        chartview->setMinimumSize(640, 480);
+     return chartview;
+    }
 }
 
 QImage Destitute::generateQRCode(QString data)

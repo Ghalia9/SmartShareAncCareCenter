@@ -54,7 +54,7 @@ destituteWindow::destituteWindow(QWidget *parent)
     ui->listQR->setModel(De.Show());
     ui->the_firstname->setValidator(new QRegExpValidator( QRegExp("[A-Za-z]+"), this ));
     ui->the_lastname->setValidator(new QRegExpValidator( QRegExp("[A-Za-z]+"), this ));
-    De.STATS()->setParent(ui->stats_2);
+    De.STATS()->setParent(ui->stats);
 
     ui->quickWidget->setSource(QUrl(QStringLiteral("qrc:/main.qml")));
     ui->quickWidget->show();
@@ -191,7 +191,6 @@ void destituteWindow::centerAndResize() {
        )
    );
 }
-
 void destituteWindow::on_pb_add_clicked()
 {
    QString fn=ui->the_firstname->text();
@@ -218,12 +217,13 @@ void destituteWindow::on_pb_add_clicked()
        {
           if (qry.next())
           {
-              QString lastID = qry.value(0).toString();
-           int i = lastID.section(QRegularExpression("[^\\d]+"), 1).toInt();
-           //int i=lastID.toInt();
-           qDebug() <<"last ID=" <<lastID;
-          qDebug() <<"i=" <<i;
-          QString id="DES"+QString::number(++i);
+
+              QString lastID =qry.value(0).toString();
+              qDebug() <<"last ID=" <<lastID;
+
+              int i = lastID.midRef(3).toInt() + 1; // Extract the numeric part and increment it
+                 QString id = "DES" + QString("%1").arg(i, 4, 10, QChar('0')); // Generate the new ID with leading zeros
+
           qDebug() <<"id=" <<id;
        Destitute D(id,fn,ln,level,c);
        bool test=D.Add();
@@ -232,6 +232,40 @@ void destituteWindow::on_pb_add_clicked()
            //REFRESH
            ui->showtab->setModel(De.Show());
            ui->listQR->setModel(De.Show());
+           //Update stats
+           QLayoutItem* item;
+           while ((item = ui->stats->layout()->takeAt(0)) != nullptr) {
+               if (item->widget() != nullptr && dynamic_cast<QChartView*>(item->widget()) != nullptr) {
+                   delete item->widget();
+               }
+               delete item;
+           }
+
+           // Add the new QChartView widget to ui->stats
+           // Create a widget to hold the chart view and set its layout
+           QWidget *chartWidget = new QWidget();
+           QVBoxLayout *chartLayout = new QVBoxLayout(chartWidget);
+           chartLayout->setContentsMargins(0, 0, 0, 0);
+
+           // Get the chart view from De.STATS() and add it to the widget layout
+           QChartView *chartView = De.STATS();
+           //chartView->setRenderHint(QPainter::Antialiasing);
+           chartView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+           chartLayout->addWidget(chartView);
+
+           // Add the widget to the ui->stats layout
+           ui->stats->layout()->addWidget(chartWidget);
+
+           // Update the geometry and layout of the widgets
+           ui->stats->updateGeometry();
+           ui->stats->parentWidget()->updateGeometry();
+           ui->stats->parentWidget()->update();
+
+           // Repaint the widgets
+           ui->stats->repaint();
+           ui->stats->parentWidget()->repaint();
+
+
            QMessageBox::information(nullptr, QObject::tr("OK"),
                        QObject::tr("Added successfuly.\n"
                                    "Click Cancel to exit."), QMessageBox::Cancel);
@@ -258,6 +292,7 @@ void destituteWindow::on_pb_add_clicked()
 
 }
 
+
 void destituteWindow::on_pb_delete_clicked()
 {
     ui->the_id->setEnabled(true);
@@ -267,6 +302,39 @@ void destituteWindow::on_pb_delete_clicked()
     {
         //REFRESH
         ui->showtab->setModel(De.Show());
+        //Update stats
+        QLayoutItem* item;
+        while ((item = ui->stats->layout()->takeAt(0)) != nullptr) {
+            if (item->widget() != nullptr && dynamic_cast<QChartView*>(item->widget()) != nullptr) {
+                delete item->widget();
+            }
+            delete item;
+        }
+
+        // Add the new QChartView widget to ui->stats
+        // Create a widget to hold the chart view and set its layout
+        QWidget *chartWidget = new QWidget();
+        QVBoxLayout *chartLayout = new QVBoxLayout(chartWidget);
+        chartLayout->setContentsMargins(0, 0, 0, 0);
+
+        // Get the chart view from De.STATS() and add it to the widget layout
+        QChartView *chartView = De.STATS();
+        //chartView->setRenderHint(QPainter::Antialiasing);
+        chartView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        chartLayout->addWidget(chartView);
+
+        // Add the widget to the ui->stats layout
+        ui->stats->layout()->addWidget(chartWidget);
+
+        // Update the geometry and layout of the widgets
+        ui->stats->updateGeometry();
+        ui->stats->parentWidget()->updateGeometry();
+        ui->stats->parentWidget()->update();
+
+        // Repaint the widgets
+        ui->stats->repaint();
+        ui->stats->parentWidget()->repaint();
+
         QMessageBox::information(nullptr, QObject::tr("OK"),
                     QObject::tr("Deleted successfuly.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
@@ -295,6 +363,39 @@ void destituteWindow::on_pb_update_clicked()
      {
          //REFRESH
          ui->showtab->setModel(De.Show());
+         //Update stats
+         QLayoutItem* item;
+         while ((item = ui->stats->layout()->takeAt(0)) != nullptr) {
+             if (item->widget() != nullptr && dynamic_cast<QChartView*>(item->widget()) != nullptr) {
+                 delete item->widget();
+             }
+             delete item;
+         }
+
+         // Add the new QChartView widget to ui->stats
+         // Create a widget to hold the chart view and set its layout
+         QWidget *chartWidget = new QWidget();
+         QVBoxLayout *chartLayout = new QVBoxLayout(chartWidget);
+         chartLayout->setContentsMargins(0, 0, 0, 0);
+
+         // Get the chart view from De.STATS() and add it to the widget layout
+         QChartView *chartView = De.STATS();
+         //chartView->setRenderHint(QPainter::Antialiasing);
+         chartView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+         chartLayout->addWidget(chartView);
+
+         // Add the widget to the ui->stats layout
+         ui->stats->layout()->addWidget(chartWidget);
+
+         // Update the geometry and layout of the widgets
+         ui->stats->updateGeometry();
+         ui->stats->parentWidget()->updateGeometry();
+         ui->stats->parentWidget()->update();
+
+         // Repaint the widgets
+         ui->stats->repaint();
+         ui->stats->parentWidget()->repaint();
+
          QMessageBox::information(nullptr, QObject::tr("OK"),
                      QObject::tr("Updated successfuly.\n"
                                  "Click Cancel to exit."), QMessageBox::Cancel);
