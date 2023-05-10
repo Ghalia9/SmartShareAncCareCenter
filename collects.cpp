@@ -86,12 +86,12 @@ QSqlQueryModel * Collects::afficher()
 
 bool Collects::supprimer(QString Collect_ID)
 {
-QSqlQuery query;
-query.prepare("Delete from Collects where COLLECT_ID= :id");
-query.bindValue(":id",Collect_ID);
-query.exec();
-return query.exec();
+    QSqlQuery query;
+    query.prepare("DELETE FROM Collects WHERE LOWER(COLLECT_ID) = LOWER(:id)");
+    query.bindValue(":id", Collect_ID);
+    return query.exec();
 }
+
 
 bool Collects :: modifier()
 {
@@ -112,7 +112,7 @@ QSqlQueryModel* Collects ::rechercherID(QString recherche)
     QSqlQueryModel* model=new QSqlQueryModel();
 
 
-    model->setQuery("SELECT * FROM Collects where COLLECT_ID LIKE '"+recherche+"%' ");
+    model->setQuery("SELECT * FROM Collects where COLLECT_ID LIKE '"+recherche+"%' OR LOWER(COLLECT_ID) LIKE '"+recherche+"%' OR UPPER(COLLECT_ID) LIKE '"+recherche+"%' ");
 
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("Collect ID"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("Collect name"));

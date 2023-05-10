@@ -339,17 +339,17 @@ void CollectsMainWindow::on_confirm_sort_clicked()
 
     Collects C;
         if(ui->comboBox->currentIndex()==0){
-            ui->tab_recherche->setModel(C.triDate());
+            ui->tab_read->setModel(C.triDate());
 
         }
         else if (ui->comboBox->currentIndex()==1)
         {
-           ui->tab_recherche->setModel(C.triCosts());
+           ui->tab_read->setModel(C.triCosts());
 
         }
         else if(ui->comboBox->currentIndex()==2)
         {
-            ui->tab_recherche->setModel(C.triCollects());
+            ui->tab_read->setModel(C.triCollects());
 
         }
         else
@@ -364,25 +364,25 @@ void CollectsMainWindow::on_confirm_search_clicked()
 {
 
         if(ui->comboBox_3->currentIndex()==0){
-            ui->tab_recherche->setModel(C.rechercherID(recherche));
+            ui->tab_read->setModel(C.rechercherID(recherche));
 
         }
         else if (ui->comboBox_3->currentIndex()==1)
         {
 
-             ui->tab_recherche->setModel(C.rechercherDate(recherche));
+             ui->tab_read->setModel(C.rechercherDate(recherche));
 
 
         }
         else if(ui->comboBox_3->currentIndex()==2)
         {
-            ui->tab_recherche->setModel(C.rechercherName(recherche));
+            ui->tab_read->setModel(C.rechercherName(recherche));
 
 
     }
     else
     {
-       ui->tab_recherche->setModel(C.afficher());
+       ui->tab_read->setModel(C.afficher());
     }
 }
 }
