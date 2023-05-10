@@ -594,7 +594,7 @@ QPushButton:pressed {
              <x>730</x>
              <y>19</y>
              <width>991</width>
-             <height>401</height>
+             <height>651</height>
             </rect>
            </property>
            <property name="styleSheet">
@@ -794,9 +794,9 @@ QPushButton:pressed {
            <property name="geometry">
             <rect>
              <x>730</x>
-             <y>441</y>
+             <y>670</y>
              <width>1001</width>
-             <height>391</height>
+             <height>161</height>
             </rect>
            </property>
            <property name="styleSheet">
@@ -885,17 +885,10 @@ QPushButton:pressed {
             <string/>
            </property>
            <layout class="QGridLayout" name="gridLayout_5">
-            <item row="0" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item row="1" column="0">
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
               <item>
-               <widget class="QLineEdit" name="le_recherche">
-                <property name="styleSheet">
-                 <string notr="true">background-color: rgb(255, 255, 255);</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer">
+               <spacer name="horizontalSpacer_4">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -906,6 +899,13 @@ QPushButton:pressed {
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="le_recherche">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(255, 255, 255);</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QComboBox" name="comboBox_recherche">
@@ -958,17 +958,39 @@ QPushButton:pressed {
                 </property>
                </widget>
               </item>
+              <item>
+               <spacer name="horizontalSpacer_10">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
              </layout>
             </item>
-            <item row="1" column="0">
-             <widget class="QTableView" name="recherche">
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(255, 255, 255);</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item row="0" column="0">
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Minimum</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
               <item>
                <widget class="QComboBox" name="comboBox_sort">
                 <property name="styleSheet">
@@ -980,19 +1002,6 @@ QPushButton:pressed {
                  </property>
                 </item>
                </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
               </item>
               <item>
                <widget class="QPushButton" name="pb_sort">
@@ -1024,46 +1033,20 @@ QPushButton:pressed {
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_4">
+               <spacer name="horizontalSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Minimum</enum>
+                </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>40</width>
-                  <height>20</height>
+                  <width>10</width>
+                  <height>10</height>
                  </size>
                 </property>
                </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pb_pdf2">
-                <property name="styleSheet">
-                 <string notr="true">
-
-/* Set the color of the buttons */
-QPushButton {
-    background-color: #5DA5E5;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-}
-
-/* Set the background color of the buttons when they are hovered over */
-QPushButton:hover {
-    background-color: #4390E1;
-}
-
-/* Set the background color of the buttons when they are pressed */
-QPushButton:pressed {
-    background-color: #306BBE;
-}</string>
-                </property>
-                <property name="text">
-                 <string>Generate PDF</string>
-                </property>
-               </widget>
               </item>
              </layout>
             </item>

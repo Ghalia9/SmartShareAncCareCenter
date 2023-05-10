@@ -230,24 +230,24 @@ void serMainWindow::on_pb_recherche_clicked()
 {
 
         if(ui->comboBox_recherche->currentIndex()==0){
-            ui->recherche->setModel(S.rechercherID(recherche));
+            ui->tab_service->setModel(S.rechercherID(recherche));
 
         }
         else if (ui->comboBox_recherche->currentIndex()==1)
         {
-             ui->recherche->setModel(S.recherchernomS(recherche));
+             ui->tab_service->setModel(S.recherchernomS(recherche));
 
 
         }
         else if(ui->comboBox_recherche->currentIndex()==2)
         {
-            ui->recherche->setModel(S.rechercherDontype(recherche));
+            ui->tab_service->setModel(S.rechercherDontype(recherche));
 
 
     }
     else
     {
-       ui->recherche->setModel(S.afficher());
+       ui->tab_service->setModel(S.afficher());
     }
 }
 }
@@ -258,7 +258,7 @@ void serMainWindow::on_pb_sort_clicked()
 {
     Service S;
         if(ui->comboBox_sort->currentIndex()==0){
-            ui->recherche->setModel(S.triIDs());
+            ui->tab_service->setModel(S.triIDs());
         }
         //else
            // cout << "no combobox" << endl;
@@ -356,7 +356,7 @@ void serMainWindow::on_pb_pdf1_clicked()
 
 
 
-void serMainWindow::on_pb_pdf2_clicked()
+/*void serMainWindow::on_pb_pdf2_clicked()
 
  {
      QString fileName = QFileDialog::getSaveFileName(this, "Save PDF", "", "PDF Files (*.pdf)");
@@ -365,8 +365,8 @@ void serMainWindow::on_pb_pdf2_clicked()
 
      QString strStream;
      QTextStream out(&strStream);
-     const int rowCount = ui->recherche->model()->rowCount();
-     const int columnCount =ui->recherche->model()->columnCount();
+     const int rowCount = ui->tab_service->model()->rowCount();
+     const int columnCount =ui->tab_service->model()->columnCount();
 
      out <<  "<html>\n"
              "<head>\n"
@@ -408,7 +408,7 @@ void serMainWindow::on_pb_pdf2_clicked()
      document->print(&printer);
  }
 
-
+*/
 
 
 void serMainWindow::on_stats_clicked()

@@ -33,7 +33,7 @@ private slots:
 
    void on_pb_pdf1_clicked();
 
-   void on_pb_pdf2_clicked();
+   //void on_pb_pdf2_clicked();
 
    void on_stats_clicked();
 
