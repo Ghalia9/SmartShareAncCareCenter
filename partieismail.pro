@@ -53,6 +53,7 @@ SOURCES += \
     smtp.cpp \
     smtpk.cpp \
     themewidget.cpp \
+    themewidget1.cpp \
     todolistwidget.cpp
 
 HEADERS += \
@@ -77,6 +78,7 @@ HEADERS += \
     smtp.h \
     smtpk.h \
     themewidget.h \
+    themewidget1.h \
     todolistwidget.h
 
 FORMS += \

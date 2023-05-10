@@ -14,12 +14,12 @@
 
 class donation
 {
-    QString donation_id, category_name, name, description, phone_number;
+    QString donation_id, category_name, name, description, phone_number,image;
     int quantity;
     double amount;
     public:
     donation(){}
-    donation(QString,QString,QString,QString,double,int,QString);
+    donation(QString,QString,QString,QString,double,int,QString,QString);
     //Getters
     QString getDonationID(){return donation_id;}
     QString getCategoryName(){return category_name;}
@@ -28,6 +28,7 @@ class donation
     int getQuantity(){return quantity;}
     double getAmount(){return amount;}
     QString getPhoneNumber(){return phone_number;}
+    QString getImage(){return image;}
  //   QString getLastId(){return last_id;}
 
 
@@ -42,6 +43,7 @@ class donation
     void setQuantity(int q){this->quantity=q;}
     void setAmount(double a){this->amount=a;}
     void setPhoneNumber(QString ph){phone_number=ph;}
+    void setImage(QString im){image=im;}
 
     QString setDonationID() {return donation_id;};
     //fonctionnalités de base relatives à l'entité Etudiant
@@ -59,16 +61,7 @@ QSqlQueryModel * afficher2();
             QSqlQueryModel* recherchernom(QString );
             QSqlQueryModel* rechercherID2(QString );
              void generateCatalog();
-/*
-private:
-       QStackedWidget *stackedWidget;
-       QVBoxLayout *mainLayout;
-       QLabel *titleLabel;
-       QLabel *pageLabel;
-       QLabel *donationLabel;
-       QToolButton *prevButton;
-       QToolButton *nextButton;
-       QList<QLabel *> donationPages;*/
+
 
 };
 

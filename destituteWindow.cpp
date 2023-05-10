@@ -104,8 +104,9 @@ void destituteWindow::Read()
            QString name="Unkown";
            QString phone_number="Unkown";
            QString description="Unkown";
+           QString image="Unkown";
 
-           donation D(donation_id,category_name,name,description,amount,quantity,phone_number);
+           donation D(donation_id,category_name,name,description,amount,quantity,phone_number,image);
            bool test=D.ajouter();
            if(test)
            {
@@ -144,8 +145,8 @@ void destituteWindow::Read()
            QString name="Unkown";
            QString phone_number="Unkown";
            QString description="Unkown";
-
-           donation D(donation_id,category_name,name,description,amount,quantity,phone_number);
+QString image="Unkown";
+           donation D(donation_id,category_name,name,description,amount,quantity,phone_number,image);
            bool test=D.ajouter();
            if(test)
            {

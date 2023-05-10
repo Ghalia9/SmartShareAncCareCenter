@@ -18,7 +18,7 @@
 
 
 
-donation::donation(QString donation_id,QString category_name,QString name,QString description,double amount,int quantity,QString phone_number)
+donation::donation(QString donation_id,QString category_name,QString name,QString description,double amount,int quantity,QString phone_number, QString image)
 {
     this->donation_id=donation_id;
     this->category_name=category_name;
@@ -27,6 +27,7 @@ donation::donation(QString donation_id,QString category_name,QString name,QStrin
     this->amount=amount;
     this->quantity=quantity;
     this->phone_number=phone_number;
+    this->image=image;
 
 
 }
@@ -38,7 +39,7 @@ bool donation::ajouter()
 
     //prepare() prend la requete en parametre pour la preparer à léxecution
 
-    query.prepare("insert into donations (quantity,amount,donation_id,category_name,name,description,phone_number)" "values (:quantity,:amount,:donation_id,:category_name,:name,:description,:phone_number)");
+    query.prepare("insert into donations (quantity,amount,donation_id,category_name,name,description,phone_number,image)" "values (:quantity,:amount,:donation_id,:category_name,:name,:description,:phone_number,:image)");
     //creation des variables liees
 
     query.bindValue(":quantity",res);
@@ -48,6 +49,8 @@ bool donation::ajouter()
     query.bindValue(":name",name);
     query.bindValue(":description",description);
     query.bindValue(":phone_number",phone_number);
+    query.bindValue(":image",image);
+
 
 
     return query.exec(); //exec() envoie la requete pour l'execution
@@ -72,18 +75,19 @@ QSqlQueryModel * donation::afficher()
 
 bool donation::supprimer(QString donation_id)
 {
-QSqlQuery query;
-query.prepare("Delete from donations where donation_id= :donation_id");
-query.bindValue(":donation_id",donation_id);
-query.exec();
-return query.exec();
+    QSqlQuery query;
+    query.prepare("DELETE FROM donations WHERE LOWER(donation_id) = LOWER(:donation_id)");
+    query.bindValue(":donation_id", donation_id.toLower());  // Convert input to lowercase
+    query.exec();
+    return query.exec();
 }
+
 
 
 bool donation :: modifier()
 {
     QSqlQuery query;
-    query.prepare("UPDATE DONATIONS SET DONATION_ID = :donation_id, CATEGORY_NAME = :category_name, NAME = :name, DESCRIPTION = :description,  QUANTITY = :quantity, AMOUNT = :amount,PHONE_NUMBER = :phone_number WHERE DONATION_ID LIKE '"+donation_id+"%'");
+    query.prepare("UPDATE DONATIONS SET DONATION_ID = :donation_id, CATEGORY_NAME = :category_name, NAME = :name, DESCRIPTION = :description,  QUANTITY = :quantity, AMOUNT = :amount,PHONE_NUMBER = :phone_number, IMAGE = :image WHERE DONATION_ID LIKE '"+donation_id+"%'");
 
         query.bindValue(":donation_id", donation_id);
         query.bindValue(":category_name", category_name);
@@ -92,6 +96,8 @@ bool donation :: modifier()
         query.bindValue(":quantity", quantity);
         query.bindValue(":amount", amount);
         query.bindValue(":phone_number", phone_number);
+        query.bindValue(":image",image);
+
       query.exec();
        return  query.exec();
 }
@@ -106,7 +112,6 @@ QSqlQueryModel* donation ::rechercherID(QString recherche)
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("name"));
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("description"));
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("quantity"));
-
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("amount"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("phone_number"));
 
@@ -173,7 +178,6 @@ QSqlQueryModel* donation::recherchernom(QString recherche)
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("name"));
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("description"));
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("quantity"));
-
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("amount"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("phone_number"));
     return model;

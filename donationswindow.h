@@ -44,7 +44,6 @@ private slots:
 
     void on_pb_catalogue_clicked();
 
-    void on_pushButton5_clicked();
 
     //void on_changeButton_clicked();
 
@@ -61,6 +60,10 @@ private slots:
     void on_actionabout_this_app_triggered();
 
     //void on_tab_stock_activated(const QModelIndex &index);
+
+    void on_pb_image_clicked();
+
+    void on_pb_clear_clicked();
 
 private:
     Ui::donationswindow *ui;

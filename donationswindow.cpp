@@ -23,7 +23,7 @@
 #include <QKeySequence>
 #include <QKeyEvent>
 #include <QtNetwork>
-#include "themewidget.h"
+#include "themewidget1.h"
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 #include <dialog.h>
@@ -35,6 +35,9 @@
 #include "destituteWindow.h"
 #include "donationswindow.h"
 #include "sermainwindow.h"
+#include <QtWidgets>
+#include <QtCharts>
+#include <QtSql>
 
 
 
@@ -56,12 +59,15 @@ donationswindow::donationswindow(QWidget *parent) :
          //QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label())); // permet de lancer
 
         ui->tab_stock->setModel(Etmp.afficher2());
-            ui->tab_stock->resizeColumnsToContents();
-
-            ui->le_id->setReadOnly(true);//le slot update_label suite à la reception du signal readyRead (reception des données).
+          ui->tab_stock->resizeColumnsToContents();
+    ui->le_image->setReadOnly(true);
+    ui->le_id->setReadOnly(true);//le slot update_label suite à la reception du signal readyRead (reception des données).
     ui->tab_donation->setModel(Etmp.afficher());
     ui->le_amount->setValidator(new QDoubleValidator(0, 9999999, 3, this));
     ui->le_quantity->setValidator(new QIntValidator(0, 9999999, this));
+    ui->le_phonenumber->setMaxLength(8);
+    ui->le_phonenumber->setValidator(new QRegExpValidator(QRegExp("\\d{8}"), this));
+
     //donationObj = *new donation();
 
 
@@ -72,44 +78,6 @@ donationswindow::~donationswindow()
     delete ui;
 }
 
-/*
- void donationswindow::on_pb_ajouter_clicked()
-{
-    // Generate the next ID
-        QSqlQuery query("SELECT MAX(donation_id) FROM donations");
-        query.next();
-        QString lastId = query.value(0).toString();
-        int nextIndex = lastId.isEmpty() ? 1 : lastId.right(3).toInt() + 1;  // extract the numeric part of the ID and increment it
-        QString donation_id = "DON" + QString("%1").arg(nextIndex, 3, 10, QChar('0')); // create the new ID
-
-
-
-    double amount=ui->le_amount->text().toDouble();
-int quantity=ui->le_quantity->text().toInt();
-//ui->le_id->hide();
-
-//QString donation_id=ui->le_id->text();
-QString category_name = ui->le_categoryname->currentText();
-QString name=ui->le_name->text();
-QString phone_number=ui->le_phonenumber->text();
-QString description=ui->le_description->text();
-
-donation D(donation_id,category_name,name,description,amount,quantity,phone_number);
-bool test=D.ajouter();
-if(test)
-{
-    //Refresh (actualiser)
-    ui->tab_donation->setModel(Etmp.afficher());
-
-QMessageBox::information(nullptr, QObject::tr("OK"),
-QObject::tr("Ajout effectué\n"
-             "Click cancel to exit."),QMessageBox::Cancel);
-}
-else
-QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
-QObject::tr("Ajout non effectué\n"
-             "Click cancel to exit."),QMessageBox::Cancel);
-}*/
 void donationswindow::on_pb_ajouter_clicked()
 {
     // Generate the next ID
@@ -125,8 +93,9 @@ void donationswindow::on_pb_ajouter_clicked()
     QString name = ui->le_name->text();
     QString phone_number = ui->le_phonenumber->text();
     QString description = ui->le_description->text();
+    QString image = ui->le_image->text();
 
-    donation D(donation_id, category_name, name, description, amount, quantity, phone_number);
+    donation D(donation_id, category_name, name, description, amount, quantity, phone_number,image);
     bool test = D.ajouter();
 
     if (test) {
@@ -169,7 +138,7 @@ void donationswindow::on_pb_ajouter_clicked()
 void donationswindow::on_pb_supprimer_clicked()
 {
 donation D1;
-D1.setDonationID(ui->le_idsupp->text());
+D1.setDonationID(ui->le_id->text());
 bool test=Etmp.supprimer(D1.getDonationID());
 
 if(test)
@@ -195,14 +164,15 @@ void donationswindow::on_pb_modifier_clicked()
     QString name=ui->le_name->text();
     QString description=ui->le_description->text();
     double amount=ui->le_amount->text().toDouble();
-int quantity=ui->le_quantity->text().toInt();
-QString phone_number=ui->le_phonenumber->text();
+    int quantity=ui->le_quantity->text().toInt();
+    QString phone_number=ui->le_phonenumber->text();
+    QString image=ui->le_image->text();
 
 
 
 //QString category_name=ui->le_categoryname->text();
 
-donation D(donation_id,category_name,name,description,amount,quantity,phone_number);
+donation D(donation_id,category_name,name,description,amount,quantity,phone_number,image);
 
     bool test = D.modifier();
 
@@ -245,27 +215,22 @@ void donationswindow::on_pb_search_clicked()
     QString recherche = ui->le_search->text();
     if(recherche.length()!=0)
 {
-
         if(ui->searchbox->currentIndex()==0){
-            ui->tab_donation2->setModel(d1.rechercherCategoryName(recherche));
-
+            ui->tab_donation->setModel(d1.rechercherCategoryName(recherche));
 
         }
         else if (ui->searchbox->currentIndex()==1)
         {
-            ui->tab_donation2->setModel(d1.rechercherID2(recherche));
-
+            ui->tab_donation->setModel(d1.rechercherID2(recherche));
 
         }
         else if(ui->searchbox->currentIndex()==2)
         {
-            ui->tab_donation2->setModel(d1.recherchernom(recherche));
-
-
+            ui->tab_donation->setModel(d1.recherchernom(recherche));
     }
     else
     {
-       ui->tab_donation2->setModel(d1.afficher());
+       ui->tab_donation->setModel(d1.afficher());
     }
 }
 }
@@ -331,6 +296,7 @@ void donationswindow::on_tab_donation_activated(const QModelIndex &index)
         int quantiy = ui->tab_donation->model()->data(ui->tab_donation->model()->index(index.row(), 4)).toInt();
         double amount = ui->tab_donation->model()->data(ui->tab_donation->model()->index(index.row(), 5)).toDouble();
         QString phone_number = ui->tab_donation->model()->data(ui->tab_donation->model()->index(index.row(), 6)).toString();
+        QString image = ui->tab_donation->model()->data(ui->tab_donation->model()->index(index.row(), 7)).toString();
 
 
 
@@ -341,6 +307,7 @@ void donationswindow::on_tab_donation_activated(const QModelIndex &index)
         ui->le_amount->setText(QString::number(amount));
         ui->le_description->setText(description);
         ui->le_phonenumber->setText(phone_number);
+        ui->le_image->setText(image);
 }
 
 
@@ -396,30 +363,9 @@ void donationswindow::on_le_invoice_clicked()
 
 
 }
-/*
-
-void donationswindow::on_btn_print_clicked()
-{
-    QPrinter printer;
-        QPrintDialog *printDialog = new QPrintDialog(&printer, this);
 
 
-        if (printDialog->exec() == QDialog::Accepted) {
-            QPainter painter(&printer);
 
-            // Print the invoice text
-            painter.drawText(100, 100, ui->lbl_total_donations->text());
-            painter.drawText(100, 120, ui->lbl_total_collections->text());
-            painter.drawText(100, 140, ui->lbl_total_service_budgets->text());
-            painter.drawText(100, 160, ui->lbl_total_collect_budgets->text());
-            painter.drawText(100, 180, ui->lbl_net->text());
-
-            painter.end();
-        }
-
-        delete printDialog;
-}
-*/
 
 void donationswindow::keyPressEvent(QKeyEvent *event)
 {
@@ -448,64 +394,7 @@ void donationswindow::keyPressEvent(QKeyEvent *event)
 }
 
 
-/*
-void donationswindow::on_btn_print_clicked()
-{
-    QPrinter printer;
-    QPrintDialog *printDialog = new QPrintDialog(&printer, this);
 
-    if (printDialog->exec() == QDialog::Accepted) {
-        QTextDocument document;
-        QTextCursor cursor(&document);
-
-        // Set the font and font size for the document
-        QFont font("Arial", 12);
-        document.setDefaultFont(font);
-
-        // Create a QTextCharFormat object for the bold text
-        QTextCharFormat boldFormat;
-        boldFormat.setFontWeight(QFont::Bold);
-
-        // Add the invoice header
-        QTextBlockFormat blockFormat;
-        blockFormat.setAlignment(Qt::AlignCenter);
-        cursor.setBlockFormat(blockFormat);
-        cursor.insertText("Invoice", boldFormat);
-        cursor.insertBlock();
-
-        // Add the total donations
-        cursor.insertText("Total Donations: ");
-        cursor.insertText(ui->lbl_total_donations->text(), boldFormat);
-        cursor.insertBlock();
-
-        // Add the total collections
-        cursor.insertText("Total Collections: ");
-        cursor.insertText(ui->lbl_total_collections->text(), boldFormat);
-        cursor.insertBlock();
-
-        // Add the total service budgets
-        cursor.insertText("Total Service Budgets: ");
-        cursor.insertText(ui->lbl_total_service_budgets->text(), boldFormat);
-        cursor.insertBlock();
-
-        // Add the total collect budgets
-        cursor.insertText("Total Collect Budgets: ");
-        cursor.insertText(ui->lbl_total_collect_budgets->text(), boldFormat);
-        cursor.insertBlock();
-
-        // Add the net money
-        cursor.insertText("Net Money: ");
-        cursor.insertText(ui->lbl_net->text(), boldFormat);
-        cursor.insertBlock();
-
-        // Print the document
-        printer.setPageMargins(20, 20, 20, 20, QPrinter::Millimeter);
-        document.print(&printer);
-    }
-
-    delete printDialog;
-}
-*/
 
 void donationswindow::on_btn_print_clicked()
 {
@@ -549,105 +438,16 @@ void donationswindow::on_btn_print_clicked()
     delete printDialog;
 }
 
-/*
-void donationswindow::on_btn_print_clicked()
-{
-    QPrinter printer;
-    QPrintDialog *printDialog = new QPrintDialog(&printer, this);
 
-    if (printDialog->exec() == QDialog::Accepted) {
-        QTextDocument document;
-        QTextCursor cursor(&document);
 
-        // Set the font and font size for the document
-        QFont font("Arial", 12);
-        document.setDefaultFont(font);
 
-        // Add the invoice header
-        cursor.insertHtml("<h1><font color='red'>Invoice</font></h1>");
-
-        // Add the total donations
-        cursor.insertHtml("<p><strong>Total Donations:</strong> " + ui->lbl_total_donations->text() + "</p>");
-
-        // Add the total collections
-        cursor.insertHtml("<p><strong>Total Collections:</strong> " + ui->lbl_total_collections->text() + "</p>");
-
-        // Add the total service budgets
-        cursor.insertHtml("<p><strong>Total Service Budgets:</strong> " + ui->lbl_total_service_budgets->text() + "</p>");
-
-        // Add the total collect budgets
-        cursor.insertHtml("<p><strong>Total Collect Budgets:</strong> " + ui->lbl_total_collect_budgets->text() + "</p>");
-
-        // Add the net money
-        cursor.insertHtml("<p><strong>Net Money:</strong> " + ui->lbl_net->text() + "</p>");
-
-        // Print the document
-        printer.setPageMargins(20, 20, 20, 20, QPrinter::Millimeter);
-        document.print(&printer);
-    }
-
-    delete printDialog;
-}
-*/
-
-/*void donationswindow::on_btn_print_clicked()
-{
-    QPrinter printer;
-    QPrintDialog *printDialog = new QPrintDialog(&printer, this);
-
-    if (printDialog->exec() == QDialog::Accepted) {
-        QTextDocument document;
-        QTextCursor cursor(&document);
-
-        // Set the font and font size for the document
-        QFont font("Arial", 12);
-        document.setDefaultFont(font);
-
-        // Add the invoice header
-        cursor.insertHtml("<h1>Invoice</h1>");
-
-        // Add the total donations
-        cursor.insertHtml("<p><strong>Total Donations:</strong> " + ui->lbl_total_donations->text() + "</p>");
-
-        // Add the total collections
-        cursor.insertHtml("<p><strong>Total Collections:</strong> " + ui->lbl_total_collections->text() + "</p>");
-
-        // Add the total service budgets
-        cursor.insertHtml("<p><strong>Total Service Budgets:</strong> " + ui->lbl_total_service_budgets->text() + "</p>");
-
-        // Add the total collect budgets
-        cursor.insertHtml("<p><strong>Total Collect Budgets:</strong> " + ui->lbl_total_collect_budgets->text() + "</p>");
-
-        // Add the net money
-        cursor.insertHtml("<p><strong>Net Money:</strong> " + ui->lbl_net->text() + "</p>");
-
-        // Print the document
-        printer.setPageMargins(20, 20, 20, 20, QPrinter::Millimeter);
-        document.print(&printer);
-    }
-
-    delete printDialog;
-}*/
-/*
-void donationswindow::on_stats_clicked()
-   {
-       Dialog *dialog = new Dialog(this);
-       ThemeWidget *themeWidget = new ThemeWidget(dialog);
-       dialog->setWindowTitle("Statistics");
-       QVBoxLayout *layout = new QVBoxLayout(dialog);
-       layout->addWidget(themeWidget);
-       dialog->setLayout(layout);
-       dialog->setModal(true);
-       dialog->exec();
-   }
-*/
 void donationswindow::on_stats_clicked()
 {
    Dialog *dialog = new Dialog(this);
-   ThemeWidget *themeWidget = new ThemeWidget(dialog);
+   ThemeWidget1 *themeWidget1 = new ThemeWidget1(dialog);
    dialog->setWindowTitle("Statistics");
    QVBoxLayout *layout = new QVBoxLayout(dialog);
-   layout->addWidget(themeWidget);
+   layout->addWidget(themeWidget1);
    dialog->setLayout(layout);
    dialog->setModal(true);
 
@@ -658,12 +458,7 @@ void donationswindow::on_stats_clicked()
 }
 
 
-/*
-void donationswindow::on_pb_catalogue_clicked()
-{
-    donationObj.generateCatalog();
 
-}*/
 
 /*
 void donationswindow::on_pb_catalogue_clicked()
@@ -810,24 +605,25 @@ void donationswindow::on_pb_catalogue_clicked()
         phoneNumberLabel->setText("<html><b><font color='red' size='+2'>Phone Number:</font></b> <font size='+2'>" + query.value("PHONE_NUMBER").toString() + "</font></html>");
 
 
-        // Add an image to the top right corner if the category is nourriture, vetements, or other
-        QString category = query.value("CATEGORY_NAME").toString();
+        // Add an image to the top right corner according to the ID
+        QString ID = query.value("DONATION_ID").toString();
         QLabel *imageLabel = new QLabel(pageWidget);
-        if (category == "Nourritures") {
-            QPixmap foodImage("C:/Users/Eya bo/Documents/project/test/SmartShareAncCareCenter-Donations/interface graphique/food.png");
-            QPixmap scaledFoodImage = foodImage.scaled(150, 150, Qt::KeepAspectRatio);
-            imageLabel->setPixmap(scaledFoodImage);
-        } else if (category == "Vetements") {
-            QPixmap clothesImage("C:/Users/Eya bo/Documents/project/test/SmartShareAncCareCenter-Donations/interface graphique/clothes.png");
-            QPixmap scaledClothesImage = clothesImage.scaled(150, 150, Qt::KeepAspectRatio);
-            imageLabel->setPixmap(scaledClothesImage);
-        } else {
-            QPixmap moneyImage("C:/Users/Eya bo/Documents/project/test/SmartShareAncCareCenter-Donations/interface graphique/money.png");
-            QPixmap scaledMoneyImage = moneyImage.scaled(150, 150, Qt::KeepAspectRatio);
-            imageLabel->setPixmap(scaledMoneyImage);
+
+        // Query the image path based on the donation_id
+        QSqlQuery imageQuery;
+        imageQuery.prepare("SELECT image FROM donations WHERE donation_id = :donation_id");
+        imageQuery.bindValue(":donation_id", ID);
+        imageQuery.exec();
+
+        if (imageQuery.next()) {
+            QString imagePath = imageQuery.value("image").toString();
+            QPixmap donationImage(imagePath);
+            if (!donationImage.isNull()) {
+                QPixmap scaledImage = donationImage.scaled(250, 250, Qt::KeepAspectRatio);
+                imageLabel->setPixmap(scaledImage);
+            }
         }
         imageLabel->setAlignment(Qt::AlignTop | Qt::AlignRight);
-
         // Lay out the labels
         QVBoxLayout *layout = new QVBoxLayout(pageWidget);
         layout->addWidget(IDLabel);
@@ -887,124 +683,7 @@ void donationswindow::on_pb_catalogue_clicked()
     // Show the donation catalog window
     stackedWidget->setCurrentIndex(0);
     donationCatalog->show();
-
-
-
-
 }
-
-void donationswindow::on_pushButton5_clicked()
-{
-    // Read the id from the serial port
-          QString serviceId = "";
-          if (A.getserial()->isOpen() && A.getserial()->isReadable()) {
-              QByteArray data = A.getserial()->readLine();
-              serviceId = QString::fromUtf8(data).trimmed();
-          }
-          // Check if the service ID exists in the database
-          QSqlQuery idQuery;
-          idQuery.prepare("SELECT COUNT(*) FROM services WHERE IDSERVICE = :id");
-          idQuery.bindValue(":id", serviceId);
-          if (idQuery.exec() && idQuery.next() && idQuery.value(0).toInt() > 0) {
-              // Query the SERVICES table to get the budget of the specified service
-              QSqlQuery serviceQuery;
-              serviceQuery.prepare("SELECT BUDGET_S, SERVICENAME FROM services WHERE IDSERVICE = :id");
-              serviceQuery.bindValue(":id", serviceId);
-              if (serviceQuery.exec() && serviceQuery.next()) {
-                  double budget = serviceQuery.value(0).toDouble();
-                  QString service_name = serviceQuery.value(1).toString();
-
-          // Check if the service ID exists in the database
-          QSqlQuery idQuery;
-          idQuery.prepare("SELECT COUNT(*) FROM services WHERE IDSERVICE = :id");
-          idQuery.bindValue(":id", serviceId);
-          if (idQuery.exec() && idQuery.next() && idQuery.value(0).toInt() > 0) {
-              // Query the SERVICES table to get the budget of the specified service
-              QSqlQuery serviceQuery;
-              serviceQuery.prepare("SELECT BUDGET_S, SERVICENAME FROM services WHERE IDSERVICE = :id");
-              serviceQuery.bindValue(":id", serviceId);
-              if (serviceQuery.exec() && serviceQuery.next()) {
-                  double budget = serviceQuery.value(0).toDouble();
-                  QString service_name = serviceQuery.value(1).toString();
-
-                  if (budget > 0) {
-                      // Query the DONATIONS table to get the sum of donation amounts
-                      QSqlQuery donationQuery;
-                      donationQuery.prepare("SELECT SUM(amount) FROM donations");
-                      if (donationQuery.exec() && donationQuery.next()) {
-                          double donationSum = donationQuery.value(0).toDouble();
-
-                          // Compare the budget to the sum of donation amounts
-                          if (budget > donationSum) {
-                              // Send "0" to Arduino if the budget is greater than the sum of donations
-                              QByteArray data("0");
-                              A.write_to_arduino(data);
-                              // Ask the user if they want to delete or modify the budget of the service
-                              QMessageBox msgBox;
-                              msgBox.setText("Budget is greater than sum of donations");
-                              msgBox.setInformativeText("Do you want to delete the service or modify its budget?");
-                              msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                              msgBox.setDefaultButton(QMessageBox::No);
-                              int ret = msgBox.exec();
-                              if (ret == QMessageBox::Yes) {
-                                  // Delete the service from the database
-                                  QSqlQuery deleteQuery;
-                                  deleteQuery.prepare("DELETE FROM services WHERE IDSERVICE = :id");
-                                  deleteQuery.bindValue(":id", serviceId);
-                                  deleteQuery.exec();
-                              } else {
-                                  msgBox.done(QDialog::Rejected);
-                              }
-
-                                  // Send "0" to Arduino if the budget is greater than the sum of donations
-
-
-
-                          } else {
-                              // Send "1" to Arduino if the budget is less than or equal to the sum of donations
-                              QByteArray data("1");
-                              A.write_to_arduino(data);
-                          }
-                      }
-                      }
-                  }  else {
-                  // Query the DONATIONS table to get the sum of donation quantities for the specified service category
-                  QSqlQuery donationQuery;
-                  donationQuery.prepare("SELECT SUM(quantity) FROM donations WHERE category_name = :category");
-                  donationQuery.bindValue(":category", service_name);
-                  if (donationQuery.exec() && donationQuery.next()) {
-                      double qdonationSum = donationQuery.value(0).toDouble();
-
-                      // Query the SERVICES table to get the budget of the specified service
-                      QSqlQuery serviceQuery;
-                      serviceQuery.prepare("SELECT DONQUANTITY FROM services WHERE IDSERVICE = :id");
-                      serviceQuery.bindValue(":id", serviceId);
-                      if (serviceQuery.exec() && serviceQuery.next()) {
-                          int don_quantity = serviceQuery.value(0).toDouble();
-
-                          // Compare the service_name to the sum of donation quantities
-                          if (don_quantity > qdonationSum) {
-                              // Send "0" to Arduino if the service_name is greater than the sum of donation quantities
-                              QByteArray data("0");
-                              A.write_to_arduino(data);
-                          } else {
-                              // Send "1" to Arduino if the service_name is less than or equal to the sum of donation quantities
-                              QByteArray data("1");
-                              A.write_to_arduino(data);
-                          }
-                      }
-                  }
-              }
-          }
-
-           else {
-              // Send "3" to Arduino if the service ID is not found in the database
-              QByteArray data("3");
-              A.write_to_arduino(data);
-          }
-              }
-          }}
-
 
 
 
@@ -1079,5 +758,29 @@ void donationswindow::on_actionabout_this_app_triggered()
     this->hide();
 loginpage *l =new  loginpage();
 l->show();
+}
+
+
+void donationswindow::on_pb_image_clicked()
+{
+    qDebug() << "Button clicked"; // Debug statement to check if the button is clicked
+
+    QString imagePath = QFileDialog::getOpenFileName(this, tr("Select Image"), "", tr("Image Files (*.png *.jpg *.jpeg)"));
+
+       if (!imagePath.isEmpty()) {
+           ui->le_image->setText(imagePath);
+       }
+}
+
+void donationswindow::on_pb_clear_clicked()
+{
+        ui->le_id->clear();
+        ui->le_name->clear();
+        ui->le_description->clear();
+        ui->le_amount->clear();
+        ui->le_quantity->clear();
+        ui->le_phonenumber->clear();
+        ui->le_image->clear();
+
 }
 
