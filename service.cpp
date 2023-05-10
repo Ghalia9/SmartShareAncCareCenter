@@ -44,7 +44,7 @@ QSqlQueryModel * Service::afficher()
     return model;
 }
 
-/*QSqlQueryModel * Service::afficherStock(QString IDservice)
+QSqlQueryModel * Service::afficherStock(QString IDservice)
 {
     QSqlQueryModel * model=new QSqlQueryModel();
     QString queryStr = "SELECT * FROM Services WHERE IDservice = :IDservice";
@@ -61,7 +61,7 @@ QSqlQueryModel * Service::afficher()
     }
     return model;
 }
-*/
+
 
 
 bool Service::supprimer(QString IDservice)
@@ -142,7 +142,7 @@ QSqlQueryModel * Service::triIDs()
   return model;
 
 }
-
+/*
 QSqlQueryModel * Service::tridon()
 {
   QSqlQueryModel* model=new QSqlQueryModel();
@@ -170,3 +170,4 @@ QSqlQueryModel * Service::triNomS()
 
 }
 
+*/

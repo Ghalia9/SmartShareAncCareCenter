@@ -10,9 +10,9 @@ bool Connection::createconnect()
 
 //
     db = QSqlDatabase::addDatabase("QODBC");
-    db.setDatabaseName("shareandcarecenter");
-db.setUserName("Ghalia");//inserer nom de l'utilisateur
-db.setPassword("ghalia9");//inserer mot de passe de cet utilisateur
+    db.setDatabaseName("share");
+db.setUserName("ela2");//inserer nom de l'utilisateur
+db.setPassword("ela2");//inserer mot de passe de cet utilisateur
 //db.setUserName("eyaa");//inserer nom de l'utilisateur
 //db.setPassword("esprit23");//inserer mot de passe de cet utilisateur
 //db.setUserName("Koussay");//inserer nom de l'utilisateur

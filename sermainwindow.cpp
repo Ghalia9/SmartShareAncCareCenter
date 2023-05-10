@@ -47,6 +47,7 @@ serMainWindow::serMainWindow(QWidget *parent) :
      QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(affcherRendezvousArduino())); // permet de lancer
      //le slot update_label suite à la reception du signal readyRead (reception des données).
      ui->tab_service->setModel(Etmp.afficher());
+     ui->tab_service2->setModel(Etmp.afficher());
      //ui->le_ID->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{0,255}"), this));
      ui->le_ID->setReadOnly(true);//le slot update_label suite à la reception du signal readyRead (reception des données).
 
@@ -88,125 +89,33 @@ Service S(IDservice,Dontype,serviceName,Donquantity,budget_S);
 if (S.ajouter()) {
     //Refresh (actualiser)
         ui->tab_service->setModel(Etmp.afficher());
+        ui->tab_service2->setModel(Etmp.afficher());
 
     QMessageBox::information(nullptr, QObject::tr("OK"),
     QObject::tr("Ajout effectué\n"
                  "Click cancel to exit."),QMessageBox::Cancel);
+    // Update the totaldons table
+    QSqlQuery queryUpdateTotal;
+    if (Dontype == "money") {
+        if (budget_S > 0) {
+            queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :budget WHERE category = 'money'");
+            queryUpdateTotal.bindValue(":budget", budget_S);
+            queryUpdateTotal.exec();
+        }
+    } else {
+        queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :quantity WHERE category = :service");
+        queryUpdateTotal.bindValue(":service", Dontype);
+        queryUpdateTotal.bindValue(":quantity", Donquantity);
+        queryUpdateTotal.exec();
     }
+}
     else
     QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
     QObject::tr("Ajout non effectué\n"
                  "Click cancel to exit."),QMessageBox::Cancel);
 }
-
-void serMainWindow::on_pushButton_ajouter_clicked()
-{
-    // Generate the next ID
-    QSqlQuery query("SELECT MAX(IDservice) FROM Services");
-    query.next();
-    QString lastId = query.value(0).toString();
-    int nextIndex = lastId.isEmpty() ? 1 : lastId.right(3).toInt() + 1;  // extract the numeric part of the ID and increment it
-    QString IDservice = "A" + QString("%1").arg(nextIndex, 3, 10, QChar('0')); // create the new ID
-
-    QString Dontype = ui->cb_type->currentText();
-    QString serviceName = ui->le_name->text();
-    int Donquantity = ui->le_qnt->text().toInt();
-    float budget_S = ui->le_budget->text().toDouble();
-
-    if (Dontype.isEmpty() || serviceName.isEmpty() || Donquantity <= 0 || budget_S <= 0.0) {
-        QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
-            QObject::tr("Veuillez remplir tous les champs correctement.\n"
-            "Click cancel to exit."), QMessageBox::Cancel);
-    } else {
-        Service S(IDservice, Dontype, serviceName, Donquantity, budget_S);
-        if (S.ajouter()) {
-            //Refresh (actualiser)
-            ui->tab_service->setModel(Etmp.afficher());
-
-            QMessageBox::information(nullptr, QObject::tr("OK"),
-                QObject::tr("Ajout effectué\n"
-                "Click cancel to exit."), QMessageBox::Cancel);
-        }
-        else {
-            QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
-                QObject::tr("Ajout non effectué\n"
-                "Click cancel to exit."), QMessageBox::Cancel);
-        }
-    }
-}
-void serMainWindow::on_pushButton_ajouter_clicked()
-{
-    // Generate the next ID
-    QSqlQuery query("SELECT MAX(IDservice) FROM Services");
-    query.next();
-    QString lastId = query.value(0).toString();
-    int nextIndex = lastId.isEmpty() ? 1 : lastId.right(3).toInt() + 1;  // extract the numeric part of the ID and increment it
-    QString IDservice = "A" + QString("%1").arg(nextIndex, 3, 10, QChar('0')); // create the new ID
-
-    QString Dontype = ui->cb_type->currentText();
-    QString serviceName = ui->le_name->text();
-    int Donquantity = ui->le_qnt->text().toInt();
-    float budget_S = ui->le_budget->text().toDouble();
-
-    // Check if the service is ready to be posted
-    bool readyToPost = false;
-    if (budget_S > 0) {  // Check if budget is positive
-        QSqlQuery querySumAmount("SELECT SUM(amount) FROM Donations");
-        querySumAmount.next();
-        float sumAmount = querySumAmount.value(0).toFloat();
-        if (budget_S <= sumAmount) {
-            readyToPost = true;
-        }
-    } else {  // Check if category_name and serviceName match and Donquantity is less than or equal to quantity sum
-        QSqlQuery querySumQuantity;
-        querySumQuantity.prepare("SELECT SUM(quantity) FROM Donations WHERE category_name = :cat ");
-        querySumQuantity.bindValue(":cat", Dontype);
-       // querySumQuantity.bindValue(":name", serviceName);
-        querySumQuantity.exec();
-        querySumQuantity.next();
-        int sumQuantity = querySumQuantity.value(0).toInt();
-        if (Donquantity <= sumQuantity) {
-            readyToPost = true;
-        }
-    }
-
-    if (readyToPost) {
-        Service S(IDservice, Dontype, serviceName, Donquantity, budget_S);
-        bool success = S.ajouter();
-        if (success) {
-            ui->tab_service->setModel(Etmp.afficher());
-            QMessageBox::information(nullptr, QObject::tr("OK"),
-                QObject::tr("Ajout effectué\n"
-                            "Click cancel to exit."), QMessageBox::Cancel);
-
-            // Update the totaldons table
-            QSqlQuery queryUpdateTotal;
-            if (serviceName == "money") {
-                queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :budget WHERE category = 'money'");
-            } else {
-                queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :quantity WHERE category = :service");
-                queryUpdateTotal.bindValue(":service", Dontype);
-            }
-            queryUpdateTotal.bindValue(":budget", budget_S);
-            queryUpdateTotal.bindValue(":quantity", Donquantity);
-            success = queryUpdateTotal.exec();
-            if (!success) {
-                QMessageBox::warning(nullptr, QObject::tr("NOT OK"),
-                    QObject::tr("La mise à jour de la table totaldons a échoué.\n"
-                                "Click cancel to exit."), QMessageBox::Cancel);
-            }
-        } else {
-            QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
-                QObject::tr("Ajout non effectué\n"
-                            "Click cancel to exit."), QMessageBox::Cancel);
-        }
-    } else {
-        QMessageBox::warning(nullptr, QObject::tr("NOT OK"),
-            QObject::tr("Le service n'est pas prêt à être publié.\n"
-                        "Click cancel to exit."), QMessageBox::Cancel);
-    }
-}
 */
+
 void serMainWindow::on_pushButton_ajouter_clicked()
 {
     // Generate the next ID
@@ -221,94 +130,35 @@ void serMainWindow::on_pushButton_ajouter_clicked()
     int Donquantity = ui->le_qnt->text().toInt();
     float budget_S = ui->le_budget->text().toDouble();
 
-    // Check if the service is ready to be posted
-    bool readyToPost = false;
-    if (budget_S > 0) {  // Check if budget is positive
-        QSqlQuery querySumAmount("SELECT SUM(amount) FROM Donations");
-        querySumAmount.next();
-        float sumAmount = querySumAmount.value(0).toFloat();
-        if (budget_S <= sumAmount) {
-            readyToPost = true;
-        }
-    } else {  // Check if category_name and serviceName match and Donquantity is less than or equal to quantity sum
-        QSqlQuery querySumQuantity;
-        querySumQuantity.prepare("SELECT SUM(quantity) FROM Donations WHERE category_name = :cat ");
-        querySumQuantity.bindValue(":cat", Dontype);
-       // querySumQuantity.bindValue(":name", serviceName);
-        querySumQuantity.exec();
-        querySumQuantity.next();
-        int sumQuantity = querySumQuantity.value(0).toInt();
-        if (Donquantity <= sumQuantity) {
-            readyToPost = true;
-        }
-    }
+    Service S(IDservice, Dontype, serviceName, Donquantity, budget_S);
+    if (S.ajouter()) {
+        // Refresh (actualiser)
+        ui->tab_service->setModel(Etmp.afficher());
+        ui->tab_service2->setModel(Etmp.afficher());
 
-    if (readyToPost) {
-        Service S(IDservice, Dontype, serviceName, Donquantity, budget_S);
-        bool success = S.ajouter();
-        if (success) {
-            ui->tab_service->setModel(Etmp.afficher());
-            QMessageBox::information(nullptr, QObject::tr("OK"),
-                QObject::tr("Ajout effectué\n"
-                            "Click cancel to exit."), QMessageBox::Cancel);
+        QMessageBox::information(nullptr, QObject::tr("OK"),
+                                 QObject::tr("Ajout effectué\n"
+                                             "Click cancel to exit."), QMessageBox::Cancel);
 
+        if (Dontype == "money" && budget_S > 0) {
             // Update the totaldons table
             QSqlQuery queryUpdateTotal;
-            if (serviceName == "money") {
-                queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :budget WHERE category = 'money'");
-            } else {
-                queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :quantity WHERE category = :service");
-                queryUpdateTotal.bindValue(":service", Dontype);
-            }
+            queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :budget WHERE category = 'money'");
             queryUpdateTotal.bindValue(":budget", budget_S);
-            queryUpdateTotal.bindValue(":quantity", Donquantity);
-            success = queryUpdateTotal.exec();
-            if (!success) {
-                QMessageBox::warning(nullptr, QObject::tr("NOT OK"),
-                    QObject::tr("La mise à jour de la table totaldons a échoué.\n"
-                                "Click cancel to exit."), QMessageBox::Cancel);
-            }
+            queryUpdateTotal.exec();
+
         } else {
-            QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
-                QObject::tr("Ajout non effectué\n"
-                            "Click cancel to exit."), QMessageBox::Cancel);
+            // Update the totaldons table
+            QSqlQuery queryUpdateTotal;
+            queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :quantity WHERE category = :service");
+            queryUpdateTotal.bindValue(":service", Dontype);
+            queryUpdateTotal.bindValue(":quantity", Donquantity);
+            queryUpdateTotal.exec();
         }
     } else {
-        QMessageBox::StandardButton reply = QMessageBox::question(nullptr, QObject::tr("NOT OK"),
-            QObject::tr("Le service n'est pas prêt à être publié.\n"
-                        "Voulez-vous quand même afficher le service ?"),
-            QMessageBox::Yes | QMessageBox::No);
-        if (reply == QMessageBox::Yes) {
-            Service S(IDservice, Dontype, serviceName, Donquantity, budget_S);
-            bool success = S.ajouter();
-            if (success) {
-                ui->tab_service->setModel(Etmp.afficher());
-                QMessageBox::information(nullptr, QObject::tr("OK"),
-                    QObject::tr("Ajout effectué\n"
-                                "Click cancel to exit."), QMessageBox::Cancel);
-
-                // Update the totaldons table
-                QSqlQuery queryUpdateTotal;
-                if (serviceName == "money") {
-                    queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :budget WHERE category = 'money'");
-                } else {
-                    queryUpdateTotal.prepare("UPDATE totaldons SET total = total - :quantity WHERE category = :service");
-                    queryUpdateTotal.bindValue(":service", Dontype);
-                }
-                queryUpdateTotal.bindValue(":budget", budget_S);
-                queryUpdateTotal.bindValue(":quantity", Donquantity);
-                success = queryUpdateTotal.exec();
-                if (!success) {
-                    QMessageBox::warning(nullptr, QObject::tr("NOT OK"),
-                        QObject::tr("La mise à jour de la table totaldons a échoué.\n"
-                                    "Click cancel to exit."), QMessageBox::Cancel);
-                }
-            } else {
-                QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
-                    QObject::tr("Ajout non effectué\n"
-                                "Click cancel to exit."), QMessageBox::Cancel);
-            }
-        }
+        QMessageBox::critical(nullptr, QObject::tr("NOT OK"),
+                              QObject::tr("Ajout non effectué\n"
+                                          "Click cancel to exit."), QMessageBox::Cancel);
     }
 }
 
@@ -322,6 +172,7 @@ if(test)
 
     //Refresh (actualiser)
     ui->tab_service->setModel(Etmp.afficher());
+    ui->tab_service2->setModel(Etmp.afficher());
 
 QMessageBox::information(nullptr, QObject::tr("OK"),
 QObject::tr("Suppression effectué\n"
@@ -355,6 +206,8 @@ void serMainWindow::on_pb_modifier_clicked()
                         QObject::tr("Modification effectué.\n"
                                     "Click Cancel to exit."), QMessageBox::Cancel);
             ui->tab_service->setModel(S.afficher());
+            ui->tab_service2->setModel(S.afficher());
+
         }
         else{
             QMessageBox::critical(nullptr, QObject::tr("database is not open"),
@@ -363,6 +216,8 @@ void serMainWindow::on_pb_modifier_clicked()
         }
 
         ui->tab_service->setModel(S.afficher());
+        ui->tab_service2->setModel(S.afficher());
+
     }
 
 
@@ -404,17 +259,6 @@ void serMainWindow::on_pb_sort_clicked()
     Service S;
         if(ui->comboBox_sort->currentIndex()==0){
             ui->recherche->setModel(S.triIDs());
-
-        }
-        else if (ui->comboBox_sort->currentIndex()==1)
-        {
-            ui->recherche->setModel(S.tridon());
-
-        }
-        else if(ui->comboBox_sort->currentIndex()==2)
-        {
-            ui->recherche->setModel(S.triNomS());
-
         }
         //else
            // cout << "no combobox" << endl;
@@ -582,66 +426,7 @@ void serMainWindow::on_stats_clicked()
 
 
 
-/*
-void serMainWindow::on_stockVerification_clicked()
-{
-    QString IDservice = ui->le_idss->text();
 
-    QSqlQuery query;
-    query.prepare("SELECT budget_S, Donquantity, Dontype FROM Services WHERE IDservice = :IDservice");
-    query.bindValue(":IDservice", IDservice);
-
-    if (query.exec() && query.next()) {
-        double budget_S = query.value(0).toDouble();
-        int Donquantity = query.value(1).toInt();
-        QString Dontype = query.value(2).toString();
-
-        QSqlQuery query2;
-        query2.prepare("SELECT amount, quantity FROM Donations WHERE category_name = :category_name");
-        query2.bindValue(":category_name", Dontype);
-        if (query2.exec() && query2.next()) {
-            double sumAmounts = 0;
-            int quantity = 0;
-            while (query2.next()) {
-                sumAmounts += query2.value(0).toDouble();
-                int quantity = query2.value(2).toInt();
-            }
-
-            if (Dontype == "ghta" && Donquantity <= quantity) {
-                QMessageBox::information(this, tr("Stock Verification"), tr("service verified and ready to be posted"));
-
-                // Show the service in the Stock tableView
-                ui->Stock->setModel(Etmp.afficherStock(IDservice));
-            } else if (Dontype == "shelter" && budget_S <= sumAmounts) {
-                QMessageBox::information(this, tr("Stock Verification"), tr("service verified and ready to be posted"));
-
-                // Show the service in the Stock tableView
-                ui->Stock->setModel(Etmp.afficherStock(IDservice));
-            } else if (Dontype == "money" && budget_S <= sumAmounts) {
-                QMessageBox::information(this, tr("Stock Verification"), tr("service verified and ready to be posted"));
-
-                // Show the service in the Stock tableView
-                 ui->Stock->setModel(Etmp.afficherStock(IDservice));
-            } else if (Dontype == "iftar" && Donquantity <= quantity) {
-                QMessageBox::information(this, tr("Stock Verification"), tr("service verified and ready to be posted"));
-
-                // Show the service in the Stock tableView
-                ui->Stock->setModel(Etmp.afficherStock(IDservice));
-
-
-            } else {
-                QMessageBox::warning(this, tr("Stock Verification"), tr("Service is not ready to be posted yet."));
-            }
-        } else {
-            QMessageBox::warning(this, tr("Error"), tr("Failed to retrieve donations from donations table."));
-        }
-    } else {
-        QMessageBox::warning(this, tr("Error"), tr("Failed to retrieve service information from services table."));
-    }
-}
-
-
-*/
 
 
 
@@ -809,7 +594,69 @@ loginpage *l =new  loginpage();
 l->show();
 }
 
-void serMainWindow::on_arduino1_clicked()
+
+void serMainWindow::on_refresh_clicked()
 {
+        ui->le_ID->clear();
+        ui->le_name->clear();
+        ui->le_budget->clear();
+        ui->le_qnt->clear();
+}
+
+void serMainWindow::on_stockVerification_clicked()
+{
+    QString IDservice = ui->le_idss->text();
+
+    QSqlQuery query;
+    query.prepare("SELECT budget_S, Donquantity, Dontype FROM Services WHERE IDservice = :IDservice");
+    query.bindValue(":IDservice", IDservice);
+
+    if (query.exec() && query.next()) {
+        double budget_S = query.value(0).toDouble();
+        int Donquantity = query.value(1).toInt();
+        QString Dontype = query.value(2).toString();
+
+        QSqlQuery query2;
+        query2.prepare("SELECT amount, quantity FROM Donations WHERE category_name = :category_name");
+        query2.bindValue(":category_name", Dontype);
+        if (query2.exec()) {
+            double sumAmounts = 0;
+            int quantity = 0;
+            while (query2.next()) {
+                sumAmounts += query2.value(0).toDouble();
+                quantity = query2.value(1).toInt();
+            }
+
+            if (Dontype == "blankets" && Donquantity <= quantity) {
+                QMessageBox::information(this, tr("Stock Verification"), tr("service verified and ready to be posted"));
+
+                // Show the service in the Stock tableView
+                ui->Stock->setModel(Etmp.afficherStock(IDservice));
+            } else if (Dontype == "food" && Donquantity <= quantity) {
+                QMessageBox::information(this, tr("Stock Verification"), tr("service verified and ready to be posted"));
+
+                // Show the service in the Stock tableView
+                ui->Stock->setModel(Etmp.afficherStock(IDservice));
+            } else if (Dontype == "money" && budget_S <= sumAmounts) {
+                QMessageBox::information(this, tr("Stock Verification"), tr("service verified and ready to be posted"));
+
+                // Show the service in the Stock tableView
+                 ui->Stock->setModel(Etmp.afficherStock(IDservice));
+            } else if (Dontype == "clothes" && Donquantity <= quantity) {
+                QMessageBox::information(this, tr("Stock Verification"), tr("service verified and ready to be posted"));
+
+                // Show the service in the Stock tableView
+                ui->Stock->setModel(Etmp.afficherStock(IDservice));
+
+
+            } else {
+                QMessageBox::warning(this, tr("Stock Verification"), tr("Service is not ready to be posted yet."));
+            }
+        } else {
+            QMessageBox::warning(this, tr("Error"), tr("Failed to retrieve donations from donations table."));
+        }
+    } else {
+        QMessageBox::warning(this, tr("Error"), tr("Failed to retrieve service information from services table."));
+    }
 
 }

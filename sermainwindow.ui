@@ -197,7 +197,7 @@ QPushButton:pressed {
        <string/>
       </property>
       <layout class="QGridLayout" name="gridLayout_7">
-       <item row="0" column="0">
+       <item row="0" column="1">
         <widget class="QTabWidget" name="tabWidget">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
@@ -326,85 +326,7 @@ QPushButton:pressed {
            <layout class="QGridLayout" name="gridLayout_2">
             <item row="1" column="0">
              <layout class="QGridLayout" name="gridLayout">
-              <item row="7" column="0">
-               <spacer name="horizontalSpacer_6">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="7" column="5">
-               <widget class="QPushButton" name="pb_modifier">
-                <property name="styleSheet">
-                 <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(255, 170, 255);</string>
-                </property>
-                <property name="text">
-                 <string>Modify</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QLineEdit" name="le_ID">
-                <property name="styleSheet">
-                 <string notr="true">background-color: rgb(255, 255, 255);</string>
-                </property>
-               </widget>
-              </item>
-              <item row="7" column="3">
-               <spacer name="horizontalSpacer_5">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="6" column="2">
-               <widget class="QLineEdit" name="le_qnt">
-                <property name="styleSheet">
-                 <string notr="true">background-color: rgb(255, 255, 255);</string>
-                </property>
-               </widget>
-              </item>
-              <item row="8" column="2">
-               <spacer name="verticalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="3" column="2">
-               <widget class="QLineEdit" name="le_name">
-                <property name="styleSheet">
-                 <string notr="true">background-color: rgb(255, 255, 255);</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="0">
-               <widget class="QLabel" name="label_9">
-                <property name="text">
-                 <string>Dontype</string>
-                </property>
-               </widget>
-              </item>
-              <item row="7" column="6">
+              <item row="9" column="6">
                <spacer name="horizontalSpacer_7">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -416,36 +338,6 @@ color: rgb(255, 170, 255);</string>
                  </size>
                 </property>
                </spacer>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label_4">
-                <property name="font">
-                 <font>
-                  <family>Poppins</family>
-                  <pointsize>12</pointsize>
-                  <weight>50</weight>
-                  <italic>false</italic>
-                  <bold>false</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>serviceName</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0">
-               <widget class="QLabel" name="label_2">
-                <property name="text">
-                 <string>Donquantity</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Budget</string>
-                </property>
-               </widget>
               </item>
               <item row="5" column="2">
                <widget class="QComboBox" name="cb_type">
@@ -471,6 +363,26 @@ color: rgb(255, 170, 255);</string>
                 </item>
                </widget>
               </item>
+              <item row="0" column="2">
+               <spacer name="verticalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="6" column="0">
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>Donquantity</string>
+                </property>
+               </widget>
+              </item>
               <item row="2" column="2">
                <spacer name="verticalSpacer">
                 <property name="orientation">
@@ -484,10 +396,105 @@ color: rgb(255, 170, 255);</string>
                 </property>
                </spacer>
               </item>
+              <item row="1" column="2">
+               <widget class="QLineEdit" name="le_ID">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(255, 255, 255);</string>
+                </property>
+               </widget>
+              </item>
               <item row="4" column="2">
                <widget class="QLineEdit" name="le_budget">
                 <property name="styleSheet">
                  <string notr="true">background-color: rgb(255, 255, 255);</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>Budget</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="2">
+               <widget class="QLineEdit" name="le_qnt">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(255, 255, 255);</string>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="3">
+               <widget class="QPushButton" name="pb_modifier">
+                <property name="styleSheet">
+                 <string notr="true">
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Modify</string>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="2">
+               <widget class="QPushButton" name="pushButton_ajouter">
+                <property name="styleSheet">
+                 <string notr="true">
+
+/* Set the color of the buttons */
+QPushButton {
+    background-color: #5DA5E5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Set the background color of the buttons when they are hovered over */
+QPushButton:hover {
+    background-color: #4390E1;
+}
+
+/* Set the background color of the buttons when they are pressed */
+QPushButton:pressed {
+    background-color: #306BBE;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Add</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_4">
+                <property name="font">
+                 <font>
+                  <family>Poppins</family>
+                  <pointsize>12</pointsize>
+                  <weight>50</weight>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>serviceName</string>
                 </property>
                </widget>
               </item>
@@ -504,19 +511,28 @@ color: rgb(255, 170, 255);</string>
                 </property>
                </spacer>
               </item>
-              <item row="7" column="2">
-               <widget class="QPushButton" name="pushButton_ajouter">
+              <item row="3" column="2">
+               <widget class="QLineEdit" name="le_name">
                 <property name="styleSheet">
-                 <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(85, 170, 127);</string>
-                </property>
-                <property name="text">
-                 <string>Add</string>
+                 <string notr="true">background-color: rgb(255, 255, 255);</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="2">
-               <spacer name="verticalSpacer_3">
+              <item row="9" column="0">
+               <spacer name="horizontalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="12" column="2">
+               <spacer name="verticalSpacer_2">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
@@ -524,6 +540,46 @@ color: rgb(85, 170, 127);</string>
                  <size>
                   <width>20</width>
                   <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_9">
+                <property name="text">
+                 <string>Dontype</string>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="1">
+               <widget class="QPushButton" name="refresh">
+                <property name="text">
+                 <string>Refresh</string>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="3">
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="9" column="1">
+               <spacer name="horizontalSpacer_9">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
                  </size>
                 </property>
                </spacer>
@@ -624,7 +680,7 @@ QPushButton:pressed {
 </string>
            </property>
            <property name="title">
-            <string>show + PDF + excel + stats</string>
+            <string>show </string>
            </property>
            <layout class="QGridLayout" name="gridLayout_4">
             <item row="1" column="0">
@@ -826,7 +882,7 @@ QPushButton:pressed {
 </string>
            </property>
            <property name="title">
-            <string>search + sort + PDF</string>
+            <string/>
            </property>
            <layout class="QGridLayout" name="gridLayout_5">
             <item row="0" column="0">
@@ -921,16 +977,6 @@ QPushButton:pressed {
                 <item>
                  <property name="text">
                   <string>IDservice</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>serviceName</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Donquantity</string>
                  </property>
                 </item>
                </widget>
@@ -1185,6 +1231,102 @@ QPushButton:pressed {
           <zorder>groupBox_6</zorder>
           <zorder>groupBox_9</zorder>
          </widget>
+         <widget class="QWidget" name="stock_2">
+          <attribute name="title">
+           <string>Page</string>
+          </attribute>
+          <widget class="QGroupBox" name="groupBox_3">
+           <property name="geometry">
+            <rect>
+             <x>790</x>
+             <y>69</y>
+             <width>1071</width>
+             <height>661</height>
+            </rect>
+           </property>
+           <property name="title">
+            <string>stock verification</string>
+           </property>
+           <widget class="QLabel" name="label_3">
+            <property name="geometry">
+             <rect>
+              <x>40</x>
+              <y>90</y>
+              <width>411</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Enter the ID of the service you want to verify :</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="le_idss">
+            <property name="geometry">
+             <rect>
+              <x>450</x>
+              <y>90</y>
+              <width>205</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 255);</string>
+            </property>
+           </widget>
+           <widget class="QTableView" name="Stock">
+            <property name="geometry">
+             <rect>
+              <x>20</x>
+              <y>140</y>
+              <width>971</width>
+              <height>272</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 255);</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="stockVerification">
+            <property name="geometry">
+             <rect>
+              <x>680</x>
+              <y>87</y>
+              <width>111</width>
+              <height>41</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Submit</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QGroupBox" name="groupBox_4">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>30</y>
+             <width>601</width>
+             <height>701</height>
+            </rect>
+           </property>
+           <property name="title">
+            <string>list of services</string>
+           </property>
+           <widget class="QTableView" name="tab_service2">
+            <property name="geometry">
+             <rect>
+              <x>30</x>
+              <y>60</y>
+              <width>551</width>
+              <height>621</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 255);</string>
+            </property>
+           </widget>
+          </widget>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -1232,7 +1374,7 @@ background-color: rgb(85, 170, 255);</string>
      <x>0</x>
      <y>0</y>
      <width>2013</width>
-     <height>34</height>
+     <height>31</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuGeneral">

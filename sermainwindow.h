@@ -57,7 +57,11 @@ private slots:
 
    void on_logo_triggered();
 
-   void on_arduino1_clicked();
+  // void on_arduino1_clicked();
+
+   void on_refresh_clicked();
+
+   void on_stockVerification_clicked();
 
 private:
     Ui::serMainWindow *ui;

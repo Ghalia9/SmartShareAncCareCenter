@@ -30,15 +30,15 @@ class Service
     //fonctionnalités de base relatives à l'entité Service
     bool ajouter();
     QSqlQueryModel * afficher();
-   // QSqlQueryModel * afficherStock(QString IDservice);
+    QSqlQueryModel * afficherStock(QString IDservice);
     bool supprimer(QString);
     bool modifier();
     QSqlQueryModel* rechercherID(QString);
     QSqlQueryModel* rechercherDontype(QString recherche);
     QSqlQueryModel* recherchernomS(QString );
     QSqlQueryModel * triIDs();
-    QSqlQueryModel * tridon();
-    QSqlQueryModel * triNomS();
+    //QSqlQueryModel * tridon();
+   // QSqlQueryModel * triNomS();
 
 
 
